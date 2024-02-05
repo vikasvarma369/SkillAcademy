@@ -24,11 +24,14 @@ app.use(cors({ origin: [process.env.FRONTEND_URL], credentials: true }));
 
 
 
-// improt user routes
+// improt user route
 import userRoutes from './routes/user.routes.js'; 
 
+// import course route
+import courseRoute from './routes/course.routes.js'
 // declaration
 app.use('/api/v1/user', userRoutes); 
+app.use('/api/v1/course', courseRoute)
 
 
 

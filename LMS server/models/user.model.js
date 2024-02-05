@@ -38,8 +38,12 @@ const userSchema = new Schema({
         default: 'USER',
         enum: ['USER', 'ADMIN']
     },
-    forgotPasswordToken: String,
-    forgotPasswordExpiry: Date,
+    forgotPasswordToken: {
+        type: String,
+    },
+    forgotPasswordExpiry: {
+        type: Date,
+    },
     subscription: {
         id: String,
         status: String
