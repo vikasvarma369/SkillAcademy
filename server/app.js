@@ -15,7 +15,11 @@ app.use(express.urlencoded({extended: true,limit: "20kb"}))
 
 app.use(cookieParser()) 
 
+// import routes
+import userRoutes from './routes/user.route.js'; 
 
+// declaration
+app.use('/api/v1/user', userRoutes); 
 // morgon 
 app.use(morgan('dev'));
 // error middleware 
