@@ -1,10 +1,14 @@
 import './App.css'
-
+import { Routes, Route } from "react-router-dom";
+// import pages
+import Signup from './pages/Signup';
 function App() {
 
   return (
     <>
-    <h1 className='underline font-bold'>lms frontend</h1>
+      <Routes >
+        <Route path='/signup' element ={<Signup />} />
+      </Routes>
     </>
   )
 }
