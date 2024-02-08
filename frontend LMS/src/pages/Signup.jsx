@@ -62,7 +62,7 @@ function Signup() {
         // }
 
         console.log("details",signupDetails);
-
+        // if any file data not use so that from data not required
         const formData = new FormData();
         formData.append("fullName", signupDetails.fullName);
         formData.append("email", signupDetails.email);
@@ -73,7 +73,7 @@ function Signup() {
 
         console.log("response", response)
 
-        if(response?.payload?.success){
+        if(response?.payload?.data){
             setSignupDetails({
                 email: '',
                 fullName: '',
