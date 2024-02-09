@@ -20,10 +20,33 @@ export const createAccount = createAsyncThunk("/auth/signup", async(data)=>{
         toast.error(error?.response?.data?.message);
     }
 })
+
+// login 
+export const login = createAsyncThunk("/auth/signin", async(data)=>{
+    try {
+        const response = await axiosInstance.post('/user/login', data);
+        console.log("login response data message:",response?.data?.message);
+        toast.success(response?.data?.message)
+        console.log(" login responce: =>",response)
+        return response
+    } catch (error) {
+        console.log("login error",error)
+        toast.error(error?.response?.data?.message);
+    }
+})
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers: (builder)=>{
+        builder
+        .addCase(login.fulfilled, (state, action) => {
+            console.log("action data in login case:", action)
+            localStorage.setItem("isLoggedIn", true)
+            localStorage.setItem("role", action?.payload?.data?.user?.role)
+            localStorage.setItem("data", JSON.stringify(action?.payload?.data))
+        })
+    }
 });
 
 export default authSlice.reducer;
