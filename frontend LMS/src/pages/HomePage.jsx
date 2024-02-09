@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Layout from "../layouts/HomeLayout";
+import HomeLayout from "../layouts/HomeLayout";
 import homePageMainImage from '../assets/Images/homePageMainImage.png';
 
 export default function HomePage() {
   return (
-    <Layout>
+    <HomeLayout>
       <section className="md:py-10 py-7 mb-10 text-white flex md:flex-row flex-col-reverse items-center justify-center md:gap-10 gap-7 md:px-16 px-6 min-h-[85vh]">
         <div className="md:w-1/2 w-full space-y-7">
           <h1 className="md:text-5xl text-6xl font-semibold text-gray-900 dark:text-gray-200">
@@ -36,6 +36,6 @@ export default function HomePage() {
           <img alt="homepage image" src={homePageMainImage} />
         </div>
       </section>
-    </Layout>
+    </HomeLayout>
   );
 }
