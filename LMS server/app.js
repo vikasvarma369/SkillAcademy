@@ -36,9 +36,14 @@ import userRoutes from './routes/user.routes.js';
 
 // import course route
 import courseRoute from './routes/course.routes.js'
+
+// import contactus route
+import contractRoutes from './routes/contacts.routes.js'
+
 // declaration
 app.use('/api/v1/user', userRoutes); 
 app.use('/api/v1/course', courseRoute)
+app.use('api/v1/', contractRoutes)
 
 
 
