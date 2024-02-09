@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import Denied from './pages/Denied';
 import Notfound from './pages/NotFound';
 import Signin from './pages/Signin';
+import Contacts from './pages/Contacts';
 // import HomeLayout from './layouts/HomeLayout';
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path='/' element={<HomePage />} />
         <Route path='/signup' element ={<Signup />} />
         <Route path='/signin' element={<Signin />} />
+        <Route path='/contacts' element={<Contacts />} />
         <Route path='/denied' element={<Denied />} />
        <Route path='*' element={<Notfound />} />
       </Routes>
