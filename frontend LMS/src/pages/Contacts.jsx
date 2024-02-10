@@ -37,9 +37,7 @@ export default function Contacts() {
         // server call
         try {
             const response = await axiosInstance.post("/contact", userInput);
-            toast.loading("Submitting your query")
             toast.success("Form submitted successfully")
-            toast.error("Failed to submit the form")
             const responseData =  response;
             console.log("contact us related info:",responseData);
             if(responseData?.data) {

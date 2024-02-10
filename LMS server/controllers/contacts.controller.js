@@ -40,4 +40,4 @@ const contactUs = async (req, res, next) => {
 
 
 
-export { contactUs};
+export { contactUs };
