@@ -7,9 +7,12 @@ import HomePage from './pages/HomePage';
 import Denied from './pages/Denied';
 import Notfound from './pages/NotFound';
 import Signin from './pages/Signin';
-import Contacts from './pages/Contacts';
+import Contact from './pages/Contacts';
 import CourseList from './pages/course/CourseList';
 import CourseDescription from './pages/course/CourseDescription';
+import About from './pages/Aboutus';
+import RequireAuth from './components/auth/RequireAuth';
+import CreateCourse from './pages/course/CreateCourse';
 // import HomeLayout from './layouts/HomeLayout';
 function App() {
 
@@ -19,13 +22,19 @@ function App() {
       <Route path='/' element={<HomePage />} />
         <Route path='/signup' element ={<Signup />} />
         <Route path='/signin' element={<Signin />} />
-        <Route path='/contacts' element={<Contacts />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/about' element={<About />} />
         <Route path='/denied' element={<Denied />} />
-       <Route path='*' element={<Notfound />} />
+        <Route path='*' element={<Notfound />} />
 
-
-       <Route path='/courses' element={<CourseList />} />
-       <Route path='/course/description' element = {<CourseDescription />} /> 
+        {/* course Routes */}
+        <Route path='/courses' element={<CourseList />} />
+        <Route path='/course/description' element = {<CourseDescription />} /> 
+        {/* create course route */}
+        <Route element = {<RequireAuth allowedRolles= {['ADMIN']} />}>
+          <Route path='/course/create' element ={<CreateCourse />} />
+        </Route>
+       
       </Routes>
     </>
   )
