@@ -6,9 +6,9 @@ const initialState = {
 }
 
 // get all courses
-export const getAllCourses = createAsyncThunk("/course/getAllCourses", async(data)=>{
+export const getAllCourses = createAsyncThunk("/course/getAllCourses", async()=>{
     try {
-        const response = await axiosInstance.get('/course', data);
+        const response = await axiosInstance.get('/course');
         console.log(response?.data?.message);
         toast.success(response?.data?.message)
         console.log("responce: =>",response)
@@ -20,6 +20,21 @@ export const getAllCourses = createAsyncThunk("/course/getAllCourses", async(dat
     }
 })
 
+// create course 
+export const createCourse = createAsyncThunk("/course/course/create", async(data)=>{
+    try {
+        console.log("data: ",data)
+        const response = await axiosInstance.post('/course', data);
+        console.log(response?.data?.message);
+        toast.success(response?.data?.message)
+        console.log("responce: =>",response)
+        return response
+    } catch (error) {
+        console.log("create course error",error)
+        console.log(error);
+        toast.error(error?.response?.data?.message);
+    }
+})
 const CourseSlice = createSlice({
     name: "course",
     initialState,
