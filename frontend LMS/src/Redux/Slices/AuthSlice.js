@@ -57,10 +57,18 @@ export const getUserData = createAsyncThunk("/auth/user/profile", async ()=>{
 })
 
 // update profile details
-export const updateProfile = createAsyncThunk("auth/user/updateprofile", async (data)=>{
-    const response = await axiosInstance.put(`user/update/${data[0]}`, data[1]);
+export const updateProfile = createAsyncThunk("/auth/user/updateprofile", async (data)=>{
+    const response = await axiosInstance.put(`/user/update/${data[0]}`, data[1]);
     toast.success(response?.data?.message)
     console.log("update profle responce data", response.data)
+    return response.data
+})
+
+// .... Change Password
+export const changePassword = createAsyncThunk("/auth/user/changepassword", async (data)=>{
+    const response = await axiosInstance.put("/user/change-password", data);
+    toast.success(response?.data?.message)
+    console.log("change password responce data", response.data)
     return response.data
 })
 const authSlice = createSlice({

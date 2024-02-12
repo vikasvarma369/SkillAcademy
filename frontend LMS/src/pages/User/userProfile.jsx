@@ -35,7 +35,7 @@ function userProfile() {
 
                     <div className="flex items-center justify-between gap-2">
                         <Link 
-                            to="/changepassword"
+                            to="/user/changepassword"
                             className="w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
                         >
                             <button>

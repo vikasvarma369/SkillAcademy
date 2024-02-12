@@ -116,7 +116,7 @@ export default function EditProfile() {
                     Update
                 </button>
                 {/* back to profile page link */}
-                <Link to = "">
+                <Link to = "/user/profile">
                     <p className="link text-accent cursor-pointer flex items-center justify-center w-full gap-2">
                         Back
                     </p>
