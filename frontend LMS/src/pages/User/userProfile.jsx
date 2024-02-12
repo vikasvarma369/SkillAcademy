@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HomeLayout from '../../layouts/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom';
+// import { getUserData } from '../../Redux/Slices/AuthSlice';
 function userProfile() {
     const dispatch  = useDispatch();
     const navigate = useNavigate();
 
     const userData = useSelector((state)=> state?.auth?.data?.user)
+
+    // useEffect(async()=>{
+    //     const data  = await dispatch(getUserData())
+    //     console.log(data)
+    // },[])
 
     return (
         <HomeLayout>
@@ -37,7 +43,7 @@ function userProfile() {
                             </button>
                         </Link>
                         <Link 
-                            to="/user/editprofile"
+                            to="/user/updateprofile"
                             className="w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
                         >
                             <button>
