@@ -16,6 +16,7 @@ import CreateCourse from './pages/course/CreateCourse';
 import Profile from './pages/User/userProfile';
 import EditProfile from './pages/User/EditProfile';
 import ChangePassword from './pages/password/ChangePassword';
+import DisplayLectures from './pages/Dashboard/DisplayLectures';
 // import HomeLayout from './layouts/HomeLayout';
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         {/* course Routes */}
         <Route path='/courses' element={<CourseList />} />
         <Route path='/course/description' element = {<CourseDescription />} /> 
+        <Route path='/course/displaylectures' element = {<DisplayLectures />} />
         {/* create course route */}
         <Route element = {<RequireAuth allowedRolles= {['ADMIN']} />}>
           <Route path='/course/create' element ={<CreateCourse />} />

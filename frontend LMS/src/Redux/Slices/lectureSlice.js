@@ -6,7 +6,7 @@ const initialState ={
 }
 
 // ........get course lecture
-export const getCourseLecture = createAsyncThunk("/course/lecture/get", async(cid)=>{
+export const getCourseLectures = createAsyncThunk("/course/lecture/get", async(cid)=>{
     try {
         const response = await axiosInstance.get(`/course/${cid}`)
         console.log("get lecture: response:", response)
@@ -56,7 +56,7 @@ const lectureSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder)=>{
-        builder.addCase(getCourseLecture.fulfilled, (state, action)=>{
+        builder.addCase(getCourseLectures.fulfilled, (state, action)=>{
             console.log("get course lecture state : ", action?.payload?.lectures)
             state.lectures = action?.payload?.lectures
         })
