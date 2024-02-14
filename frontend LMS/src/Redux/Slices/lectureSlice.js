@@ -25,7 +25,7 @@ export const addCourseLecture = createAsyncThunk("/course/lecture/add", async(da
         formData.append("lecture", data.lecture)
         formData.append("title", data.title)
         formData.append("description", data.description)
-        const response = await axiosInstance.post(`/course/${data.id}`)
+        const response = await axiosInstance.post(`/course/${data.id}`, formData)
         console.log("post lecture: response:", response)
         return response
     } catch (error) {
@@ -57,16 +57,16 @@ const lectureSlice = createSlice({
     reducers: {},
     extraReducers: (builder)=>{
         builder.addCase(getCourseLectures.fulfilled, (state, action)=>{
-            console.log("get course lecture state : ", action?.payload?.lectures)
-            state.lectures = action?.payload?.lectures
+            console.log("get course lecture state : ", action?.payload?.data?.course?.lectures)
+            state.lectures = action?.payload?.data?.course?.lectures
         })
         .addCase(addCourseLecture.fulfilled, (state, action)=>{
-            console.log("add lecture course state : ",action?.payload?.course?.lecture)
-            state.lectures = action?.payload?.course?.lecture
+            console.log("add lecture course state : ",action?.payload?.data?.lectures)
+            state.lectures = action?.payload?.data?.course?.lectures
         })
         .addCase(deleteCourseLecture.fulfilled, (state, action)=>{
             console.log("delete course state : ",action?.payload)
-            state.lectures = action?.payload
+            state.lectures = action?.payload?.data?.course?.lectures
         })
     }
 })

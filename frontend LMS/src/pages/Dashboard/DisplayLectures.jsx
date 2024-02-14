@@ -80,7 +80,7 @@ function DisplayLectures() {
                                             <span>Lecture {idx+1} : {" "}</span> {lecture?.title}
                                         </p>
                                         {role === "ADMIN" && (
-                                            <button onClick={() => handleLectureDelete(state?._id, lecture?._id)} className="btn-accent px-2 py-1 rounded-md font-semibold text-sm">
+                                            <button onClick={() => handleLectureDelete(state?._id, lecture?._id)} className=" bg-accent hover:opacity-50 px-2 py-1 rounded-md font-semibold text-sm">
                                                 Delete lecture
                                             </button>
                                         )}

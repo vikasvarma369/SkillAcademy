@@ -209,7 +209,8 @@ const addLectureToCourseById = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'lecture added successfully'
+            message: 'lecture added successfully',
+            lectures: course.lectures
         })
 
     } catch (e) {
