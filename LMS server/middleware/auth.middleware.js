@@ -28,7 +28,10 @@ const authorisedRoles = (...roles) => async (req, _, next) => {
 // authorze subscriber 
 const authorizeSubscriber = async (req, _, next) => {
     const {role, id} = req.user; 
-    console.log("role: and", role,+" ID=>"+id)
+    
+    console.log("authorized subscriber role:", role)
+    console.log("authorized subscriber id:",id)
+
     const user = await userModel.findById(id);
     const subscriptionStatus = user.subscription.status;
     if (role !== 'ADMIN' && subscriptionStatus !== 'active') {
