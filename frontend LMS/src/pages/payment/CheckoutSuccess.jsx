@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import HomeLayout from "../../layouts/HomeLayout";
+import { useDispatch } from "react-redux";
+import { getUserData } from "../../Redux/Slices/AuthSlice";
 
 const CheckoutSuccess = () => {
   return (
@@ -32,7 +34,7 @@ const CheckoutSuccess = () => {
           {/* adding back to homepage button */}
           <Link
             className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg"
-            to={"/courses"}
+            to={"/"}
           >
             <button>Go to Courses</button>
           </Link>

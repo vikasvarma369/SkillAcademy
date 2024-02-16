@@ -7,7 +7,9 @@ export default function CourseDescription() {
     const { state } = useLocation();
     const navigate = useNavigate();
     const {role, data} = useSelector((state)=> state.auth)
-    console.log("role and data value",role, data)
+
+    console.log( data)
+
     return (
         <HomeLayout>
             <div className="min-h-[90vh] pt-12 px-20 flex flex-col items-center justify-center text-white">
@@ -35,6 +37,8 @@ export default function CourseDescription() {
 
                             {/* show button based on admin or user if admin so watch lectures and user to subscribe  */}
 
+                            subscription: {data?.user?.subscription?.status}
+                            
                             {
                                 role == "ADMIN" || data?.subscription?.status === 'active' ? (
                                 <button onClick={()=> navigate('/course/displaylectures', {state: {...state}}) }

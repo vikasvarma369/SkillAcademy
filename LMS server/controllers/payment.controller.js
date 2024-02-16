@@ -90,7 +90,7 @@ export const verifySubscription = async (req, res, next) => {
 
         // update user record
         user.subscription.status = 'active';
-        await user.save({validateBeforeSave: false});
+        await user.save();
 
         res.status(200).json({
             success: true,
