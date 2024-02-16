@@ -82,8 +82,6 @@ const register = async (req, res, next) => {
     }
 };
 
-
-
 // login
 const login = async (req, res, next) => {
     try {
@@ -116,7 +114,6 @@ const login = async (req, res, next) => {
     }
 }
 
-
 // logout
 const logout = async (req, res, next) => {
     try {
@@ -135,7 +132,6 @@ const logout = async (req, res, next) => {
         return next(new AppError(e.message, 500))
     }
 }
-
 
 // getProfile
 const getProfile = async (req, res) => {
@@ -191,7 +187,6 @@ const forgotPassword = async (req, res, next) => {
     }
 
 }
-
 
 // reset password
 const resetPassword = async (req, res, next) => {
