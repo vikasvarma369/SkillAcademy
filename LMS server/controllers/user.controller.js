@@ -75,7 +75,7 @@ const register = async (req, res, next) => {
         res.status(201).json({
             success: true,
             message: "User registered successfully",
-            user,
+            data: user,
         });
     } catch (e) {
         return next(new AppError(e.message, 500));

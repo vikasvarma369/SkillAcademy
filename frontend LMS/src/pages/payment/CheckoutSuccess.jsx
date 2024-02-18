@@ -6,6 +6,11 @@ import { useDispatch } from "react-redux";
 import { getUserData } from "../../Redux/Slices/AuthSlice";
 
 const CheckoutSuccess = () => {
+  const dispatch = useDispatch()
+  useEffect( ()=>{
+    dispatch(getUserData())
+  },
+  []);
   return (
     <HomeLayout>
       {/* container for checkout success card  */}

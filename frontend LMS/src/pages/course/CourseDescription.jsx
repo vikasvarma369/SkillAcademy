@@ -37,7 +37,7 @@ export default function CourseDescription() {
 
                             {/* show button based on admin or user if admin so watch lectures and user to subscribe  */}
 
-                            subscription: {data?.user?.subscription?.status}
+                            
                             
                             {
                                 role == "ADMIN" || data?.subscription?.status === 'active' ? (

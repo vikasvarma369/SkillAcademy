@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RxCrossCircled } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import HomeLayout from "../../layouts/HomeLayout";
+import { useDispatch } from "react-redux";
+import { getUserData } from "../../Redux/Slices/AuthSlice";
 
 const CheckoutFail = () => {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getUserData())
+  },[])
   return (
     <HomeLayout>
       {/* container for checkout fail card  */}

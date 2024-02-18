@@ -77,6 +77,15 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder)=>{
         builder
+        .addCase(createAccount.fulfilled, (state, action)=>{
+            console.log("create accout",action)
+            localStorage.setItem("isLoggedIn", true)
+            localStorage.setItem("role", action?.payload?.data?.data?.role)
+            localStorage.setItem("data", JSON.stringify(action?.payload?.data?.data))
+            state.isLoggedIn = true;
+            state.role = action?.payload?.data?.data?.role
+            state.data = action?.payload?.data?.data
+        })
         .addCase(login.fulfilled, (state, action) => {
             console.log("action data in login case:", action)
             localStorage.setItem("isLoggedIn", true)
@@ -99,7 +108,7 @@ const authSlice = createSlice({
             localStorage.setItem("data", JSON.stringify(action?.payload?.data))
             state.isLoggedIn = true;
             state.role = action?.payload?.data?.user?.role
-            state.data = action?.payload?.data
+            state.data = action?.payload?.data.user
         })
     }
 });
