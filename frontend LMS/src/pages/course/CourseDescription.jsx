@@ -36,11 +36,9 @@ export default function CourseDescription() {
                             </div>
 
                             {/* show button based on admin or user if admin so watch lectures and user to subscribe  */}
-
-                            
-                            
+                                                       
                             {
-                                role == "ADMIN" || data?.subscription?.status === 'active' ? (
+                                role == "ADMIN" || data?.user?.subscription?.status === 'active' ? (
                                 <button onClick={()=> navigate('/course/displaylectures', {state: {...state}}) }
                                     className="bg-yellow-500 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-600 transition-all ease-in-out duration-300"
                                 > Watch Lectures</button>) : (<button 

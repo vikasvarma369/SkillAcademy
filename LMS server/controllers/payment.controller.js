@@ -3,6 +3,8 @@ import userModel from "../models/user.model.js";
 import AppError from "../utils/error.utils.js";
 import { razorpay } from "../server.js";
 import crypto from 'crypto';
+import Payment from '../models/payment.model.js';
+
 
 // get Razorpay api key 
 export const getRazorPayApiKey = async (req, res, next) => {
@@ -125,15 +127,47 @@ export const cancelSubscription = async (req, res, next) => {
 
         // save 
         await user.save();
-
-        // Send the response
-        res.status(200).json({
-            success: true,
-            message: 'Subscription canceled successfully',
-        });
     } catch (error) {
         return next(new AppError(error.error.description, error.statusCode));
     }
+
+    // Finding the payment using the subscription ID
+  const payment = await Payment.findOne({
+    razorpay_subscription_id: subscriptionId,
+  });
+
+  // Getting the time from the date of successful payment (in milliseconds)
+  const timeSinceSubscribed = Date.now() - payment.createdAt;
+
+  // refund period which in our case is 14 days
+  const refundPeriod = 14 * 24 * 60 * 60 * 1000;
+
+  // Check if refund period has expired or not
+  if (refundPeriod <= timeSinceSubscribed) {
+    return next(
+      new AppError(
+        'Refund period is over, so there will not be any refunds provided.',
+        400
+      )
+    );
+  }
+
+  // If refund period is valid then refund the full amount that the user has paid
+  await razorpay.payments.refund(payment.razorpay_payment_id, {
+    speed: 'optimum', // This is required
+  });
+
+  user.subscription.id = undefined; // Remove the subscription ID from user DB
+  user.subscription.status = undefined; // Change the subscription Status in user DB
+
+  await user.save();
+  await payment.remove();
+
+  // Send the response
+  res.status(200).json({
+    success: true,
+    message: 'Subscription canceled successfully',
+  });
 
     // TODO: check all refund period time and etc 
 }

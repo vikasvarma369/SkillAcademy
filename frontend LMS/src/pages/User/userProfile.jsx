@@ -2,18 +2,32 @@ import React, { useEffect } from 'react'
 import HomeLayout from '../../layouts/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom';
-// import { getUserData } from '../../Redux/Slices/AuthSlice';
+import { cancelSubscription } from '../../Redux/Slices/razorpaySlice';
+import { getUserData } from '../../Redux/Slices/AuthSlice';
+import toast from 'react-hot-toast';
+
+
 function userProfile() {
     const dispatch  = useDispatch();
     const navigate = useNavigate();
-
+    
     const userData = useSelector((state)=> state?.auth?.data?.user)
+    // cancel subscription
+    async function handleCancelSubscription(){
+        // toast.loading("initilized unsubscribed");
+        try {
+            const res = await dispatch(cancelSubscription())
+            console.log("res cancel subs", res)
+            await dispatch(getUserData());  
+            toast.success("Subscription cancel successfully")  
+        } catch (error) {
+            console.log("unsubscribe:",error)
+        }    
+    }
 
-    // useEffect(async()=>{
-    //     const data  = await dispatch(getUserData())
-    //     console.log(data)
-    // },[])
-
+    useEffect(async()=>{
+        await dispatch(getUserData())
+    },[]);
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">
@@ -53,7 +67,9 @@ function userProfile() {
                     </div>
 
                     {userData?.subscription?.status === "active" && (
-                        <button className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">
+                        <button 
+                            onClick={handleCancelSubscription}
+                            className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center">
                             Cancel subscription
                         </button>
                     )}

@@ -53,7 +53,7 @@ export const logout = createAsyncThunk("/auth/logout", async()=>{
 export const getUserData = createAsyncThunk("/auth/user/profile", async ()=>{
     const responce = await axiosInstance.get("/user/me");
     console.log("get responce",responce)
-    return responce
+    return responce.data
 })
 
 // update profile details
@@ -108,7 +108,7 @@ const authSlice = createSlice({
             localStorage.setItem("data", JSON.stringify(action?.payload?.data))
             state.isLoggedIn = true;
             state.role = action?.payload?.data?.user?.role
-            state.data = action?.payload?.data.user
+            state.data = action?.payload?.data?.user
         })
     }
 });
