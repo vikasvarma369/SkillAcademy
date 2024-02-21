@@ -65,7 +65,16 @@ export const cancelSubscription = createAsyncThunk("/cancelSubscription", async(
 })
 
 // get all payments record
-// TODO: 
+export const getPaymentsRecords = createAsyncThunk("/status/get", async()=>{
+    try {
+        const response = await axiosInstance.get("/payments/");
+        console.log("payments record", response)
+        toast.success()
+        return response
+    } catch (error) {
+        console.log("payments record error:", error)
+    }
+})
 
 const razorpaySlice = createSlice({
     name: "razorpay",
@@ -90,10 +99,15 @@ const razorpaySlice = createSlice({
             toast.success(action?.payload?.data?.message);
             state.isPaymentVerified = action?.payload?.data?.success
         })
-        // .addCase(cancelSubscription.fulfilled, (state, action)=>{
-        //     toast.success(action?.payload?.data?.message);
-        //     state.isPaymentVerified = !action?.payload?.data?.success
-        // })
+        .addCase(getPaymentsRecords.fulfilled, (state,action)=>{
+            console.log("payments records",action)
+            state.allPayments = action?.payload?.data?.subscriptions ;
+            state.finalMonths = action?.payload?.data?.finalMonths ;
+            state.monthlySalesRecord = action?.payload?.data?.monthlySalesRecord ;
+
+
+
+        })
     }
 })
 

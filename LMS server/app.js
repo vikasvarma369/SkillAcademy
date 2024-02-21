@@ -44,12 +44,14 @@ import contractRoutes from './routes/contacts.routes.js'
 // import payment route
 import paymentRoutes from './routes/payment.routes.js'
 
+// import admin stats route
+import statsRoutes from './routes/allStatus.js'
 // declaration
 app.use('/api/v1/user', userRoutes); 
 app.use('/api/v1/course', courseRoute)
 app.use('/api/v1/', contractRoutes)
 app.use('/api/v1/payments', paymentRoutes)
-
+app.use("/api/v1/admin",statsRoutes)
 
 // health check
 app.get('/health', (req,res)=>{
