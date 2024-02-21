@@ -39,22 +39,22 @@ function Admin() {
 
     // admin stats related data
     const {
-        allUsersCount, subscribedUsersCount 
+        allUserCount, allSubscriberCount
     } = useSelector((state)=> state.status)
 
     // razorpay related data
     const { allPayments, finalMonths, monthlySalesRecord } = useSelector((state)=> state.razorpay)
 
     // course related data 
-    const myCourses = useSelector((state)=> state.course.courseList );
+    const myCourses = useSelector((state)=> state.course.courselist);
 
-    
+    // user data 
     const userData = {
         labels: ["Registered User", "Enrolled User"],
         datasets: [
           {
             label: "User Details",
-            data: [allUsersCount, subscribedUsersCount],
+            data: [allUserCount, allSubscriberCount],
             backgroundColor: ["yellow", "green"],
             borderColor: ["yellow", "green"],
             borderWidth: 1,
@@ -62,7 +62,8 @@ function Admin() {
         ],
     };
 
-      const salesData = {
+    // sales data 
+    const salesData = {
         labels: [
           "Jan",
           "Feb",
@@ -90,16 +91,17 @@ function Admin() {
     };
 
     // handle course delete
+    const OnCourseDelete = ()=>{
 
-    // useEffect(()=>{
-    //     (
-    //         async()=>{
-    //             await dispatch(getAllCourses())
-    //             await dispatch(getStatusData())
-    //             await dispatch(getPaymentsRecords())
-    //         }
-    //     )();
-    // })
+    }
+
+    useEffect(() => {
+        (async () => {
+          await dispatch(getAllCourses());
+          await dispatch(getStatusData());
+          await dispatch(getPaymentsRecords());
+        })();
+      }, []);
 
     return (
         <HomeLayout>
@@ -107,13 +109,11 @@ function Admin() {
                 <h1 className="text-center text-3xl font-semibold text-yellow-500">
                 Admin Dashboard
                 </h1>
-
-                
-                {/* creating the records card and chart for sales and user details */}
+                {/* records card and chart for sales and user details */}
                 <div className="grid grid-cols-2 gap-5 m-auto mx-10">
                 {/* displaying the users chart and data */}
                 <div className="flex flex-col items-center gap-10 p-5 shadow-lg rounded-md">
-                    {/* for displaying the pie chart */}
+                    {/* displaying the pie chart */}
                     <div className="w-80 h-80">
                     <Pie data={userData} />
                     </div>
@@ -124,7 +124,7 @@ function Admin() {
                     <div className="flex items-center justify-between py-5 px-5 gap-5 rounded-md shadow-md">
                         <div className="flex flex-col items-center">
                         <p className="font-semibold">Registered Users</p>
-                        <h3 className="text-4xl font-bold">{allUsersCount}</h3>
+                        <h3 className="text-4xl font-bold">{allUserCount}</h3>
                         </div>
                         <FaUsers className="text-yellow-500 text-5xl" />
                     </div>
@@ -133,7 +133,7 @@ function Admin() {
                     <div className="flex items-center justify-between py-5 px-5 gap-5 rounded-md shadow-md">
                         <div className="flex flex-col items-center">
                         <p className="font-semibold">Subscribed Users</p>
-                        <h3 className="text-4xl font-bold">{subscribedUsersCount}</h3>
+                        <h3 className="text-4xl font-bold">{ allSubscriberCount}</h3>
                         </div>
                         <FaUsers className="text-green-500 text-5xl" />
                     </div>
@@ -163,7 +163,7 @@ function Admin() {
                         <div className="flex flex-col items-center">
                         <p className="font-semibold">Total Revenue</p>
                         <h3 className="text-4xl font-bold">
-                            {allPayments?.count * 499}
+                            {allPayments?.count * 9999}
                         </h3>
                         </div>
                         <GiMoneyStack className="text-green-500 text-5xl" />
@@ -171,6 +171,8 @@ function Admin() {
                     </div>
                 </div>
                 </div>
+
+
                 {/* CRUD courses section */}
                 <div className="mx-[10%] w-[80%] self-center flex flex-col items-center justify-center gap-10 mb-10">
                 <div className="flex w-full items-center justify-between">
@@ -215,6 +217,7 @@ function Admin() {
                     </thead>
 
                     <tbody>
+                        {console.log("my course",myCourses)}
                     {myCourses?.map((element, index) => {
                         return (
                         <tr key={element?._id}>
@@ -238,6 +241,7 @@ function Admin() {
                             </td>
 
                             <td className="flex items-center gap-4">
+
                             {/* to edit the course */}
                             <button
                                 onClick={() =>
@@ -257,7 +261,7 @@ function Admin() {
 
                             {/* to delete the course */}
                             <button
-                                onClick={() => handleCourseDelete(element._id)}
+                                onClick={() => OnCourseDelete(element._id)}
                                 className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-30 text-xl py-2 px-4 rounded-md font-bold"
                             >
                                 <BsTrash />

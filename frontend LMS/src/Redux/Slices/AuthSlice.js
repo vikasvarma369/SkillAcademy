@@ -4,7 +4,7 @@ import axiosInstance from "../../config/axiosInstance"
 const initialState = {
     isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     role: localStorage.getItem("role") || "",
-    // data: JSON.parse(localStorage.getItem("data")) || {}
+    data: JSON.parse(localStorage.getItem("data")) || {}
 }
 // first parameter tell as what is async thunk and the second parameter is a call back function in call back we declare the delay task
 
