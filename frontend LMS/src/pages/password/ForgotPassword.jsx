@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import HomeLayout from '../../layouts/HomeLayout'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { forgotPassword } from '../../Redux/Slices/AuthSlice';
 import toast from 'react-hot-toast';
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     // onFormSubmit
     const handleFormSubmit = async(event)=>{
         event.preventDefault()
@@ -20,6 +21,7 @@ function ForgotPassword() {
 
         // reset the email value
         setEmail("")
+        navigate('/')
     }
 
     return (

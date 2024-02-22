@@ -88,7 +88,7 @@ export default function Signin() {
                 Login
             </button>
             <p className="text-center">
-               <Link to="/user/forgotpassword" className="cusror-pointer text-accent">Forgot Password</Link>
+               <Link to="/forgotpassword" className="cusror-pointer text-accent">Forgot Password</Link>
             </p>
             <p className="text-center">
               Don't have an account ? <Link to="/signup" className="cusror-pointer text-accent">Create Account</Link>

@@ -23,6 +23,7 @@ import Checkout from './pages/payment/Checkout';
 import CheckoutSuccess from './pages/payment/Checkoutsuccess';
 import CheckoutFail from './pages/payment/CheckoutFail';
 import Admin from './pages/Dashboard/Admin';
+import ResetPassword from './pages/password/ResetPassword';
 // import HomeLayout from './layouts/HomeLayout';
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
       <Route path='/' element={<HomePage />} />
         <Route path='/signup' element ={<Signup />} />
         <Route path='/signin' element={<Signin />} />
-        <Route path='/user/forgotpassword' element= {<ForgotPassword />} />
+        <Route path='/forgotpassword' element= {<ForgotPassword />} />
+        <Route path='/resetpassword/:resetToken' element = {<ResetPassword />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/denied' element={<Denied />} />
