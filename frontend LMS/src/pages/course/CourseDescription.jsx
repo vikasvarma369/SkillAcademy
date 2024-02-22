@@ -6,9 +6,19 @@ export default function CourseDescription() {
 
     const { state } = useLocation();
     const navigate = useNavigate();
-    const {role, data} = useSelector((state)=> state.auth)
+    const {role, data, isLoggedIn} = useSelector((state)=> state.auth)
 
-    console.log( data)
+    console.log( isLoggedIn)
+
+    // on subscribe 
+    const OnSubscribe = ()=>{
+        if(!isLoggedIn){
+            navigate('/signin')
+        }else{
+            navigate('/checkout')
+        }
+        
+    }
 
     return (
         <HomeLayout>
@@ -42,7 +52,7 @@ export default function CourseDescription() {
                                 <button onClick={()=> navigate('/course/displaylectures', {state: {...state}}) }
                                     className="bg-yellow-500 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-600 transition-all ease-in-out duration-300"
                                 > Watch Lectures</button>) : (<button 
-                                    onClick={()=> navigate('/checkout')}
+                                    onClick={OnSubscribe}
                                     className="bg-yellow-500 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-600 transition-all ease-in-out duration-300">
                                         Subscribe
                                     </button>)
