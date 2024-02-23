@@ -42,63 +42,64 @@ function HomeLayout({ children }) {
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     <label htmlFor="my-drawer">
-                        <FiMenu onClick={changeWidth} size={"32px"} className='font-bold text-white m-4' />
+                        <FiMenu onClick={changeWidth} size={"32px"} className=' text-white m-4' />
                     </label>
                 </div>
                 <div className="drawer-side w-0">
                     <label htmlFor="my-drawer" className="drawer-overlay"></label>
                     <ul className='menu p-4 w-48 h-[100%] sm:w-80 bg-base-200 text-base-content relative'>
-                        <li className='w-fit absolute right-2 z-50'>
+                        <li className='w-fit font-bold absolute right-2 z-50'>
                             <button onClick={hideDrawer}>
-                                <AiFillCloseCircle size={24}/>
+                                <AiFillCloseCircle size={24}
+                                className='text-white '/>
                             </button>
                         </li>
-                        <li>
+                        <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
                             <Link to="/"> Home </Link>
                         </li>
                         {/* admin dashbord */}
                         {isLoggedIn && role === "ADMIN" && (
-                            <li>
+                            <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
                                 <Link to="/admin/dashboard">Admin Dashboard</Link>
                             </li>
                         )
                         }
                         {/* create course */}
                         {isLoggedIn && role === "ADMIN" && (
-                            <li>
+                            <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
                                 <Link to="/course/create">Create Course</Link>
                             </li>
                         )
                         }
-                        <li>
+                        <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
                             <Link to="/about"> About us </Link>
                         </li>
-                        <li>
+                        <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
                             <Link to="/contact"> Contact us </Link>
                         </li>
-                        <li>
-                            <Link to="/courses"> All courses </Link>
+                        <li className='text-xl hover:text-2xl font-semibold hover:text-white'>
+                            <Link to="/courses"> All Courses </Link>
                         </li>
 
                         {!isLoggedIn ? (
-                            <li className="absolute bottom-4 w-[90%]">
-                                <div className="w-full flex items-center justify-center">
-                                    <button className="bg-primary btn-primary px-4 py-1 font-semibold rounded-md w-full">
-                                        <Link to="/signin">Login</Link>
+                            <li className="absolute bottom-6  w-[90%]">
+                                <div className="w-full flex sm:flex-row flex-col gap-8 items-center justify-center">
+                                    <button className="bg-primary hover:opacity-65 hover:text-white btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                                        <Link className='text-xl' to="/signin">Login</Link>
                                     </button>
-                                    <button className=" bg-secondary btn-secondary px-4 py-1 font-semibold rounded-md w-full">
-                                        <Link to="/signup">Signup</Link>
+                                    <button className=" bg-secondary hover:opacity-65 hover:text-white btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                                        <Link className='text-xl' to="/signup">Signup</Link>
                                     </button>
                                 </div>
                             </li>
                         ) : (
                             <li className="absolute bottom-4 w-[90%]">
                                 <div className="w-full flex items-center justify-center">
-                                    <button className= "bg-primary btn-primary px-4 py-1 font-semibold rounded-md w-full">
-                                        <Link to="/user/profile">Profile</Link>
+                                    <button className= "bg-primary hover:opacity-65 hover:text-white btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                                        <Link className='text-xl' to="/user/profile">Profile</Link>
                                     </button>
-                                    <button className=" bg-secondary btn-secondary px-4 py-1 font-semibold rounded-md w-full">
-                                        <Link onClick={onLogout}>Logout</Link>
+                                    <button className=" bg-secondary hover:opacity-65 hover:text-white btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                                        <Link className='text-xl' onClick={onLogout}>Logout</Link>
                                     </button>
                                 </div>
                             </li>
