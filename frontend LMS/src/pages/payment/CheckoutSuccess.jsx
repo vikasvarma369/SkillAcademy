@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import HomeLayout from "../../layouts/HomeLayout";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../Redux/Slices/AuthSlice";
 
 const CheckoutSuccess = () => {
   const dispatch = useDispatch()
-  useEffect( ()=>{
-    dispatch(getUserData())
-  },
-  []);
+  const navigate = useNavigate()
+
+  const handleClick = async()=>{
+    const res = await dispatch(getUserData())
+    console.log("success", res)
+    navigate("/")
+  }
+
   return (
     <HomeLayout>
       {/* container for checkout success card  */}
@@ -37,12 +41,11 @@ const CheckoutSuccess = () => {
           </div>
 
           {/* adding back to homepage button */}
-          <Link
-            className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg"
-            to={"/"}
-          >
-            <button>Go to Courses</button>
-          </Link>
+            <button 
+              onClick={handleClick}
+              className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg"
+              type="button">Go to Courses
+            </button>
         </div>
       </div>
     </HomeLayout>

@@ -145,7 +145,7 @@ const getProfile = async (req, res,) => {
         res.status(200).json({
             success: true,
             message: 'User details',
-            user
+            data: user
         })
     } catch (e) {
         return next(new AppError('Failed to fetch user profile', 500))

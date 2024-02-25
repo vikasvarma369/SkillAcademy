@@ -12,7 +12,7 @@ function Checkout() {
 
     const razorPayKey = useSelector((state)=> state.razorpay.key)
     const subscription_id = useSelector((state)=> state.razorpay.subscription_id)
-    const userData = useSelector((state)=> state.auth.data)
+    const userData = useSelector((state)=> state?.auth?.data)
 
     const { isPaymentVerified } = useSelector((state)=> state.razorpay)
 
@@ -79,7 +79,7 @@ return (
             {/* card */}
             <div className="w-80 h-[26rem] flex flex-col justify-center shadow-[0_0_10px_black] rounded-lg relative">
                 <h1 className="bg-yellow-500 absolute top-0 w-full text-center py-4 text-2xl font-bold rounded-tl-lg rounded-tr-lg">
-                Subscription Annual Plain
+                Subscription Annual Plan
                 </h1>
 
                 <div className="px-4 space-y-5 text-center">
@@ -94,7 +94,7 @@ return (
                     <p 
                         className="flex items-center justify-center gap-1 text-2xl font-bold text-yellow-500"
                     >
-                        <BiRupee /> <span>9999</span>only
+                        <BiRupee /> <span>499</span>only
                     </p>
                     <div 
                     className="text-gray-200"

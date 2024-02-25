@@ -8,10 +8,13 @@ import toast from 'react-hot-toast';
 
 
 function userProfile() {
+    // useEffect(async()=>{
+    //     await dispatch(getUserData())
+    // },[]);
     const dispatch  = useDispatch();
     const navigate = useNavigate();
     
-    const userData = useSelector((state)=> state?.auth?.data?.user)
+    const userData = useSelector((state)=> state?.auth?.data)
     // cancel subscription
     async function handleCancelSubscription(){
         // toast.loading("initilized unsubscribed");
@@ -24,10 +27,6 @@ function userProfile() {
             console.log("unsubscribe:",error)
         }    
     }
-
-    useEffect(async()=>{
-        await dispatch(getUserData())
-    },[]);
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">

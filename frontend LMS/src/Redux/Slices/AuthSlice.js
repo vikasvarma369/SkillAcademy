@@ -64,7 +64,7 @@ export const logout = createAsyncThunk("/auth/logout", async()=>{
 export const getUserData = createAsyncThunk("/auth/user/profile", async ()=>{
     const responce = await axiosInstance.get("/user/me");
     console.log("get responce",responce)
-    return responce.data
+    return responce
 })
 
 // update profile details
@@ -127,10 +127,10 @@ const authSlice = createSlice({
             console.log("action data in login case:", action)
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.data?.user?.role)
-            localStorage.setItem("data", JSON.stringify(action?.payload?.data))
+            localStorage.setItem("data", JSON.stringify(action?.payload?.data?.user))
             state.isLoggedIn = true;
             state.role = action?.payload?.data?.user?.role
-            state.data = action?.payload?.data
+            state.data = action?.payload?.data?.user
         })
         .addCase(logout.fulfilled, (state, action)=>{
             localStorage.clear()
@@ -141,11 +141,13 @@ const authSlice = createSlice({
         .addCase(getUserData.fulfilled, (state, action)=>{
             console.log("action data in get user data  case:", action)
             localStorage.setItem("isLoggedIn", true)
-            localStorage.setItem("role", action?.payload?.data?.user?.role)
-            localStorage.setItem("data", JSON.stringify(action?.payload?.data))
+            localStorage.setItem("role", action?.payload?.data?.data?.role)
+            localStorage.setItem("subscription", action?.payload?.data?.data.subscription?.status)
+            localStorage.setItem("data", JSON.stringify(action?.payload?.data?.data))
             state.isLoggedIn = true;
-            state.role = action?.payload?.data?.user?.role
-            state.data = action?.payload?.data?.user
+            state.role = action?.payload?.data?.data?.role
+            state.data = action?.payload?.data?.data
+            state.subscription = action?.payload?.data?.data.subscription?.status
         })
         .addCase(ContinueWithGoogle.fulfilled, (state, action)=>{
             console.log("action data in google data  case:", action)

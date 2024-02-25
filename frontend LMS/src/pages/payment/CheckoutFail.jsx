@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { RxCrossCircled } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HomeLayout from "../../layouts/HomeLayout";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../../Redux/Slices/AuthSlice";
 
 const CheckoutFail = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  useEffect(()=>{
-    dispatch(getUserData())
-  },[])
+  const handleClick = async()=>{
+    await dispatch(getUserData())
+    navigate("/checkout")
+  }
   return (
     <HomeLayout>
       {/* container for checkout fail card  */}
@@ -36,12 +38,12 @@ const CheckoutFail = () => {
           </div>
 
           {/* going back to payment page again */}
-          <Link
-            className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg"
-            to={"/checkout"}
-          >
-            <button>Revisit Payment</button>
-          </Link>
+            <button 
+             type="button"
+             onClick={handleClick}
+             className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg">
+              Revisit Payment
+            </button>
         </div>
       </div>
     </HomeLayout>
