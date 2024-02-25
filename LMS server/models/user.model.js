@@ -23,7 +23,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required'],
         minLength: [4, 'Password must be at least 4 character'],
-        select: false
+        // select: false
     },
     avatar: {
         public_id: {

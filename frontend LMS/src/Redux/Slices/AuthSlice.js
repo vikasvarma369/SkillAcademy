@@ -37,6 +37,17 @@ export const login = createAsyncThunk("/auth/signin", async(data)=>{
     }
 })
 
+// sign in with google
+export const ContinueWithGoogle = createAsyncThunk("/auth/google", async(data)=>{
+    try {
+        const res = await axiosInstance.post("/user/google", data)
+        console.log("auth slice database response google route:", res)
+        return res
+    } catch (error) {
+        console.log("sign in with google error:", error)
+    }
+})
+
 // logout
 export const logout = createAsyncThunk("/auth/logout", async()=>{
     try {
@@ -136,6 +147,16 @@ const authSlice = createSlice({
             state.role = action?.payload?.data?.user?.role
             state.data = action?.payload?.data?.user
         })
+        .addCase(ContinueWithGoogle.fulfilled, (state, action)=>{
+            console.log("action data in google data  case:", action)
+            localStorage.setItem("isLoggedIn", true)
+            localStorage.setItem("role", action?.payload?.data?.data?.role)
+            localStorage.setItem("data", JSON.stringify(action?.payload?.data?.data))
+            state.isLoggedIn = true;
+            state.role = action?.payload?.data?.data?.role
+            state.data = action?.payload?.data?.data
+        })
+        
     }
 });
 

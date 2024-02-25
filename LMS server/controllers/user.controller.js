@@ -5,10 +5,12 @@ import fs from 'fs';
 import cloudinary from 'cloudinary';
 import AppError from "../utils/error.utils.js";
 import sendEmail from "../utils/sendEmail.js";
+import { log } from "console";
+import bcryptjs from 'bcrypt'
 
 const cookieOptions = {
     httpOnly: true,
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 1* 24 * 60 * 60 * 1000, // 24 hours
     secure: true, 
     sameSite: 'none'
 }
@@ -134,9 +136,10 @@ const logout = async (req, res, next) => {
 }
 
 // getProfile
-const getProfile = async (req, res) => {
+const getProfile = async (req, res,) => {
     try {
         const { id } = req.user;
+        console.log(id)
         const user = await userModel.findById(id);
 
         res.status(200).json({
@@ -313,6 +316,70 @@ const updateUser = async (req, res, next) => {
     }
 }
 
+// continue with google
+const continueWithGoogle = async (req,res,next)=>{
+    const { fullName, email} = req.body ;
+
+    if(!fullName || !email){
+        return next(new AppError("feilds are required, please check it again", 400));
+    }
+    try {
+        const user = await userModel.findOne({email: email});
+
+        if(user){
+            const token = await user.generateJWTToken()
+            console.log(token)
+
+            //extract user data excluding password 
+            const {password: hashedPassword, ...rest} = user._doc
+
+            // set the cookie and return the responce 
+            return res
+            .cookie('token', token,cookieOptions)
+            .status(200)
+            .json({
+                success: true,
+                data: rest
+            })
+        }else{
+            // password
+            const generatePassword = Math.random().toString(36).slice(-8)
+
+            // create new user 
+            const newUser = await userModel.create({
+                fullName: fullName,
+                email: email,
+                password: generatePassword,
+            })
+
+            if (!newUser) {
+                return next(new AppError("User registration failed, please try again", 400));
+            }
+            // save in db
+            await newUser?.save()
+
+            const token = newUser?.generateJWTToken()
+            console.log(token)
+            // need password 
+            const {password: hashedPassword2, ...rest} = newUser._doc
+            console.log(" new user docs", newUser._doc)
+            // set the cookie and return the responce 
+            return res
+            .cookie('token', token,cookieOptions)
+            .status(200)
+            .json({
+                success: true,
+                data: rest
+            })
+        }
+        
+
+        
+    } catch (error) {
+        console.log("during continue with google error:", error)
+        return next(new AppError(error.message, 500))
+    }
+}
 export {
     register,
     login,
@@ -321,5 +388,6 @@ export {
     forgotPassword,
     resetPassword,
     changePassword,
-    updateUser
+    updateUser,
+    continueWithGoogle
 }
