@@ -20,7 +20,7 @@ import DisplayLectures from './pages/Dashboard/DisplayLectures';
 import AddLecture from './pages/Dashboard/AddLecture';
 import ForgotPassword from './pages/password/ForgotPassword';
 import Checkout from './pages/payment/Checkout';
-import CheckoutSuccess from './pages/payment/Checkoutsuccess';
+import CheckoutSuccess from './pages/payment/CheckoutSuccess';
 import CheckoutFail from './pages/payment/CheckoutFail';
 import Admin from './pages/Dashboard/Admin';
 import ResetPassword from './pages/password/ResetPassword';
