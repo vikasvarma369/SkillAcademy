@@ -11,7 +11,7 @@ const CheckoutSuccess = () => {
 
   const handleClick = async()=>{
     const res = await dispatch(getUserData())
-    console.log("success", res)
+    // console.log("success", res)
     navigate("/")
   }
 

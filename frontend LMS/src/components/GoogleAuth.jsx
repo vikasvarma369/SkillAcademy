@@ -37,8 +37,8 @@ function GoogleAuth() {
         <button
             type='button'
             onClick={handleClick}
-            className="mt-2 bg-blue-500 hover:opacity-70 text-white transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg">
-            <AiFillGoogleCircle /> Continue with Google
+            className="btn btn-info  hover:btn-outline font-semibold w-full ">
+            <AiFillGoogleCircle  /> Continue with Google
         </button>
     </div>
   )

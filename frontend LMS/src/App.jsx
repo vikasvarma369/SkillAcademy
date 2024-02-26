@@ -1,32 +1,38 @@
 import './App.css'
 import { Routes, Route } from "react-router-dom";
 // import pages
-import Signup from './pages/Signup';
-import HomePage from './pages/HomePage';
-// import Aboutus from './pages/Aboutus';
-import Denied from './pages/Denied';
-import Notfound from './pages/NotFound';
-import Signin from './pages/Signin';
-import Contact from './pages/Contacts';
-import CourseList from './pages/course/CourseList';
-import CourseDescription from './pages/course/CourseDescription';
-import About from './pages/Aboutus';
-import RequireAuth from './components/auth/RequireAuth';
-import CreateCourse from './pages/course/CreateCourse';
-import Profile from './pages/User/userProfile';
-import EditProfile from './pages/User/EditProfile';
-import ChangePassword from './pages/password/ChangePassword';
-import DisplayLectures from './pages/Dashboard/DisplayLectures';
-import AddLecture from './pages/Dashboard/AddLecture';
-import ForgotPassword from './pages/password/ForgotPassword';
-import Checkout from './pages/payment/Checkout';
-import CheckoutSuccess from './pages/payment/CheckoutSuccess';
-import CheckoutFail from './pages/payment/CheckoutFail';
-import Admin from './pages/Dashboard/Admin';
-import ResetPassword from './pages/password/ResetPassword';
-// import HomeLayout from './layouts/HomeLayout';
-function App() {
+import {
+  About,
+  Signup,
+  Signin,
+  Notfound,
+  HomePage,
+  Contact,
+  Denied,
 
+  EditProfile,
+  Profile,
+
+  Checkout,
+  CheckoutFail,
+  CheckoutSuccess,
+
+  ChangePassword,
+  ForgotPassword,
+  ResetPassword,
+
+  Admin,
+  AddLecture,
+  DisplayLectures,
+
+  CourseDescription,
+  CourseList,
+  CreateCourse} from './pages/index.js'
+import RequireAuth from './components/auth/RequireAuth';
+
+
+
+function App() {
   return (
     <>
       <Routes >
@@ -57,6 +63,7 @@ function App() {
         <Route path="/checkout/success" element={<CheckoutSuccess />} />
         <Route path="/checkout/fail" element={<CheckoutFail />} />
 
+        {/* admin routes */}
         <Route element = {<RequireAuth allowedRolles= {['ADMIN']} />}>
           <Route path='/admin/dashboard' element = {<Admin />} />
           <Route path='/course/create' element ={<CreateCourse />} />
