@@ -90,9 +90,9 @@ function Signup() {
 
     return (
         <HomeLayout>
-            <div className="flex overflow-x-auto items-center justify-center h-[90vh]">
-                <form onSubmit={OnFormSubmit} noValidate className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-35">
-                    <h1 className="text-2xl text-center font-bold">Registration Page</h1>
+            <div className="flex flex-col gap-6 items-center py-8 px-3 min-h-[90vh]">
+                <form onSubmit={OnFormSubmit} noValidate className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-35 dark:bg-base-100 md:py-5 py-7 md:px-7 px-3 md:w-[500px] w-full shadow-custom dark:shadow-xl ">
+                    <h1 className="text-2xl text-center font-bold dark:text-yellow-500 font-inter">Registration Page</h1>
                     <label htmlFor="image_uploads" className="cursor-pointer">
                         { previewImage ? (
                             <img className="w-24 h-24 rounded-full m-auto" src={previewImage}/>
@@ -144,7 +144,7 @@ function Signup() {
                             placeholder="enter your Password..."
                             id="password" />
                     </div>
-                    <button className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg">
+                    <button className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
                         Create account
                     </button>
                     <p className="text-center">
