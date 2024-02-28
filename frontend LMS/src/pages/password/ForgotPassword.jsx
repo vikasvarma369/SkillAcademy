@@ -6,6 +6,7 @@ import { forgotPassword } from '../../Redux/Slices/AuthSlice';
 import toast from 'react-hot-toast';
 function ForgotPassword() {
     const [email, setEmail] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // onFormSubmit
@@ -16,9 +17,10 @@ function ForgotPassword() {
             toast.error("Email is required")
             return;
         }
+        setIsLoading(true)
         const res = await dispatch(forgotPassword(email))
         toast.success(res?.payload?.message)
-
+        setIsLoading(false)
         // reset the email value
         setEmail("")
         navigate('/')
@@ -52,10 +54,11 @@ function ForgotPassword() {
                          />
                     </div>
                     <button
+                        disabled = {isLoading}
                         className="w-full bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer"
                         type="submit"
                     >
-                        Get Verification Link
+                        {isLoading? "Sending Email..." : "Get Verification Link"}
                     </button>
                     <p className="text-center">
                         Already have an account ?{" "}

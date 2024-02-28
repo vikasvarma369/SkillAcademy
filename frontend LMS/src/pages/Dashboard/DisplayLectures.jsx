@@ -3,11 +3,12 @@ import HomeLayout from '../../layouts/HomeLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { deleteCourseLecture, getCourseLectures } from '../../Redux/Slices/lectureSlice'
+import toast from 'react-hot-toast'
 
 function DisplayLectures() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const [isLoading, setIsLoading] = useState(false)
     const { state } = useLocation()
     const { lectures } = useSelector((state)=> state?.lecture)
     const { role } = useSelector((state)=> state.auth)
@@ -17,7 +18,10 @@ function DisplayLectures() {
 
     // delete lecture
     async function handleLectureDelete(courseId, lectureId){
+        setIsLoading(true)
         await dispatch(deleteCourseLecture({courseId: courseId, lectureId: lectureId}));
+        toast.success("Course Deleted successfully !!")
+        setIsLoading(false)
         await dispatch(getCourseLectures(courseId));
     }
 
@@ -80,8 +84,10 @@ function DisplayLectures() {
                                             <span>Lecture {idx+1} : {" "}</span> {lecture?.title}
                                         </p>
                                         {role === "ADMIN" && (
-                                            <button onClick={() => handleLectureDelete(state?._id, lecture?._id)} className=" bg-accent hover:opacity-50 px-2 py-1 rounded-md font-semibold text-sm">
-                                                Delete lecture
+                                            <button
+                                                disabled = {isLoading}
+                                                onClick={() => handleLectureDelete(state?._id, lecture?._id)} className=" bg-accent hover:opacity-50 px-2 py-1 rounded-md font-semibold text-sm">
+                                                {isLoading? "Deleting....": "Delete lecture"}
                                             </button>
                                         )}
                                     </li>

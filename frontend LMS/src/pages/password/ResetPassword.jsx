@@ -13,6 +13,7 @@ function ResetPassword() {
     cnfPassword: '',
     resetToken: useParams().resetToken
   })
+  const [isLoading, setIsLoading] = useState(false);
 
   // handle user input 
   const handleUserInput = (event)=>{
@@ -34,19 +35,18 @@ function ResetPassword() {
     }
 
     // password strength check
-
     // if (!isPasswordValid(data.password)) {
     //   toast.error(
     //     "Minimum password length should be 8 with Uppercase, Lowercase, Number and Symbol"
     //   );
     //   return;
     // }
-
     // compare the both password
     if(data.password !== data.cnfPassword){
       toast.error("Both password should be same");
       return;
     }
+    setIsLoading(true)
 
     // reset password 
     const res = await dispatch(resetPassword(data))
@@ -55,6 +55,7 @@ function ResetPassword() {
 
     // navigate to login 
     if(res?.payload?.success){
+      setIsLoading(false)
       navigate('/signin')
     }
   }
@@ -102,10 +103,11 @@ function ResetPassword() {
           </div>
 
           <button
+            disabled = {isLoading}
             className="w-full bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer"
             type="submit"
           >
-            Reset
+          {isLoading ? "Reseting...":"  Reset"}
           </button>
         </form>
       </div>

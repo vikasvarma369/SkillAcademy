@@ -18,6 +18,7 @@ function AddLecture() {
         description: "",
         videoSrc: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
 
     // handle input change
     function handleInputChange(e) {
@@ -47,9 +48,10 @@ function AddLecture() {
             toast.error("All fields are mandatory");
             return;
         }
+        setIsLoading(true)
         const response = await dispatch(addCourseLecture(userInput));
         if(response?.payload?.data?.lectures) {
-            console.log("upload successfully")
+            setIsLoading(false)
             navigate(-1);
             setUserInput({
                 id: courseDetails._id,
@@ -126,8 +128,11 @@ function AddLecture() {
                                 </div>
                             )
                         }
-                        <button type="submit" className="btn-primary py-1 text-lg font-semibold">
-                            Add 
+                        <button 
+                            disabled = {isLoading}
+                            type="submit" 
+                            className="btn-primary py-1 text-lg font-semibold">
+                            {isLoading? "Adding...":"Add"}
                         </button>
                     </form>
                     

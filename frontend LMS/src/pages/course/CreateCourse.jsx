@@ -18,6 +18,7 @@ export default function CreateCourse() {
         thumbnail: null,
         previewImage: ""
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     // handle image upload
     function handleImageUpload(e){
@@ -52,16 +53,16 @@ export default function CreateCourse() {
             toast.error("All field are mandatory except thumbnail");
             return;
         }
+        setIsLoading(true)
         let formData = new FormData()
         formData.append("title", userInput?.title)
         formData.append("description", userInput?.description)
         formData.append("category", userInput?.category)
         formData.append("thumbnail", userInput?.thumbnail)
         formData.append("createdBy", userInput?.createdBy)
-        console.log("data ", formData);
-        console.log(userInput?.title,userInput?.description,userInput?.category,userInput?.createdBy)
+        // console.log("data ", formData);
+        // console.log(userInput?.title,userInput?.description,userInput?.category,userInput?.createdBy)
         const response = await dispatch(createCourse(formData));
-        console.log("course creation responce :", response)
         if(response?.payload?.data) {
             setUserInput({
                 title: "",
@@ -71,6 +72,7 @@ export default function CreateCourse() {
                 thumbnail: null, // file
                 previewImage: ""
             });
+            setIsLoading(false)
 
             // navigate to courses
             navigate('/courses')
@@ -181,9 +183,10 @@ export default function CreateCourse() {
                     </main>
                     {/* create button */}
                     <button 
+                        disabled = {isLoading}
                         type="submit"
                         className="w-full py-2 rounded-sm font-semibold text-lg cursor-pointer bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-300"
-                    >Create</button>
+                    >{isLoading?"Creating...":"Create"}</button>
                 </form>
             </div>
         </HomeLayout>

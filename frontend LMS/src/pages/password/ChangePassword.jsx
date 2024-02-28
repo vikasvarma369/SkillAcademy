@@ -13,6 +13,7 @@ export default function ChangePassword() {
         oldPassword: "",
         newPassword: "",
     })
+    const [isLoading, setIsLoading] = useState(false);
 
     // handle input change
     function handleInputChange(e){
@@ -30,8 +31,9 @@ export default function ChangePassword() {
             toast.error("All fields are mandatory");
             return;
         }
-
+        setIsLoading(true)
         await dispatch(changePassword(userPassword))
+        setIsLoading(false)
         navigate("/user/profile")
     }
 
@@ -84,10 +86,11 @@ export default function ChangePassword() {
                 </div>
                 {/* update*/}
                 <button 
-                type="submit"
+                    disabled = {isLoading}
+                    type="submit"
                     className="w-full bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 rounded-sm py-2 cursor-pointer text-lg"
                 >
-                    Submit
+                      {isLoading ? "changing..." : "Change"}
                 </button>
                 {/* back to profile page link */}
                 <Link to = "/user/profile">
