@@ -10,6 +10,7 @@ export default function Contacts() {
         name: '',
         message: ''
     })
+    const [isLoading, setIsLoading] = useState(false);
 
     // handle input change 
     function handleInputChange(e){
@@ -34,18 +35,21 @@ export default function Contacts() {
             return;
         }
 
+        setIsLoading(true)
+
         // server call
         try {
             const response = await axiosInstance.post("/contact", userInput);
             toast.success("Form submitted successfully")
             const responseData =  response;
-            console.log("contact us related info:",responseData);
+
             if(responseData?.data) {
                 setUserInput({
                     email: "",
                     name: "",
                     message: ""
                 })
+                setIsLoading(false)
             }
         } catch(error) {
             toast.error("Not submitted operation failed try again!");
@@ -99,8 +103,10 @@ export default function Contacts() {
                             value={userInput.message}
                         />
                     </div>
-                    <button type="submit" className="w-full bg-yellow-400 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer">
-                        Submit
+                    <button
+                        disabled = {isLoading}
+                        type="submit" className="w-full bg-yellow-400 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer">
+                        {isLoading ? "Wait" : "Submit"}
                     </button>
                 </form>
             </div>

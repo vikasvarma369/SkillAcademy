@@ -10,6 +10,7 @@ import HomeLayout from '../layouts/HomeLayout';
 function Signup() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const [previewImage, setPreviewImage] = useState("");
     const [signupDetails, setSignupDetails] = useState({
         email: '',
@@ -63,8 +64,8 @@ function Signup() {
         //     return;
         // }
 
-        console.log("details",signupDetails);
-        // if any file data not use so that from data not required
+        setIsLoading(true)
+
         const formData = new FormData();
         formData.append("fullName", signupDetails.fullName);
         formData.append("email", signupDetails.email);
@@ -73,7 +74,7 @@ function Signup() {
 
         const response = await dispatch(createAccount(formData));
 
-        console.log("response", response)
+        // console.log("response", response)
 
         if(response?.payload?.data){
             setSignupDetails({
@@ -82,7 +83,7 @@ function Signup() {
                 password: '',
                 avatar: ''
             })
-    
+            setIsLoading(false)
             setPreviewImage("")
             navigate('/')
         }
@@ -144,8 +145,10 @@ function Signup() {
                             placeholder="enter your Password..."
                             id="password" />
                     </div>
-                    <button className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
-                        Create account
+                    <button
+                        disabled={isLoading}
+                        className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
+                        {isLoading ? "Creating account..." : "Create account"}
                     </button>
                     <p className="text-center">
                     Already have an account ? <Link to="/signin" className="cusror-pointer text-accent">Login</Link>

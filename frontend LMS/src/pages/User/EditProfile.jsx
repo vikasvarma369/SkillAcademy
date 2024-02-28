@@ -15,6 +15,7 @@ export default function EditProfile() {
         avatar: undefined,
         userId: useSelector((state)=> state?.auth?.data?.user._id),
     });
+    const [isLoading, setIsLoading] = useState(false)
 
     // handle image upload
     function handleImageUpload(e){
@@ -53,6 +54,7 @@ export default function EditProfile() {
             toast.error("Name cannot be less than 5 characters");
             return;
         }
+        setIsLoading(true)
 
         // form data 
         const formData = new FormData();
@@ -60,6 +62,7 @@ export default function EditProfile() {
         formData.append("avatar", data.avatar)
         await dispatch(updateProfile([data.userId, formData]));
         dispatch(getUserData());
+        setIsLoading(false)
         navigate("/user/profile");
     }
 
@@ -110,10 +113,11 @@ export default function EditProfile() {
                 </div>
                 {/* update*/}
                 <button 
-                type="submit"
+                    disabled = {isLoading}
+                    type="submit"
                     className="w-full bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 rounded-sm py-2 cursor-pointer text-lg"
                 >
-                    Update
+                    {isLoading? "Updating": "Update"}
                 </button>
                 {/* back to profile page link */}
                 <Link to = "/user/profile">

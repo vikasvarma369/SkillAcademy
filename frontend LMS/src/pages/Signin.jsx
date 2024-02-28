@@ -9,6 +9,7 @@ import HomeLayout from '../layouts/HomeLayout';
 export default function Signin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false)
     const [signinDetails, setSigninDetails] = useState({
         email: '',
         password: '',
@@ -39,21 +40,18 @@ export default function Signin() {
         //     return;
         // }
 
-        console.log("details",signinDetails);
-        // if any file data not use so that from data not required
-        // const formData = new FormData();
-        // formData.append("email", signinDetails.email);
-        // formData.append("password", signinDetails.password);
+        setIsLoading(true)
 
         const response = await dispatch(login(signinDetails));
 
-        console.log("response", response)
+        // console.log("response", response)
 
         if(response?.payload?.data){
             setSigninDetails({
                 email: '',
                 password: '',
             })
+            setIsLoading(false)
             navigate('/')
         }
     }
@@ -87,8 +85,11 @@ export default function Signin() {
                             placeholder="enter your Password..."
                             id="password" />
                     </div>
-                    <button className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
-                        Login
+                    
+                    <button 
+                        disabled = {isLoading}
+                        className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
+                        {isLoading ? "Logging...": "Login"}
                     </button>
                     <p className="text-center">
                     <Link to="/forgotpassword" className="cusror-pointer text-accent">Forgot Password</Link>

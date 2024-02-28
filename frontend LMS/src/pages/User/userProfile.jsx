@@ -12,19 +12,19 @@ function userProfile() {
     //     await dispatch(getUserData())
     // },[]);
     const dispatch  = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     
     const userData = useSelector((state)=> state?.auth?.data)
     // cancel subscription
     async function handleCancelSubscription(){
-        // toast.loading("initilized unsubscribed");
         try {
             const res = await dispatch(cancelSubscription())
-            console.log("res cancel subs", res)
+            // console.log("res cancel subs", res)
             await dispatch(getUserData());  
             toast.success("Subscription cancel successfully")  
         } catch (error) {
             console.log("unsubscribe:",error)
+            toast.error("Please Try Again latter..")
         }    
     }
     return (
