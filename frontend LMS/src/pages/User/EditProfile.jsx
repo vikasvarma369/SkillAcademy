@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
 import { getUserData, updateProfile } from '../../Redux/Slices/AuthSlice';
-
+import toast from 'react-hot-toast';
 export default function EditProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function EditProfile() {
         fullName: "",
         previewImage: "",
         avatar: undefined,
-        userId: useSelector((state)=> state?.auth?.data?.user._id),
+        userId: useSelector((state)=> state?.auth?.data?._id),
     });
     const [isLoading, setIsLoading] = useState(false)
 
@@ -46,8 +46,8 @@ export default function EditProfile() {
     // handle form submit event 
     async function handleFormSubmit(e){
         e.preventDefault();
-        if(!data.fullName || !data.avatar) {
-            toast.error("All fields are mandatory");
+        if(!(data.fullName || data.avatar)) {
+            toast.error("Empty values not allowed");
             return;
         }
         if(data.fullName.length < 5) {
@@ -68,11 +68,11 @@ export default function EditProfile() {
 
   return (
     <HomeLayout>
-        <div className="flex items-center justify-center h-[90vh]">
+        <div className="flex items-center justify-center min-h-[85vh]">
             <form 
                 onSubmit={handleFormSubmit}
                 noValidate
-                className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-80 min-h-[26rem] shadow-[0_0_10px_black]"
+                className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-full min-h-[26rem] shadow-[0_0_10px_black]"
             >
                 <h1 className="text-center text-3xl font-semibold text-yellow-400">
                         Edit Profile
@@ -86,6 +86,7 @@ export default function EditProfile() {
                         )
                     }
                 </label>
+                <p className='text-center font-semibold'>Change Profile image</p>
                 <input 
                     onChange={handleImageUpload}
                     type="file" 
@@ -98,7 +99,7 @@ export default function EditProfile() {
                 {/* name update section */}
                 <div className="flex flex-col gap-1">
                     <label className="text-g font-semibold" htmlFor="fullName">
-                        Full name
+                        Change User Name
                     </label>
                     <input 
                             required
@@ -117,7 +118,7 @@ export default function EditProfile() {
                     type="submit"
                     className="w-full bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 rounded-sm py-2 cursor-pointer text-lg"
                 >
-                    {isLoading? "Updating": "Update"}
+                    {isLoading? "Updating...": "Update"}
                 </button>
                 {/* back to profile page link */}
                 <Link to = "/user/profile">

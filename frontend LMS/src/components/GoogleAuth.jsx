@@ -15,7 +15,7 @@ function GoogleAuth() {
         Provider.setCustomParameters({prompt: 'select_account'})
         try {
             const resultFromGoogle = await signInWithPopup(auth, Provider)
-            console.log(resultFromGoogle)
+            // console.log(resultFromGoogle)
 
             const data = {
                 email: resultFromGoogle?.user?.email,
@@ -24,7 +24,7 @@ function GoogleAuth() {
             }
 
             const res = await dispatch(ContinueWithGoogle(data))
-            console.log("google data base responce :", res)
+            // console.log("google data base responce :", res)
             navigate("/")
             
 

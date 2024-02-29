@@ -41,6 +41,7 @@ export const login = createAsyncThunk("/auth/signin", async(data)=>{
 export const ContinueWithGoogle = createAsyncThunk("/auth/google", async(data)=>{
     try {
         const res = await axiosInstance.post("/user/google", data)
+        toast.success("Successful")
         // console.log("auth slice database response google route:", res)
         return res
     } catch (error) {

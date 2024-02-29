@@ -5,16 +5,15 @@ import { useNavigate, Link } from 'react-router-dom';
 import { cancelSubscription } from '../../Redux/Slices/razorpaySlice';
 import { getUserData } from '../../Redux/Slices/AuthSlice';
 import toast from 'react-hot-toast';
-
+import { FaUserCircle } from "react-icons/fa";
 
 function userProfile() {
-    // useEffect(async()=>{
-    //     await dispatch(getUserData())
-    // },[]);
+
     const dispatch  = useDispatch();
-    // const navigate = useNavigate();
     
     const userData = useSelector((state)=> state?.auth?.data)
+
+    // const imgSrc = (userData?.avatar?.secure_url)? userData?.avatar?.secure_url : 
     // cancel subscription
     async function handleCancelSubscription(){
         try {
@@ -30,12 +29,13 @@ function userProfile() {
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">
-
                 <div className="my-10 flex flex-col gap-4 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]">
-                    <img
+                    
+                    {(userData?.avatar?.secure_url)? <img
                         src={userData?.avatar?.secure_url}
                         className="w-40 m-auto rounded-full border border-black"
-                    />
+                    />:<FaUserCircle className='text-6xl m-auto' />}
+                    
                     <h3 className="text-xl font-semibold text-center capitalize">
                         {userData?.fullName}
                     </h3>
