@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { isEmailValid } from '../validators/validator.js'
 import HomeLayout from '../layouts/HomeLayout'
 import axiosInstance from '../config/axiosInstance'
+import TextArea from '../components/TextArea.jsx'
 
 export default function Contacts() {
     const [userInput, setUserInput] = useState({
@@ -58,9 +59,11 @@ export default function Contacts() {
 
     return (
         <HomeLayout>
-            <div className="flex items-center justify-center h-[100vh]">
-                <form onSubmit={onFormSubmit} noValidate className="flex flex-col items-center justify-center gap-2 p-5 w-[22rem] rounded-md text-white ">
-                    <h1 className="text-3xl font-semibold">Contact form</h1>
+            <div className="flex flex-col gap-6 items-center justify-center py-8 px-3 min-h-[85vh]">
+                <form onSubmit={onFormSubmit} 
+                autoComplete='off'
+                noValidate className="flex flex-col items-center justify-center gap-2 p-5 w-[22rem] rounded-md text-white ">
+                    <h1 className="text-3xl font-semibold dark:text-yellow-500">Contact Form</h1>
                     <div className="flex flex-col gap-1 w-full">
                         <label htmlFor="name" className="text-xl font-semibold">
                             Name
@@ -69,7 +72,7 @@ export default function Contacts() {
                             id="name"
                             className="bg-white border px-2 py-1 rounded-sm text-black"
                             type="text"
-                            placeholder="enter your name"
+                            placeholder="Enter your name"
                             name="name"
                             onChange={handleInputChange}
                             value={userInput.name}
@@ -83,22 +86,20 @@ export default function Contacts() {
                             id="email"
                             className="bg-white border px-2 py-1 rounded-sm text-black"
                             type="email"
-                            placeholder="enter your email"
+                            placeholder="Enter your email"
                             name="email"
                             onChange={handleInputChange}
                             value={userInput.email}
                         />
                     </div>
                     <div className="flex flex-col gap-1 w-full">
-                        <label htmlFor="message" className="text-xl font-semibold">
-                            Message
-                        </label>
-                        <textarea 
-                            id="message"
-                            className="bg-white border px-2 py-1 rounded-sm resize-none h-40 text-black"
-                            type="text"
-                            placeholder="enter your message"
-                            name="message"
+                        
+                        <TextArea 
+                            label={"Message"}
+                            id = {"message"}
+                            name = {"message"}
+                            type = {"text"}
+                            rows={4}
                             onChange={handleInputChange}
                             value={userInput.message}
                         />
