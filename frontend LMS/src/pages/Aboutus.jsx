@@ -8,11 +8,11 @@ import HomeLayout from "../layouts/HomeLayout";
 function Aboutus() {
     return (
         <HomeLayout>
-            <div className="flex flex-col text-white pl-20 pt-20">
-                <div className="flex items-center gap-5 mx-10">
-                    <section className="w-1/2 space-y-10">
-                        <h1 className="text-5xl text-yellow-500 font-semibold">
-                            Affordable and quality education
+            <div className="flex flex-col items-center text-white pl-20 pt-20">
+                <div className="flex items-center flex-col sm:flex-row gap-5 mx-10">
+                    <section className="sm:w-1/2 w-full space-y-10">
+                        <h1 className="text-5xl text-center tracking-wide text-yellow-500 font-semibold">
+                            Affordable & Quality Education
                         </h1>
                         <p className="text-xl text-gray-200">
                             Our goal is to provide the affordable and quality education to the world. 
@@ -21,7 +21,7 @@ function Aboutus() {
                             in the growth and wellness of mankind.
                         </p>
                     </section>
-                    <div className="w-1/2">
+                    <div className="sm:w-1/2 w-full sm:block hidden">
                         <img 
                             src={aboutMainPage}
                             className='drop-shadow-2xl'
@@ -29,7 +29,7 @@ function Aboutus() {
                         />
                     </div>
                 </div>
-                <div className="carousel w-1/2 my-10 mx-auto">
+                <div className="carousel sm:w-1/2 w-full my-10 mx-auto">
                     <div id="slide1" className="carousel-item relative w-full">
                         <div className='flex flex-col items-center justify-center gap-4 px-[15%]'>
                             <img src={apj} className="w-40 rounded-full border-2 border-gray-400" />
