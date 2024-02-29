@@ -10,7 +10,7 @@ const initialState = {
 export const getStatusData = createAsyncThunk("adimn/stats", async()=>{
     try {
         const response = await axiosInstance.get("/admin/allstatus/users");
-        console.log("admin stats", response)
+        // console.log("admin stats", response)
 
         return response
     } catch (error) {

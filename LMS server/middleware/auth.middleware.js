@@ -29,8 +29,8 @@ const authorisedRoles = (...roles) => async (req, _, next) => {
 const authorizeSubscriber = async (req, _, next) => {
     const {role, id} = req.user; 
     
-    console.log("authorized subscriber role:", role)
-    console.log("authorized subscriber id:",id)
+    // console.log("authorized subscriber role:", role)
+    // console.log("authorized subscriber id:",id)
 
     const user = await userModel.findById(id);
     const subscriptionStatus = user.subscription.status;

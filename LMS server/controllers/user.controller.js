@@ -5,7 +5,6 @@ import fs from 'fs';
 import cloudinary from 'cloudinary';
 import AppError from "../utils/error.utils.js";
 import sendEmail from "../utils/sendEmail.js";
-import { log } from "console";
 import bcryptjs from 'bcrypt'
 
 const cookieOptions = {
@@ -139,7 +138,7 @@ const logout = async (req, res, next) => {
 const getProfile = async (req, res,) => {
     try {
         const { id } = req.user;
-        console.log(id)
+        // console.log(id)
         const user = await userModel.findById(id);
 
         res.status(200).json({
@@ -267,7 +266,7 @@ const updateUser = async (req, res, next) => {
         const { fullName } = req.body;
         const { id } = req.user;
 
-        console.log(fullName);
+        // console.log(fullName);
 
         const user = await userModel.findById(id);
 
@@ -359,7 +358,7 @@ const continueWithGoogle = async (req,res,next)=>{
             await newUser?.save()
 
             const token = newUser?.generateJWTToken()
-            console.log(token)
+            // console.log(token)
             // need password 
             const {password: hashedPassword2, ...rest} = newUser._doc
             console.log(" new user docs", newUser._doc)

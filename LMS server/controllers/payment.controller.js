@@ -122,7 +122,7 @@ export const cancelSubscription = async (req, res, next) => {
             subscriptionId
         );
 
-        console.log("subscription receive razorpay: ", subscription)
+        // console.log("subscription receive razorpay: ", subscription)
         user.subscription.status = subscription.status;
 
         // save 

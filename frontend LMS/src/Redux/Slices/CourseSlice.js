@@ -9,9 +9,9 @@ const initialState = {
 export const getAllCourses = createAsyncThunk("/course/getAllCourses", async()=>{
     try {
         const response = await axiosInstance.get('/course');
-        console.log(response?.data?.message);
+        // console.log(response?.data?.message);
         toast.success(response?.data?.message)
-        console.log("responce: =>",response)
+        // console.log("responce: =>",response)
         return response
     } catch (error) {
         console.log("get all courrses error",error)
@@ -23,11 +23,11 @@ export const getAllCourses = createAsyncThunk("/course/getAllCourses", async()=>
 // create course 
 export const createCourse = createAsyncThunk("/course/course/create", async(data)=>{
     try {
-        console.log("data: ",data)
+        // console.log("data: ",data)
         const response = await axiosInstance.post('/course', data);
-        console.log(response?.data?.message);
+        // console.log(response?.data?.message);
         toast.success(response?.data?.message)
-        console.log("responce: =>",response)
+        // console.log("responce: =>",response)
         return response
     } catch (error) {
         console.log("create course error",error)
@@ -42,7 +42,7 @@ const CourseSlice = createSlice({
     extraReducers: (builder)=>{
         builder.addCase(getAllCourses.fulfilled, (state, action)=>{
             if(action?.payload){
-                console.log("action payload: =>", action?.payload?.data?.courses)
+                // console.log("action payload: =>", action?.payload?.data?.courses)
                 state.courselist = action?.payload?.data?.courses
             }
         })

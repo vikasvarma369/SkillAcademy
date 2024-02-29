@@ -41,7 +41,7 @@ export const login = createAsyncThunk("/auth/signin", async(data)=>{
 export const ContinueWithGoogle = createAsyncThunk("/auth/google", async(data)=>{
     try {
         const res = await axiosInstance.post("/user/google", data)
-        console.log("auth slice database response google route:", res)
+        // console.log("auth slice database response google route:", res)
         return res
     } catch (error) {
         console.log("sign in with google error:", error)
@@ -63,7 +63,7 @@ export const logout = createAsyncThunk("/auth/logout", async()=>{
 // get user data
 export const getUserData = createAsyncThunk("/auth/user/profile", async ()=>{
     const responce = await axiosInstance.get("/user/me");
-    console.log("get responce",responce)
+    // console.log("get responce",responce)
     return responce
 })
 
@@ -71,7 +71,7 @@ export const getUserData = createAsyncThunk("/auth/user/profile", async ()=>{
 export const updateProfile = createAsyncThunk("/auth/user/updateprofile", async (data)=>{
     const response = await axiosInstance.put(`/user/update/${data[0]}`, data[1]);
     toast.success(response?.data?.message)
-    console.log("update profle responce data", response.data)
+    // console.log("update profle responce data", response.data)
     return response.data
 })
 
@@ -79,7 +79,7 @@ export const updateProfile = createAsyncThunk("/auth/user/updateprofile", async 
 export const changePassword = createAsyncThunk("/auth/user/changepassword", async (data)=>{
     const response = await axiosInstance.put("/user/change-password", data);
     toast.success(response?.data?.message)
-    console.log("change password responce data", response.data)
+    // console.log("change password responce data", response.data)
     return response.data
 })
 
@@ -115,7 +115,7 @@ const authSlice = createSlice({
     extraReducers: (builder)=>{
         builder
         .addCase(createAccount.fulfilled, (state, action)=>{
-            console.log("create accout",action)
+            // console.log("create accout",action)
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.data?.data?.role)
             localStorage.setItem("data", JSON.stringify(action?.payload?.data?.data))
@@ -124,7 +124,7 @@ const authSlice = createSlice({
             state.data = action?.payload?.data?.data
         })
         .addCase(login.fulfilled, (state, action) => {
-            console.log("action data in login case:", action)
+            // console.log("action data in login case:", action)
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.data?.user?.role)
             localStorage.setItem("data", JSON.stringify(action?.payload?.data?.user))
@@ -139,7 +139,7 @@ const authSlice = createSlice({
             state.data = {}
         })
         .addCase(getUserData.fulfilled, (state, action)=>{
-            console.log("action data in get user data  case:", action)
+            // console.log("action data in get user data  case:", action)
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.data?.data?.role)
             localStorage.setItem("subscription", action?.payload?.data?.data.subscription?.status)
@@ -150,7 +150,7 @@ const authSlice = createSlice({
             state.subscription = action?.payload?.data?.data.subscription?.status
         })
         .addCase(ContinueWithGoogle.fulfilled, (state, action)=>{
-            console.log("action data in google data  case:", action)
+            // console.log("action data in google data  case:", action)
             localStorage.setItem("isLoggedIn", true)
             localStorage.setItem("role", action?.payload?.data?.data?.role)
             localStorage.setItem("data", JSON.stringify(action?.payload?.data?.data))

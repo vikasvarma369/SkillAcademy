@@ -14,7 +14,7 @@ const initialState = {
 export const getRazorPayId = createAsyncThunk("/razorPayId/get", async()=>{
     try {
         const responce = await axiosInstance.get("/payments/razorpay-key")
-        console.log("key responce",responce)
+        // console.log("key responce",responce)
         return responce
     } catch (error) {
         toast.error("Failed to load data");
@@ -25,7 +25,7 @@ export const getRazorPayId = createAsyncThunk("/razorPayId/get", async()=>{
 export const purchaseCourseBundle = createAsyncThunk("/purchaseCourse", async()=>{
     try {
         const responce = axiosInstance.post("/payments/subscribe")
-        console.log("bundle course: ", responce)
+        // console.log("bundle course: ", responce)
         return responce
     } catch (error) {
         console.log("purches func error msg: ",error?.response?.data?.message)
@@ -42,7 +42,7 @@ export const verifyUserPayment = createAsyncThunk("/verifyPayment", async(paymen
             razorpay_signature: paymentDetails.razorpay_signature
         })
 
-        console.log("verify payment response", responce)
+        // console.log("verify payment response", responce)
 
         return responce
     } catch (error) {
@@ -55,7 +55,7 @@ export const verifyUserPayment = createAsyncThunk("/verifyPayment", async(paymen
 export const cancelSubscription = createAsyncThunk("/cancelSubscription", async()=>{
     try {
         const res = await axiosInstance.post("/payments/unsubscribe");
-        console.log("unsubscripbe responce", res)
+        // console.log("unsubscripbe responce", res)
         // toast.success(response?.data?.message)
     } catch (error) {
         console.log("Error during unsubscribe: ", error)
@@ -68,7 +68,7 @@ export const cancelSubscription = createAsyncThunk("/cancelSubscription", async(
 export const getPaymentsRecords = createAsyncThunk("/status/get", async()=>{
     try {
         const response = await axiosInstance.get("/payments/");
-        console.log("payments record", response)
+        // console.log("payments record", response)
         toast.success()
         return response
     } catch (error) {
@@ -100,7 +100,7 @@ const razorpaySlice = createSlice({
             state.isPaymentVerified = action?.payload?.data?.success
         })
         .addCase(getPaymentsRecords.fulfilled, (state,action)=>{
-            console.log("payments records",action)
+            // console.log("payments records",action)
             state.allPayments = action?.payload?.data?.subscriptions ;
             state.finalMonths = action?.payload?.data?.finalMonths ;
             state.monthlySalesRecord = action?.payload?.data?.monthlySalesRecord ;
