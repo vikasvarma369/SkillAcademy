@@ -5,7 +5,6 @@ import fs from 'fs';
 import cloudinary from 'cloudinary';
 import AppError from "../utils/error.utils.js";
 import sendEmail from "../utils/sendEmail.js";
-import bcryptjs from 'bcrypt'
 
 const cookieOptions = {
     httpOnly: true,
@@ -70,9 +69,8 @@ const register = async (req, res, next) => {
         user.password = undefined;
 
         const token = await user.generateJWTToken();
-
+        user.password = undefined;
         res.cookie("token", token, cookieOptions);
-
         res.status(201).json({
             success: true,
             message: "User registered successfully",
@@ -140,7 +138,7 @@ const getProfile = async (req, res,) => {
         const { id } = req.user;
         // console.log(id)
         const user = await userModel.findById(id);
-
+        user.password = undefined;
         res.status(200).json({
             success: true,
             message: 'User details',
@@ -304,7 +302,7 @@ const updateUser = async (req, res, next) => {
         }
 
         await user.save();
-
+        user.password = undefined;
         res.status(200).json({
             success: true,
             message: "User update successfully",
