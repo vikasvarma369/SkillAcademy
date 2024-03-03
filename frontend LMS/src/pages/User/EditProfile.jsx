@@ -72,7 +72,7 @@ export default function EditProfile() {
             <form 
                 onSubmit={handleFormSubmit}
                 noValidate
-                className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-full min-h-[26rem] shadow-[0_0_10px_black]"
+                className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-full sm:w-80 min-h-[26rem] shadow-[0_0_10px_black]"
             >
                 <h1 className="text-center text-3xl font-semibold text-yellow-400">
                         Edit Profile
