@@ -20,7 +20,8 @@ import { getPaymentsRecords } from '../../Redux/Slices/razorpaySlice'
 import { getStatusData } from '../../Redux/Slices/statusSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { getAllCourses } from '../../Redux/Slices/CourseSlice';
+import { deleteCourse, getAllCourses } from '../../Redux/Slices/CourseSlice';
+import toast from 'react-hot-toast';
 
 ChartJS.register(
     ArcElement,
@@ -90,9 +91,16 @@ function Admin() {
         ],
     };
 
+    
     // handle course delete
-    const OnCourseDelete = ()=>{
-
+    const OnCourseDelete = async(id)=>{
+        if(window.confirm("Are you sure you want to delete the course ?")){
+            const res = await dispatch(deleteCourse(id))
+            toast.success("Course deleted successfully")
+            if(res){
+                await dispatch(getAllCourses())
+            }
+        }
     }
 
     useEffect(() => {
@@ -163,7 +171,7 @@ function Admin() {
                         <div className="flex flex-col items-center">
                         <p className="font-semibold">Total Revenue</p>
                         <h3 className="text-4xl font-bold">
-                            {allPayments?.count * 9999}
+                            {allPayments?.count * 499}
                         </h3>
                         </div>
                         <GiMoneyStack className="text-green-500 text-5xl" />
@@ -217,7 +225,7 @@ function Admin() {
                     </thead>
 
                     <tbody>
-                        {console.log("my course",myCourses)}
+                        {/* {console.log("my course",myCourses)} */}
                     {myCourses?.map((element, index) => {
                         return (
                         <tr key={element?._id}>
@@ -244,8 +252,9 @@ function Admin() {
 
                             {/* to edit the course */}
                             <button
+                            //TODO: 
                                 onClick={() =>
-                                navigate("/course/create", {
+                                navigate("/course/edit", {
                                     state: {
                                     initialCourseData: {
                                         newCourse: false,

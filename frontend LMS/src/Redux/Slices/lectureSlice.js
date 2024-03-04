@@ -48,7 +48,7 @@ export const deleteCourseLecture = createAsyncThunk("/course/lecture/delete", as
     }
 });
 
-// 
+// update course lecture  TODO: 
 
 const lectureSlice = createSlice({
     name: "lecture",

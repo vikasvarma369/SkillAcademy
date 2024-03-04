@@ -21,7 +21,7 @@ export const getAllCourses = createAsyncThunk("/course/getAllCourses", async()=>
 })
 
 // create course 
-export const createCourse = createAsyncThunk("/course/course/create", async(data)=>{
+export const createCourse = createAsyncThunk("/course/create", async(data)=>{
     try {
         // console.log("data: ",data)
         const response = await axiosInstance.post('/course', data);
@@ -35,6 +35,22 @@ export const createCourse = createAsyncThunk("/course/course/create", async(data
         toast.error(error?.response?.data?.message);
     }
 })
+
+// delete course
+export const deleteCourse = createAsyncThunk("/course/delete", async(id)=>{
+    try {
+        const response = await axiosInstance.delete(`/course/${id}`);
+        console.log("response : ",response )
+        toast.success(response?.data?.message)
+        return response
+    } catch (error) {
+        console.log("delete course error",error)
+        console.log(error);
+        toast.error(error?.response?.data?.message);
+    }
+})
+
+//update the course TODO: 
 const CourseSlice = createSlice({
     name: "course",
     initialState,
