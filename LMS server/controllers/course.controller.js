@@ -94,8 +94,7 @@ const createCourse = async (req, res, next) => {
 const updateCourse = async (req, res, next) => {
     try {
         const { id } = req.params;
-        console.log(id)
-        console.log(req.bo)
+
         const course = await courseModel.findByIdAndUpdate(
             id,
             {
