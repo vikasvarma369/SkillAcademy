@@ -29,6 +29,7 @@ import DisplayLectures from "./Dashboard/DisplayLectures";
 import CourseDescription from "./course/CourseDescription";
 import CourseList from "./course/CourseList";
 import CreateCourse from "./course/CreateCourse";
+import EditCourse from "./course/EditCourse"
 
 
 export{
@@ -57,5 +58,6 @@ export{
 
     CourseDescription,
     CourseList,
-    CreateCourse
+    CreateCourse,
+    EditCourse
 }
