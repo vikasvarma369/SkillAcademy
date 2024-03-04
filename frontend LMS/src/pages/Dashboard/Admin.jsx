@@ -103,6 +103,7 @@ function Admin() {
         }
     }
 
+
     useEffect(() => {
         (async () => {
           await dispatch(getAllCourses());
@@ -252,16 +253,9 @@ function Admin() {
 
                             {/* to edit the course */}
                             <button
-                            //TODO: 
-                                onClick={() =>
-                                navigate("/course/edit", {
-                                    state: {
-                                    initialCourseData: {
-                                        newCourse: false,
-                                        ...element,
-                                    },
-                                    },
-                                })
+                                onClick={() => navigate("/course/edit", {
+                                    state: { ...element },
+                                  })
                                 }
                                 className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
                             >

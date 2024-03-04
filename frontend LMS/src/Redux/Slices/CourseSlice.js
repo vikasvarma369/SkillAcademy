@@ -54,8 +54,10 @@ export const deleteCourse = createAsyncThunk("/course/delete", async(id)=>{
 export const editCourse = createAsyncThunk("/course/edit", async(data)=>{
     try {
         console.log("edit course", data)
-
-        const response = await axiosInstance.put(`/course/${data.id}`, data);
+        console.log(data.title)
+        console.log(data.id)
+        const id = data.get("id")
+        const response = await axiosInstance.put(`/course/${id}`, data);
         // toast.success(response?.data?.message)
         console.log("responce: =>",response)
         return response

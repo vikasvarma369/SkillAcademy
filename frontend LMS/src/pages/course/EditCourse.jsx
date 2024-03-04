@@ -51,11 +51,11 @@ function EditCourse() {
     // handle form sumbmit event 
     async function onFormSubmit(e){
         e.preventDefault();
-        if(!userInput.thumbnail){
-            toast.error("thumbnail are required");
-            setIsLoading(false)
-            return
-        }
+        // if(!userInput.thumbnail){
+        //     toast.error("thumbnail are required");
+        //     setIsLoading(false)
+        //     return
+        // }
         if(!userInput.title || !userInput.description || !userInput.createdBy || !userInput.category) {
             toast.error("All field are mandatory except thumbnail");
             setIsLoading(false)
@@ -68,21 +68,10 @@ function EditCourse() {
         formData.append("category", userInput?.category)
         formData.append("thumbnail", userInput?.thumbnail)
         formData.append("createdBy", userInput?.createdBy)
-        formData.append("id", state?._id)
+        formData.append("id", state._id)
+        console.log("data edit course", formData)
         const response = await dispatch(editCourse(formData));
         
-        console.log(state?._id)
-        console.log(userInput?.thumbnail)
-        console.log(userInput?.title)
-        // const response = await dispatch(editCourse({
-        //     title: userInput?.title,
-        //     description: userInput?.description,
-        //     category: userInput?.category,
-        //     createdBy: userInput?.createdBy,
-        //     id: state?._id,
-        //     thumbnail: userInput?.thumbnail
-        // }));
-        console.log("responce",response)
         if(response?.payload?.data?.success){
             await dispatch(getAllCourses())
             navigate("/admin/dashboard")
