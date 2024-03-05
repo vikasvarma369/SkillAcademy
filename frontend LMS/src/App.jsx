@@ -28,7 +28,8 @@ import {
   CourseDescription,
   CourseList,
   CreateCourse,
-  EditCourse} from './pages/index.js'
+  EditCourse,
+  UpdateLecture} from './pages/index.js'
 import RequireAuth from './components/auth/RequireAuth';
 
 
@@ -70,6 +71,7 @@ function App() {
           <Route path='/course/create' element ={<CreateCourse />} />
           <Route path='/course/edit' element ={<EditCourse />} />
           <Route path='/course/addlecture' element = {<AddLecture />} />
+          <Route path='/course/updatelecture' element = {<UpdateLecture />} />
         {/* create course route */}
         </Route>
        

@@ -40,7 +40,7 @@ function DisplayLectures() {
             <div className="font-semibold bg-accent hover:opacity-50 rounded-lg text-xl text-yellow-500 flex items-center justify-between">
                 {role === "ADMIN" && (
                     <button onClick={() => navigate("/course/addlecture", {state: {...state}})} className="btn-primary px-2 py-1 rounded-md font-semibold text-sm">
-                        Add new lecture
+                        Add New Lecture
                     </button>
                 )}
             </div>
@@ -83,11 +83,19 @@ function DisplayLectures() {
                                         <p className="cursor-pointer" onClick={() => setCurrentVideo(idx)}>
                                             <span>Lecture {idx+1} : {" "}</span> {lecture?.title}
                                         </p>
+                                        {/* delete Lecture */}
                                         {role === "ADMIN" && (
                                             <button
                                                 disabled = {isLoading}
                                                 onClick={() => handleLectureDelete(state?._id, lecture?._id)} className=" bg-accent hover:opacity-50 px-2 py-1 rounded-md font-semibold text-sm">
                                                 {isLoading? "Deleting....": "Delete lecture"}
+                                            </button>
+                                        )}
+                                        {/* Update lecture */}
+                                        {role === "ADMIN" && (
+                                            <button
+                                            onClick={() => navigate("/course/updatelecture", {state: {...state}})} className="bg-accent hover:opacity-50 px-2 mx-4 py-1 rounded-md font-semibold text-sm">
+                                                Update
                                             </button>
                                         )}
                                     </li>

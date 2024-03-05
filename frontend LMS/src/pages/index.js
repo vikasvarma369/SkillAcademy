@@ -24,6 +24,7 @@ import ResetPassword from "./password/ResetPassword";
 import Admin from "./Dashboard/Admin";
 import AddLecture from "./Dashboard/AddLecture";
 import DisplayLectures from "./Dashboard/DisplayLectures";
+import UpdateLecture from "./Dashboard/UpdateLecture";
 
 // course page 
 import CourseDescription from "./course/CourseDescription";
@@ -55,6 +56,7 @@ export{
     Admin,
     AddLecture,
     DisplayLectures,
+    UpdateLecture,
 
     CourseDescription,
     CourseList,

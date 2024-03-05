@@ -18,7 +18,7 @@ export const getCourseLectures = createAsyncThunk("/course/lecture/get", async(c
     }
 });
 
-// add course lecture 
+// add course lecture TODO: 
 export const addCourseLecture = createAsyncThunk("/course/lecture/add", async(data)=>{
     try {
         const formData = new FormData()
@@ -39,7 +39,7 @@ export const addCourseLecture = createAsyncThunk("/course/lecture/add", async(da
 // delete course lecture
 export const deleteCourseLecture = createAsyncThunk("/course/lecture/delete", async(data)=>{
     try {
-        const response = await axiosInstance.delete(`/course/${data.courseId}&lextureId=${data.lectureId}`)
+        const response = await axiosInstance.delete(`/course/${data.courseId}&lectureId=${data.lectureId}`)
         return response
     } catch (error) {
         toast.error(error?.response?.data?.message)
@@ -49,7 +49,16 @@ export const deleteCourseLecture = createAsyncThunk("/course/lecture/delete", as
 });
 
 // update course lecture  TODO: 
+export const updateCourseLecture = createAsyncThunk("/course/lecture/update", async(data)=>{
+    try {
+        const response = await axiosInstance.put(`/course/${data.courseId}&lectureId=${data.lectureId}`)
+        return response
+    } catch (error) {
+        toast.error(error?.response?.data?.message)
+        throw error
 
+    }
+})
 const lectureSlice = createSlice({
     name: "lecture",
     initialState,
