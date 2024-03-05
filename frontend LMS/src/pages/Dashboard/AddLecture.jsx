@@ -33,7 +33,7 @@ function AddLecture() {
     function handleVideo(e) {
         const video = e.target.files[0];
         const src = window.URL.createObjectURL(video);
-        console.log("src", src, video);
+        // console.log("src", src, video);
         setUserInput({
             ...userInput,
             lecture: video,
@@ -65,12 +65,14 @@ function AddLecture() {
     return (
         <HomeLayout>
             <div className="min-h-[90vh] text-white flex flex-col items-center justify-center gap-10 mx-15">
-                <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96 rounded-lg">
+                <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96  sm:w-[70%] rounded-lg">
                     <header className="flex items-center justify-center relative">
-                        <button className="absolute left-2 text-xl text-green-500">
+                        {/* <button 
+                            className="absolute left-2 text-xl text-green-500 cursor-pointer"
+                            onClick={()=>navigate(-1)}>
                         <AiOutlineArrowLeft />
-                        </button>
-                        <h1 className="text-xl text-yellow-500 font-semibold">
+                        </button> */}
+                        <h1 className="text-xl text-yellow-500 font-bold">
                             Add new lecture
                         </h1>
                     </header>
@@ -80,7 +82,7 @@ function AddLecture() {
                     <form 
                         onSubmit={onFormSubmit}
                         className="flex flex-col gap-3">
-
+                        <label htmlFor="title" className='text-xl font-semibold'>Lecture Title :</label>
                         <input
                             type="text"
                             name="title"
@@ -91,6 +93,7 @@ function AddLecture() {
                         />
 
                         {/* description */}
+                        <label htmlFor="description" className='text-xl font-semibold'>Lecture Title :</label>
                         <textarea
                             type="text"
                             name="description"
@@ -99,7 +102,8 @@ function AddLecture() {
                             onChange={handleInputChange}
                             value={userInput.description}
                         />
-
+                        <h2 className='text-xl font-semibold'>Click in the box to add lecture :
+                        </h2>
                         {
                             userInput.videoSrc ? (
                                 <video 
@@ -131,7 +135,7 @@ function AddLecture() {
                         <button 
                             disabled = {isLoading}
                             type="submit" 
-                            className="btn-primary py-1 text-lg font-semibold">
+                            className="btn bg-yellow-800 hover:bg-yellow-500 py-1 text-lg font-semibold">
                             {isLoading? "Adding...":"Add"}
                         </button>
                     </form>

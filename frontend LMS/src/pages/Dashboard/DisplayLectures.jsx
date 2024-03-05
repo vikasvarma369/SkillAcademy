@@ -25,6 +25,7 @@ function DisplayLectures() {
         await dispatch(getCourseLectures(courseId));
     }
 
+
     useEffect(()=>{
         if(!state) navigate("/courses")
         dispatch(getCourseLectures(state._id))
@@ -94,7 +95,9 @@ function DisplayLectures() {
                                         {/* Update lecture */}
                                         {role === "ADMIN" && (
                                             <button
-                                            onClick={() => navigate("/course/updatelecture", {state: {...state}})} className="bg-accent hover:opacity-50 px-2 mx-4 py-1 rounded-md font-semibold text-sm">
+                                            onClick={() => navigate("/course/updatelecture",{
+                                                state:{...state, lecture:{...lecture}}
+                                            }) }className="bg-accent hover:opacity-50 px-2 mx-4 py-1 rounded-md font-semibold text-sm">
                                                 Update
                                             </button>
                                         )}

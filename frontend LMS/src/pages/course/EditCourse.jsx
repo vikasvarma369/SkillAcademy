@@ -51,11 +51,11 @@ function EditCourse() {
     // handle form sumbmit event 
     async function onFormSubmit(e){
         e.preventDefault();
-        // if(!userInput.thumbnail){
-        //     toast.error("thumbnail are required");
-        //     setIsLoading(false)
-        //     return
-        // }
+        if(!userInput.thumbnail){
+            toast.error("thumbnail are required");
+            setIsLoading(false)
+            return
+        }
         if(!userInput.title || !userInput.description || !userInput.createdBy || !userInput.category) {
             toast.error("All field are mandatory except thumbnail");
             setIsLoading(false)

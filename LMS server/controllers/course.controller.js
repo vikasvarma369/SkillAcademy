@@ -257,7 +257,7 @@ const updateCourseLecture = async (req, res, next) => {
     try {
         const { courseId, lectureId } = req.query;
         const { title, description } = req.body;
-
+        // console.log(req.body)
         if (!title || !description) {
             return next(new AppError('All fields are required', 400));
         }

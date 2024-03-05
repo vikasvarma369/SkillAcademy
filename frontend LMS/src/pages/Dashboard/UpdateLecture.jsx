@@ -3,20 +3,20 @@ import HomeLayout from '../../layouts/HomeLayout'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { addCourseLecture } from '../../Redux/Slices/lectureSlice';
+import { updateCourseLecture } from '../../Redux/Slices/lectureSlice';
+import toast from 'react-hot-toast';
 
 function UpdateLecture() {
-    const courseDetails = useLocation().state;
+    const {state} = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    // console.log("state pass display",state)
     // state 
     const [userInput, setUserInput] = useState({
-        id: courseDetails._id,
-        lecture: undefined,
-        title: courseDetails.title,
-        description: courseDetails.description,
-        videoSrc: ""
+        title: state?.lecture?.title,
+        description: state?.lecture?.description,
+        videoSrc: "",
+        lecture: null
     })
     const [isLoading, setIsLoading] = useState(false);
 
@@ -44,17 +44,24 @@ function UpdateLecture() {
     // handle the form submit 
     async function onFormSubmit(e) {
         e.preventDefault();
-        if(!userInput.lecture || !userInput.title || !userInput.description) {
-            toast.error("All fields are mandatory");
+        if(!userInput.title || !userInput.description) {
+            toast.error("tittle and description required");
             return;
         }
+        let fromdata = new FormData()
+        fromdata.append("title", userInput.title)
+        fromdata.append("description", userInput.description)
+        fromdata.append("courseId", state._id )
+        fromdata.append("lectureId",state?.lecture?._id )
+        fromdata.append("lecture",userInput.lecture )
         setIsLoading(true)
-        const response = await dispatch(UpdateLecture(userInput));
-        if(response?.payload?.data?.lectures) {
+        const response = await dispatch(updateCourseLecture(fromdata));
+        // console.log("update lecture", response)
+        if(response?.payload?.data?.success) {
+            toast.success(response?.payload?.data?.message)
             setIsLoading(false)
             navigate(-1);
             setUserInput({
-                id: courseDetails._id,
                 lecture: undefined,
                 title: "",
                 description: "",
@@ -65,12 +72,10 @@ function UpdateLecture() {
     return (
         <HomeLayout>
             <div className="min-h-[90vh] text-white flex flex-col items-center justify-center gap-10 mx-15">
-                <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96 rounded-lg">
+                <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96 sm:w-[70%] rounded-lg">
                     <header className="flex items-center justify-center relative">
-                        <button className="absolute left-2 text-xl text-green-500">
-                        <AiOutlineArrowLeft />
-                        </button>
-                        <h1 className="text-xl text-yellow-500 font-semibold">
+                        
+                        <h1 className="text-xl text-yellow-500 font-bold">
                             Update Lecture
                         </h1>
                     </header>
@@ -80,7 +85,7 @@ function UpdateLecture() {
                     <form 
                         onSubmit={onFormSubmit}
                         className="flex flex-col gap-3">
-
+                        <label htmlFor="title" className='text-xl font-semibold'>Lecture Title :</label>
                         <input
                             type="text"
                             name="title"
@@ -91,6 +96,7 @@ function UpdateLecture() {
                         />
 
                         {/* description */}
+                        <label htmlFor="description" className='text-xl font-semibold'>Lecture Description :</label>
                         <textarea
                             type="text"
                             name="description"
@@ -99,7 +105,8 @@ function UpdateLecture() {
                             onChange={handleInputChange}
                             value={userInput.description}
                         />
-
+                        <h2 className='text-xl font-semibold'>Click in the box to add lecture :
+                        </h2>
                         {
                             userInput.videoSrc ? (
                                 <video 
@@ -116,7 +123,7 @@ function UpdateLecture() {
                                 <div
                                     className="h-48 border flex items-center justify-center cursor-pointer"
                                 >
-                                    <label className="font-semibold text-xl cursor-pointer" htmlFor="lecture">Choose your lecture</label>
+                                    <label className="font-semibold text-xl cursor-pointer" htmlFor="lecture">Choose new file only if you want change the previous lecture </label>
                                     <input
                                         type="file"
                                         className="hidden"
@@ -131,7 +138,7 @@ function UpdateLecture() {
                         <button 
                             disabled = {isLoading}
                             type="submit" 
-                            className="btn-primary py-1 text-lg font-semibold">
+                            className="btn bg-yellow-800 hover:bg-yellow-500 py-1 text-lg font-semibold">
                             {isLoading? "Updating...":"Update"}
                         </button>
                     </form>
