@@ -20,7 +20,7 @@ function DisplayLectures() {
     async function handleLectureDelete(courseId, lectureId){
         setIsLoading(true)
         await dispatch(deleteCourseLecture({courseId: courseId, lectureId: lectureId}));
-        toast.success("Course Deleted successfully !!")
+        // toast.success("Lecture Deleted successfully !!")
         setIsLoading(false)
         await dispatch(getCourseLectures(courseId));
     }

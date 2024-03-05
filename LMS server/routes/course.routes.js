@@ -23,7 +23,6 @@ router.route('/')
     .post(isLoggedIn, authorisedRoles('ADMIN'), upload.single("thumbnail"), createCourse) 
     .delete(isLoggedIn, authorisedRoles('ADMIN'), deleteCourseLecture) 
     .put(isLoggedIn, authorisedRoles('ADMIN'), upload.single("lecture"), updateCourseLecture) 
-
     // only subcribe user access the course and 
     // only admin can update remove and add lecture in the course
 router.route('/:id')
