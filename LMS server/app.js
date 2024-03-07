@@ -53,11 +53,15 @@ app.use('/api/v1/', contractRoutes)
 app.use('/api/v1/payments', paymentRoutes)
 app.use("/api/v1/admin",statsRoutes)
 
-// health check
-app.get('/health', (req,res)=>{
+
+// import path from 'path';
+// const __dirname = path.resolve();
+
+
+app.get('/', (req,res)=>{
     return res.status(200).json({
         success: true,
-        message: "route health is good"
+        message: "route health is good and this is server home route"
     })
 })
 
