@@ -106,7 +106,7 @@ export default function Contacts() {
                     </div>
                     <button
                         disabled = {isLoading}
-                        type="submit" className="w-full bg-yellow-400 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer">
+                        type="submit" className="w-full bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer">
                         {isLoading ? "Wait" : "Submit"}
                     </button>
                 </form>

@@ -19,13 +19,13 @@ export default function CourseList() {
     },[])
     return (
         <HomeLayout>
-            <div className="min-h-[90vh] pt-12 pl-20 flex flex-col gap-10 text-white">
-                <h1 className="text-center text-4xl font-semibold mb-5">
-                Explore courses made by { " " } <span className="font-bold text-yellow-500">Industry experts</span>
+            <div className="text-white flex flex-col gap-14 py-6  px-20 ">
+                <h1 className="text-center m-auto text-4xl font-semibold mb-5 md:text-4xl  w-fit text-yellow-600 dark:text-white font-inter after:content-[' '] relative after:absolute after:-bottom-3.5 after:left-0 after:h-1.5 after:w-[60%] after:rounded-full">
+                Explore courses made by { " " } <span className="font-bold text-yellow-500 ">Industry experts</span>
                 </h1>
             </div>
             {/* card to show course */}
-            <div className="mb-10 flex flex-wrap gap-14">
+            <div className="mb-10 flex gap-10 md:justify-center justify-center flex-wrap">
                 {courselist?.map((course)=> (
                     <CourseCard key={course._id} data = {course} />
                 ))}

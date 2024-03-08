@@ -21,7 +21,7 @@ function Aboutus() {
                             in the growth and wellness of mankind.
                         </p>
                     </section>
-                    <div className="sm:w-1/2 w-full sm:block hidden">
+                    <div className="sm:w-1/2 w-full lg:block hidden">
                         <img 
                             src={aboutMainPage}
                             className='drop-shadow-2xl'

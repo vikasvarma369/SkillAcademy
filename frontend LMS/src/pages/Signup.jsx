@@ -91,7 +91,7 @@ function Signup() {
 
     return (
         <HomeLayout>
-            <div className="flex flex-col gap-6 items-center py-8 px-3 min-h-[90vh]">
+            <div className="m-auto flex flex-col gap-6 items-center py-8 px-3 w-[90vw] min-h-[90vh]">
                 <form onSubmit={OnFormSubmit} noValidate className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-35 dark:bg-base-100 md:py-5 py-7 md:px-7 px-3 md:w-[500px] w-full shadow-custom dark:shadow-xl ">
                     <h1 className="text-2xl text-center font-bold dark:text-yellow-500 font-inter">Registration Page</h1>
                     <label htmlFor="image_uploads" className="cursor-pointer">
