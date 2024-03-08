@@ -9,4 +9,10 @@ export default defineConfig({
   //   }
   // },
   plugins: [react()],
+  // render deploy
+  server: {
+    host: true,
+    strictPort: true,
+    port: 8000,
+    },
 })
