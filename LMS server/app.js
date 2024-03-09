@@ -54,16 +54,14 @@ app.use('/api/v1/payments', paymentRoutes)
 app.use("/api/v1/admin",statsRoutes)
 
 
-// import path from 'path';
-// const __dirname = path.resolve();
 
-
-app.get('/', (req,res)=>{
+app.get('/health', (req,res)=>{
     return res.status(200).json({
         success: true,
-        message: "route health is good and this is server home route"
+        message: "route health is good"
     })
 })
+
 
 app.all('*', (_req, res) => {
     res.status(404).send('OOPS!! 404 page not found');
