@@ -326,7 +326,6 @@ const continueWithGoogle = async (req,res,next)=>{
         if(user){
             const token = await user.generateJWTToken()
             // console.log(token)
-
             //extract user data excluding password 
             const {password: hashedPassword, ...rest} = user._doc
 

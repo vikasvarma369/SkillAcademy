@@ -50,7 +50,7 @@ export const deleteCourse = createAsyncThunk("/course/delete", async(id)=>{
     }
 })
 
-//update the course TODO: 
+//update the course 
 export const editCourse = createAsyncThunk("/course/edit", async(data)=>{
     try {
         console.log("edit course", data)
