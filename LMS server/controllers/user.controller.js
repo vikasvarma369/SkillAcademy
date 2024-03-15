@@ -316,7 +316,6 @@ const updateUser = async (req, res, next) => {
 // continue with google
 const continueWithGoogle = async (req,res,next)=>{
     const { fullName, email} = req.body ;
-
     if(!fullName || !email){
         return next(new AppError("feilds are required, please check it again", 400));
     }
@@ -325,7 +324,7 @@ const continueWithGoogle = async (req,res,next)=>{
 
         if(user){
             const token = await user.generateJWTToken()
-            // console.log(token)
+            
             //extract user data excluding password 
             const {password: hashedPassword, ...rest} = user._doc
 
