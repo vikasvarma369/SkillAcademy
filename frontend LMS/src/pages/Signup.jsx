@@ -59,10 +59,10 @@ function Signup() {
             toast.error("Invalid email provided");
             return;
         }
-        // if(!isPasswordValid(signupDetails.password)) {
-        //     toast.error("Password should 8-16 character long with atleast a number and a special character");
-        //     return;
-        // }
+        if(!isPasswordValid(signupDetails.password)) {
+            toast.error("Password should 8-16 character long with atleast a number and a special character");
+            return;
+        }
 
         setIsLoading(true)
 
