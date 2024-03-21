@@ -167,7 +167,7 @@ const forgotPassword = async (req, res, next) => {
 
     await user.save();
 
-    const resetPasswordURL = `${process.env.CLIENT_URL}/user/profile/reset-password/${resetToken}`
+    const resetPasswordURL = `${process.env.FRONTEND_URL}/user/profile/reset-password/${resetToken}`
 
     const subject = 'Reset Password';
     const message = `You can reset your password by clicking ${resetPasswordURL} Reset your password</$>\nIf the above link does not work for some reason then copy paste this link in new tab ${resetPasswordURL}.\n If you have not requested this, kindly ignore.`;
