@@ -167,7 +167,7 @@ const forgotPassword = async (req, res, next) => {
 
     await user.save();
 
-    const resetPasswordURL = `${process.env.FRONTEND_URL}/user/profile/reset-password/${resetToken}`
+    const resetPasswordURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
 
     const subject = 'Reset Password';
     const message = `You can reset your password by clicking ${resetPasswordURL} Reset your password</$>\nIf the above link does not work for some reason then copy paste this link in new tab ${resetPasswordURL}.\n If you have not requested this, kindly ignore.`;
@@ -357,7 +357,7 @@ const continueWithGoogle = async (req,res,next)=>{
             // console.log(token)
             // need password 
             const {password: hashedPassword2, ...rest} = newUser._doc
-            console.log(" new user docs", newUser._doc)
+            // console.log(" new user docs", newUser._doc)
             // set the cookie and return the responce 
             return res
             .cookie('token', token,cookieOptions)
