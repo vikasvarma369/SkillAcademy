@@ -35,10 +35,6 @@ export default function Signin() {
             toast.error("Invalid email provided");
             return;
         }
-        if(!isPasswordValid(signinDetails.password)) {
-            toast.error("Password should 8-16 character long with atleast a number and a special character");
-            return;
-        }
 
         setIsLoading(true)
 
