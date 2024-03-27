@@ -87,6 +87,7 @@ function Signup() {
             setPreviewImage("")
             navigate('/')
         }
+        setIsLoading(false)
     }
 
     return (

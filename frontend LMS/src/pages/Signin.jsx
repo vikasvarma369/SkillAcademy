@@ -50,6 +50,7 @@ export default function Signin() {
             setIsLoading(false)
             navigate('/')
         }
+        setIsLoading(false)
     }
 
     return (
