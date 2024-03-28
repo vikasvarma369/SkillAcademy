@@ -27,6 +27,7 @@ export const addCourseLecture = createAsyncThunk("/course/lecture/add", async(da
         formData.append("description", data.description)
         const response = await axiosInstance.post(`/course/${data.id}`, formData)
         // console.log("post lecture: response:", response)
+        toast.success(response?.data?.message)
         return response
     } catch (error) {
         toast.error(error?.response?.data?.message)

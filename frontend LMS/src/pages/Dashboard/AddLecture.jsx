@@ -4,6 +4,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { addCourseLecture } from '../../Redux/Slices/lectureSlice';
+import toast from 'react-hot-toast';
 
 function AddLecture() {
     const courseDetails = useLocation().state;
@@ -44,7 +45,7 @@ function AddLecture() {
     // handle the form submit 
     async function onFormSubmit(e) {
         e.preventDefault();
-        if(!userInput.lecture || !userInput.title) {
+        if(!userInput.videoSrc || !userInput.title) {
             toast.error("All fields are mandatory");
             return;
         }
@@ -61,6 +62,7 @@ function AddLecture() {
                 videoSrc: ""
             });
         }
+        setIsLoading(false)
     }
     return (
         <HomeLayout>
