@@ -58,6 +58,7 @@ export const updateCourseLecture = createAsyncThunk("/course/lecture/update", as
         const courseId = data.get("courseId")
         const lectureId = data.get("lectureId")
         const response = await axiosInstance.put(`/course?courseId=${courseId}&lectureId=${lectureId}`,data)
+        toast.success(response?.data?.message)
         return response
     } catch (error) {
         toast.error(error?.response?.data?.message)

@@ -44,8 +44,8 @@ function UpdateLecture() {
     // handle the form submit 
     async function onFormSubmit(e) {
         e.preventDefault();
-        if(!userInput.title || !userInput.description) {
-            toast.error("tittle and description required");
+        if(!userInput.title) {
+            toast.error("tittle are required");
             return;
         }
         let fromdata = new FormData()
@@ -68,6 +68,7 @@ function UpdateLecture() {
                 videoSrc: ""
             });
         }
+        setIsLoading(false)
     }
     return (
         <HomeLayout>
@@ -96,7 +97,7 @@ function UpdateLecture() {
                         />
 
                         {/* description */}
-                        <label htmlFor="description" className='text-xl font-semibold'>Lecture Description :</label>
+                        <label htmlFor="description" className='text-xl font-semibold'>Lecture Description (Optional):</label>
                         <textarea
                             type="text"
                             name="description"
