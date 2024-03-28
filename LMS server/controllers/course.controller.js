@@ -258,8 +258,8 @@ const updateCourseLecture = async (req, res, next) => {
         const { courseId, lectureId } = req.query;
         const { title, description } = req.body;
         // console.log(req.body)
-        if (!title || !description) {
-            return next(new AppError('All fields are required', 400));
+        if (!title) {
+            return next(new AppError('title are required', 400));
         }
 
         const course = await courseModel.findById(courseId);
