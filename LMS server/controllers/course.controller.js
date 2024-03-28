@@ -169,8 +169,8 @@ const addLectureToCourseById = async (req, res, next) => {
         const { title, description } = req.body;
         const { id } = req.params;
 
-        if (!title || !description) {
-            return next(new AppError('all fields are required', 400));
+        if (!title) {
+            return next(new AppError('title are required', 400));
         }
 
         const course = await courseModel.findById(id);
