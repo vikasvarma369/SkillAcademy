@@ -44,7 +44,7 @@ function AddLecture() {
     // handle the form submit 
     async function onFormSubmit(e) {
         e.preventDefault();
-        if(!userInput.lecture || !userInput.title || !userInput.description) {
+        if(!userInput.lecture || !userInput.title) {
             toast.error("All fields are mandatory");
             return;
         }
@@ -67,13 +67,9 @@ function AddLecture() {
             <div className="min-h-[90vh] text-white flex flex-col items-center justify-center gap-10 mx-15">
                 <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96  sm:w-[70%] rounded-lg">
                     <header className="flex items-center justify-center relative">
-                        {/* <button 
-                            className="absolute left-2 text-xl text-green-500 cursor-pointer"
-                            onClick={()=>navigate(-1)}>
-                        <AiOutlineArrowLeft />
-                        </button> */}
+                        
                         <h1 className="text-xl text-yellow-500 font-bold">
-                            Add new lecture
+                            Add New Lecture
                         </h1>
                     </header>
 
@@ -93,7 +89,7 @@ function AddLecture() {
                         />
 
                         {/* description */}
-                        <label htmlFor="description" className='text-xl font-semibold'>Lecture Title :</label>
+                        <label htmlFor="description" className='text-xl font-semibold'> Lecture Description (optional) :</label>
                         <textarea
                             type="text"
                             name="description"
