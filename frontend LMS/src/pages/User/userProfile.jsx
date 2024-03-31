@@ -12,8 +12,7 @@ function userProfile() {
     const dispatch  = useDispatch();
     
     const userData = useSelector((state)=> state?.auth?.data)
-
-    // const imgSrc = (userData?.avatar?.secure_url)? userData?.avatar?.secure_url : 
+    
     // cancel subscription
     async function handleCancelSubscription(){
         try {

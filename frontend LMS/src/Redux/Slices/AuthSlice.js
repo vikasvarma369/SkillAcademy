@@ -12,9 +12,8 @@ const initialState = {
 export const createAccount = createAsyncThunk("/auth/signup", async(data)=>{
     try {
         const response = await axiosInstance.post('/user/register', data);
-        // console.log(response?.data?.message);
+        
         toast.success(response?.data?.message)
-        // console.log("responce: =>",response)
         return response
     } catch (error) {
         // console.log("create Account error",error)
