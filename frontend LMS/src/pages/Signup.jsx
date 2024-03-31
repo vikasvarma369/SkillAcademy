@@ -74,8 +74,6 @@ function Signup() {
 
         const response = await dispatch(createAccount(formData));
 
-        // console.log("response", response)
-
         if(response?.payload?.data){
             setSignupDetails({
                 email: '',

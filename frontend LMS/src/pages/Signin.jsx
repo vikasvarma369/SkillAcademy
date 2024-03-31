@@ -40,8 +40,6 @@ export default function Signin() {
 
         const response = await dispatch(login(signinDetails));
 
-        // console.log("response", response)
-
         if(response?.payload?.data){
             setSigninDetails({
                 email: '',
