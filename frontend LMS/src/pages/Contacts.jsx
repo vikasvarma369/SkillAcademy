@@ -52,6 +52,7 @@ export default function Contacts() {
                 })
                 setIsLoading(false)
             }
+            setIsLoading(false)
         } catch(error) {
             toast.error("Not submitted operation failed try again!");
         }
