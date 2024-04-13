@@ -1,4 +1,4 @@
-﻿# [SkillAcademy](https://lms-five-rho.vercel.app/) :- Unlocking Potential, Unleashing Success
+﻿# [SkillAcademy](https://skillacademy-five-rho.vercel.app/) :- Unlocking Potential, Unleashing Success
 
 Introducing my application SkillAcademy a Learning Management System (LMS) project – a complete solution built from scratch. Features include easy authentication (including Google login), user and course management, lecture management, admin dashboard, and a secure payment gateway.
 
