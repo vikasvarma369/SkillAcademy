@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectionStates } from "mongoose";
 
 const Max_Connection_Retries = 3;
 const Retry_Interval = 5000;
@@ -28,6 +28,10 @@ class DataBaseConnection {
 
       await this.handleDisconnection();
     });
+
+    // Handle application termination
+    process.on("SIGINT", this.handleAppTermination.bind(this));
+    process.on("SIGTERM",this.handleAppTermination.bind(this));
   }
 
   // connect to the database
@@ -54,7 +58,7 @@ class DataBaseConnection {
 
       this.retryCount = 0;
     } catch (error) {
-      console.error("Failed to connect to MongoDB:");
+      console.error("Failed to connect to MongoDB:",error);
       // handle connection
       await this.handleConnectionError();
     }
@@ -117,3 +121,12 @@ class DataBaseConnection {
     }
   }
 }
+
+
+// create a singleton instance
+const dbConnection = new DataBaseConnection();
+
+// Export the connect function and instance
+export default dbConnection.connect.bind(dbConnection);
+
+export const getConnectionStates = dbConnection.getConnectionStatus.bind(dbConnection);
