@@ -1,4 +1,4 @@
-import mongoose, { ConnectionStates } from "mongoose";
+import mongoose from "mongoose";
 
 const Max_Connection_Retries = 3;
 const Retry_Interval = 5000;
@@ -72,7 +72,7 @@ class DataBaseConnection {
 
         await new Promise((resolve) => {
           setTimeout(() => {
-            resolve;
+            resolve();
           }, Retry_Interval);
         });
 
@@ -90,7 +90,7 @@ class DataBaseConnection {
   async handleDisconnection() {
     try {
       if (!this.isConnected) {
-        console(`Attempting to reconnect to Database.... ${this.retryCount}`);
+        console.log(`Attempting to reconnect to Database.... ${this.retryCount}`);
         await this.connect();
       }
     } catch (error) {
@@ -116,7 +116,7 @@ class DataBaseConnection {
     return {
       isConnected: this.isConnected,
       readyState: mongoose.connection.readyState,
-      host: mongoose.connections.host,
+      host: mongoose.connection.host,
       name: mongoose.connection.name
     }
   }

@@ -2,9 +2,9 @@ import { configDotenv } from 'dotenv';
 // configaration
 configDotenv();
 
-// db connection
-import connectToDb from './config/db.config.js';
-connectToDb();
+// database connection
+import connectToDb from "./database/db.config.js"
+await connectToDb();
 
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
