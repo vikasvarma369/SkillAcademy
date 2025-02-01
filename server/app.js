@@ -78,19 +78,17 @@ import paymentRoutes from "./routes/payment.routes.js"; // import payment route
 // import admin stats route
 import statsRoutes from "./routes/allStatus.js";
 
+// import Health route
+import { healthRouter } from "./routes/health.routes.js";
+
 // declaration
+app.use("/health", healthRouter);
+
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/", contractRoutes);
 app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1/admin", statsRoutes);
-
-app.use("/health", (req, res) => {
-  return res.status(200).json({
-    success: true,
-    message: "route health is good",
-  });
-});
 
 app.all("*", (_req, res) => {
   res.status(404).json({ status: 404, message: "Page not found" });
