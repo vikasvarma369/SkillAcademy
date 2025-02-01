@@ -4,7 +4,9 @@ configDotenv();
 
 // database connection
 import connectToDb from "./database/db.config.js"
-await connectToDb();
+(async () => {
+    await connectToDb();
+  })();
 
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
