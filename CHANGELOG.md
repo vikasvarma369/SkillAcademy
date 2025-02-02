@@ -43,3 +43,65 @@ import { getConnectionStates } from "./database";
 console.log(getConnectionStates());
 ```
 
+# 2. Security Upgrade
+
+## Changes Made
+
+- **Rate Limiting**: Limits requests from one IP to prevent abuse.
+
+- **Helmet**: Adds security headers to protect against common attacks.
+
+- **XSS Protection**: Sanitizes inputs to stop malicious scripts.
+
+- **Mongo Sanitize**: Protects against database injection attacks.
+
+- **HPP Protection**: Blocks harmful query parameters in requests.
+
+## Additional Changes
+
+- **Body Size Limit**: Reduces request size to avoid overload.
+
+- **Logging**: Adds request logging in development for easier debugging.
+
+- **CORS Settings**: Restricts cross-origin requests for better security.
+
+## Benefit
+
+These changes make the app more secure by preventing common attacks and improving performance.
+
+# 3. Health Upgrade
+
+## Changes Made
+
+- **Health Check Endpoint**: New endpoint to check app health.
+- **Detailed Metrics**: Includes database status, memory usage, and uptime.
+
+- **Health Controller**: Handles health check logic.
+
+- **Health Routes**: Routes for health checks.
+
+## Why This Upgrade?
+
+- **Proactive Monitoring**: Monitor app health proactively.
+
+- **Quick Diagnostics**: Diagnose issues quickly.
+
+- **Improved Reliability**: Ensure smooth operation.
+
+- **Resource Management**: Monitor resource usage.
+
+## Example Response
+
+```json
+{
+  "status": "UP",
+  "uptime": 123456,
+  "memoryUsage": {
+    "rss": 12345678,
+    "heapTotal": 12345678,
+    "heapUsed": 12345678,
+    "external": 12345678
+  },
+  "dbConnection": "Connected"
+}
+```
