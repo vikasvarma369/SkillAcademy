@@ -1,21 +1,46 @@
 # Contribution Guidelines
 
-Please follow these commit types when contributing to the project:
+To maintain a clear and structured project history, please follow these commit types when contributing:
 
-1. **`feat`** - Adding a new feature
+## Commit Message Format
+Each commit message should follow this format:
 
-2. **`fix`** - Fixing a bug or issue
+```bash
+<type>(<scope>): <short description>
 
-3. **`docs`** - Documentation changes
+<optional longer description>
+```
 
-4. **`style`** - Code style changes (formatting)
+- **`type`** → Specifies the type of change (see list below).
 
-5. **`refactor`** - Refactoring code (without changing behavior)
+- **`scope`** (optional) → Affected module or feature (e.g., `auth`, `dashboard`).
 
-6. **`test`** - Adding or updating tests
+- **`short description`** → Briefly explains the change (max 50 chars).
 
-7. **`chore`** - Maintenance tasks (e.g., updating dependencies)
+## Commit Types
 
-These commit types should be used to maintain clarity and structure in the project's history.
-  
-Please make sure your branch name is descriptive, following the above commit types, e.g., `feat/add-user-authentication`.
+| Type        | Purpose                                      |
+|------------|----------------------------------------------|
+| **`feat`**    | Introduces a new feature                     |
+| **`fix`**     | Fixes a bug or issue                        |
+| **`docs`**    | Updates or improves documentation           |
+| **`style`**   | Code formatting, no logic changes           |
+| **`refactor`** | Improves code structure without changing behavior |
+| **`test`**    | Adds or updates tests                      |
+| **`chore`**   | Maintenance tasks (e.g., updating dependencies) |
+
+## Branch Naming Convention
+Branch names should be descriptive and follow this format:
+
+```bash
+<type>/<short-feature-description>
+```
+
+**Examples:**
+- `feat/add-user-authentication`
+
+- `fix/fix-login-validation`
+
+- `docs/update-readme`
+
+By following these guidelines, we ensure better collaboration and maintain a clean commit history. 
