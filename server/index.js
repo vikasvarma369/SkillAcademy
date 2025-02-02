@@ -1,6 +1,9 @@
 import app from "./app.js";
 import {v2 as cloudinary} from 'cloudinary';
 import Razorpay from 'razorpay'
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 // cloudinary configuration
 cloudinary.config({ 
@@ -16,7 +19,7 @@ export const razorpay = new Razorpay({
 })
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT  || 3000 ;
 app.listen(PORT, () => {
-    console.log(`server started at http://localhost:${PORT}`);
+    `Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`
 })
