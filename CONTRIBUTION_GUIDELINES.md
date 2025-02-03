@@ -1,21 +1,35 @@
 # Contribution Guidelines
 
-To maintain a clear and structured project history, please follow these commit types when contributing:
+To maintain a clear and structured project history, please follow these guidelines when contributing:
+
+## Steps to Contribute
+
+1. **Fork** the repository.
+
+2. **Create a new branch**:
+    ```bash
+    git checkout -b <branch-name>
+    ```
+3. **Make your changes** and commit them:
+    ```bash
+    git commit -m "Description of changes"
+    ```
+4. **Push** to the branch:
+    ```bash
+    git push origin <branch-name>
+    ```
+5. Open a **pull request**.
 
 ## Commit Message Format
+
 Each commit message should follow this format:
 
 ```bash
 <type>(<scope>): <short description>
 
 <optional longer description>
-```
+``` 
 
-- **`type`** → Specifies the type of change (see list below).
-
-- **`scope`** (optional) → Affected module or feature (e.g., `auth`, `dashboard`).
-
-- **`short description`** → Briefly explains the change (max 50 chars).
 
 ## Commit Types
 
@@ -42,5 +56,3 @@ Branch names should be descriptive and follow this format:
 - `fix/fix-login-validation`
 
 - `docs/update-readme`
-
-By following these guidelines, we ensure better collaboration and maintain a clean commit history. 
