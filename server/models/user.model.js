@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
@@ -104,14 +104,15 @@ userSchema.methods.comparePassword = async function (givedPassword) {
 };
 
 // Generate Reset password Token
-userSchema.methods.getResetPasswordToken = function () {
+userSchema.methods.generatePasswordResetToken = async function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
-  this.resetPasswordToken = crypto
+
+  this.forgotPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
 
-  this.forgotPasswordExpiry = Date.now() + 10 * (60 * 1000);
+  this.forgotPasswordExpiry = Date.now() + 15 * 60 * 1000; // 15 min from now
 
   return resetToken;
 };
@@ -128,11 +129,9 @@ userSchema.virtual("TotalCreatedCourses").get(function () {
 
 // last active
 userSchema.methods.updateLastActive = async function () {
-  this.lastActive = Date.now();
-  return await this.lastActive({
-    validateBeforeSave: false,
-  });
-};
+  await this.save({ validateBeforeSave: false });
+  return this.lastActive;
+  }
 
 userSchema.methods = {
   generateJWTToken: function () {
@@ -147,8 +146,10 @@ userSchema.methods = {
       { expiresIn: process.env.JWT_EXPIRY }
     );
   },
+};
 
-  generatePasswordResetToken: async function () {
+
+userSchema.methods.generatePasswordResetToken =  async function () {
     const resetToken = await crypto.randomBytes(20).toString("hex");
 
     this.forgotPasswordToken = await crypto
@@ -159,7 +160,6 @@ userSchema.methods = {
     this.forgotPasswordExpiry = Date.now() + 15 * 60 * 1000; // 15 min from now
 
     return resetToken;
-  },
-};
+}
 
 export default model("User", userSchema);
