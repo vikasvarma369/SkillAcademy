@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js";
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import cloudinary from 'cloudinary';
 import AppError from "../utils/error.utils.js";
