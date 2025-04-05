@@ -1,18 +1,16 @@
-import { isValidObjectId } from 'mongoose';
 import courseModel from '../models/course.model.js'
 import AppError from '../utils/error.utils.js';
 import cloudinary from 'cloudinary';
 import fs from 'fs';
 
-
 // get all courses
-const getAllCourses = async (_, res, next) => {
+const getAllCourses = async (req, res, next) => {
     try {
         const courses = await courseModel.find({}).select('-lectures');
 
         res.status(200).json({
             success: true,
-            message: 'fetched All courses successfully !!',
+            message: 'All courses',
             courses
         })
     } catch (e) {
@@ -20,17 +18,14 @@ const getAllCourses = async (_, res, next) => {
     }
 }
 
-// get course by id 
+// get specific course
 const getLecturesByCourseId = async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        if(!isValidObjectId(id)){
-            return next(new AppError(`Invalid course id`, 400));
-        }
         const course = await courseModel.findById(id)
         if (!course) {
-            return next(new AppError(`course doesn't exists`, 400));
+            return next(new AppError('course not found', 500));
         }
 
         res.status(200).json({
@@ -66,7 +61,7 @@ const createCourse = async (req, res, next) => {
         // file upload
         if (req.file) {
             const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                folder: 'lms-course-thumbnail'
+                folder: 'Learning-Management-System'
             })
 
             if (result) {
@@ -94,7 +89,6 @@ const createCourse = async (req, res, next) => {
 const updateCourse = async (req, res, next) => {
     try {
         const { id } = req.params;
-
         const course = await courseModel.findByIdAndUpdate(
             id,
             {
@@ -106,13 +100,12 @@ const updateCourse = async (req, res, next) => {
         )
 
         if (!course) {
-            return next(new AppError(`Invalid course id`, 400));
+            return next(new AppError('Course with given id does not exist', 500));
         }
 
         if (req.file) {
-            // previous thumbnail delete on cloudinary 
             await cloudinary.v2.uploader.destroy(course.thumbnail.public_id);
-            // new thunmbnail upload on cloudinary
+
             const result = await cloudinary.v2.uploader.upload(req.file.path, {
                 folder: 'Learning-Management-System'
             })
@@ -148,14 +141,14 @@ const removeCourse = async (req, res, next) => {
         const course = await courseModel.findById(id);
 
         if (!course) {
-            return next(new AppError('Invalid Course id', 400));
+            return next(new AppError('Course with given id does not exist', 500));
         }
 
         await courseModel.findByIdAndDelete(id);
 
         res.status(200).json({
             success: true,
-            message: 'course deleted successfully !!'
+            message: 'course deleted successfully'
         })
 
     } catch (e) {
@@ -169,14 +162,14 @@ const addLectureToCourseById = async (req, res, next) => {
         const { title, description } = req.body;
         const { id } = req.params;
 
-        if (!title) {
-            return next(new AppError('title are required', 400));
+        if (!title || !description) {
+            return next(new AppError('all fields are required', 500));
         }
 
         const course = await courseModel.findById(id);
 
         if (!course) {
-            return next(new AppError('Invalid course id', 400));
+            return next(new AppError('course with given id does not exist', 500));
         }
 
         const lectureData = {
@@ -210,8 +203,7 @@ const addLectureToCourseById = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'lecture added successfully',
-            lectures: course.lectures
+            message: 'lecture added successfully'
         })
 
     } catch (e) {
@@ -233,7 +225,7 @@ const deleteCourseLecture = async (req, res, next) => {
         const lectureIndex = course.lectures.findIndex(lecture => lecture._id.toString() === lectureId);
 
         if (lectureIndex === -1) {
-            return next(new AppError('Lecture not found', 404));
+            return next(new AppError('Lecture not found in the course', 404));
         }
 
         course.lectures.splice(lectureIndex, 1);
@@ -244,7 +236,7 @@ const deleteCourseLecture = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'Lecture deleted successfully !!'
+            message: 'Lecture deleted successfully'
         });
     } catch (e) {
         return next(new AppError(e.message, 500));
@@ -257,9 +249,9 @@ const updateCourseLecture = async (req, res, next) => {
     try {
         const { courseId, lectureId } = req.query;
         const { title, description } = req.body;
-        // console.log(req.body)
-        if (!title) {
-            return next(new AppError('title are required', 400));
+
+        if (!title || !description) {
+            return next(new AppError('All fields are required', 400));
         }
 
         const course = await courseModel.findById(courseId);
@@ -271,7 +263,7 @@ const updateCourseLecture = async (req, res, next) => {
         const lectureIndex = course.lectures.findIndex(lecture => lecture._id.toString() === lectureId);
 
         if (lectureIndex === -1) {
-            return next(new AppError('Lecture not found', 404));
+            return next(new AppError('Lecture not found in the course', 404));
         }
 
         const updatedLectureData = {
@@ -285,9 +277,8 @@ const updateCourseLecture = async (req, res, next) => {
 
         if (req.file) {
             try {
-                // upload lecture on cloudinary
                 const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                    folder: 'lms-course-lectures',
+                    folder: 'Learning-Management-System',
                     resource_type: "video"
                 });
                 if (result) {
@@ -295,7 +286,7 @@ const updateCourseLecture = async (req, res, next) => {
                     updatedLectureData.lecture.secure_url = result.secure_url;
                 }
 
-                // if already have a video so then delete the previous one 
+                // If there's an existing video, delete the old one from Cloudinary
                 if (course.lectures[lectureIndex].lecture.public_id) {
                     await cloudinary.v2.uploader.destroy(course.lectures[lectureIndex].lecture.public_id);
                 }
@@ -313,7 +304,7 @@ const updateCourseLecture = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'Lecture updated successfully !!'
+            message: 'Lecture updated successfully'
         });
     } catch (e) {
         return next(new AppError(e.message, 500));
