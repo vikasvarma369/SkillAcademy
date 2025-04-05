@@ -1,4 +1,5 @@
-import { getConnectionStates } from "../database/db.config.js";
+
+import { getConnectionStates } from "../config/db.config.js";
 
 export const healthCheck = (req, res) => {
   try {

@@ -1,8 +1,7 @@
 import AppError from '../utils/error.utils.js';
 import sendEmail from '../utils/sendEmail.js';
+import userModel from '../models/user.model.js';
 
-
-// contact us 
 const contactUs = async (req, res, next) => {
     const { name, email, message} = req.body;
 
@@ -21,7 +20,7 @@ const contactUs = async (req, res, next) => {
         );
 
         // Send confirmation email to the user
-        const userMessage = `Hello ${name},\n\nThank you for contacting us! We have received your message and will get in touch with you soon.\n\nBest regards,\nThe SkillAcademy Team 😊`;
+        const userMessage = `Hello ${name},\n\nThank you for contacting us! We have received your message and will get in touch with you soon.\n\nBest regards,\nThe LMS Team 😊`;
 
         await sendEmail(
             email,
@@ -39,5 +38,21 @@ const contactUs = async (req, res, next) => {
 };
 
 
+const stats = async (req, res, next) => {
+    try {
+        const allUsers = await userModel.find({});
+        const allUsersCount = allUsers.length;
+        const subscribedUsersCount = allUsers.filter((user) => user.subscription.status === 'active').length;
+ 
+        res.status(200).json({
+            success: true,
+            message: 'stats',
+            allUsersCount,
+            subscribedUsersCount
+        })
+    } catch (e) {
+        return next(new AppError(e.message, 500));
+    }
+}
 
-export { contactUs };
+export { contactUs, stats };
