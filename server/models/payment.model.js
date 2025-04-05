@@ -9,11 +9,10 @@ const paymentSchema = new Schema({
         type: String,
         required: true
     },
-    razorpay_signature: { 
+    razorpay_signature: {
         type: String,
         required: true
     }
-    // this help us to check status ist payment successful or not 
 },
     {
         timestamps: true
