@@ -43,32 +43,6 @@ import { getConnectionStates } from "./database";
 console.log(getConnectionStates());
 ```
 
-# 2. Security Upgrade
-
-## Changes Made
-
-- **Rate Limiting**: Limits requests from one IP to prevent abuse.
-
-- **Helmet**: Adds security headers to protect against common attacks.
-
-- **XSS Protection**: Sanitizes inputs to stop malicious scripts.
-
-- **Mongo Sanitize**: Protects against database injection attacks.
-
-- **HPP Protection**: Blocks harmful query parameters in requests.
-
-## Additional Changes
-
-- **Body Size Limit**: Reduces request size to avoid overload.
-
-- **Logging**: Adds request logging in development for easier debugging.
-
-- **CORS Settings**: Restricts cross-origin requests for better security.
-
-## Benefit
-
-These changes make the app more secure by preventing common attacks and improving performance.
-
 # 3. Health Upgrade
 
 ## Changes Made

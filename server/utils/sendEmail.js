@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 const sendEmail = async function (email, subject, message) {
   // create reusable transporter object using the default SMTP transport 
   let transporter = nodemailer.createTransport({
-    service: process.env.SMTP_SERVICE_NAME ,
+    service: 'gmail',
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     secure: false,
@@ -16,7 +16,7 @@ const sendEmail = async function (email, subject, message) {
 
   // send mail with defined transport object
   await transporter.sendMail({
-    from: `SkillAcademy  <${process.env.SMTP_FROM_EMAIL}>`, // sender address
+    from: `SkillsAcademy <${process.env.SMTP_FROM_EMAIL}>`, // sender address
     to: email, // user email
     subject: subject, // Subject line
     text: message, // html body

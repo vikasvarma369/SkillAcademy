@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 import crypto from 'crypto';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import fs from 'fs';
 import cloudinary from 'cloudinary';
 import AppError from "../utils/error.utils.js";
@@ -8,7 +9,7 @@ import sendEmail from "../utils/sendEmail.js";
 
 const cookieOptions = {
     httpOnly: true,
-    maxAge: 1* 24 * 60 * 60 * 1000, // 24 hours
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     secure: true, 
     sameSite: 'none'
 }
@@ -35,6 +36,10 @@ const register = async (req, res, next) => {
             fullName,
             email,
             password,
+            avatar: {
+                public_id: email,
+                secure_url: "",
+            },
         });
 
         if (!user) {
@@ -69,17 +74,20 @@ const register = async (req, res, next) => {
         user.password = undefined;
 
         const token = await user.generateJWTToken();
-        user.password = undefined;
+
         res.cookie("token", token, cookieOptions);
+
         res.status(201).json({
             success: true,
             message: "User registered successfully",
-            data: user,
+            user,
         });
     } catch (e) {
         return next(new AppError(e.message, 500));
     }
 };
+
+
 
 // login
 const login = async (req, res, next) => {
@@ -113,6 +121,7 @@ const login = async (req, res, next) => {
     }
 }
 
+
 // logout
 const logout = async (req, res, next) => {
     try {
@@ -132,17 +141,17 @@ const logout = async (req, res, next) => {
     }
 }
 
+
 // getProfile
-const getProfile = async (req, res,) => {
+const getProfile = async (req, res) => {
     try {
         const { id } = req.user;
-        // console.log(id)
         const user = await userModel.findById(id);
-        user.password = undefined;
+
         res.status(200).json({
             success: true,
             message: 'User details',
-            data: user
+            user
         })
     } catch (e) {
         return next(new AppError('Failed to fetch user profile', 500))
@@ -167,7 +176,7 @@ const forgotPassword = async (req, res, next) => {
 
     await user.save();
 
-    const resetPasswordURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
+    const resetPasswordURL = `${process.env.CLIENT_URL}/user/profile/reset-password/${resetToken}`
 
     const subject = 'Reset Password';
     const message = `You can reset your password by clicking ${resetPasswordURL} Reset your password</$>\nIf the above link does not work for some reason then copy paste this link in new tab ${resetPasswordURL}.\n If you have not requested this, kindly ignore.`;
@@ -187,6 +196,7 @@ const forgotPassword = async (req, res, next) => {
     }
 
 }
+
 
 // reset password
 const resetPassword = async (req, res, next) => {
@@ -264,7 +274,7 @@ const updateUser = async (req, res, next) => {
         const { fullName } = req.body;
         const { id } = req.user;
 
-        // console.log(fullName);
+        console.log(fullName);
 
         const user = await userModel.findById(id);
 
@@ -302,79 +312,17 @@ const updateUser = async (req, res, next) => {
         }
 
         await user.save();
-        user.password = undefined;
+
         res.status(200).json({
             success: true,
             message: "User update successfully",
-            data: user
+            user
         })
     } catch (e) {
         return next(new AppError(e.message, 500))
     }
 }
 
-// continue with google
-const continueWithGoogle = async (req,res,next)=>{
-    const { fullName, email} = req.body ;
-    if(!fullName || !email){
-        return next(new AppError("feilds are required, please check it again", 400));
-    }
-    try {
-        const user = await userModel.findOne({email: email});
-
-        if(user){
-            const token = await user.generateJWTToken()
-            
-            //extract user data excluding password 
-            const {password: hashedPassword, ...rest} = user._doc
-
-            // set the cookie and return the responce 
-            return res
-            .cookie('token', token,cookieOptions)
-            .status(200)
-            .json({
-                success: true,
-                data: rest
-            })
-        }else{
-            // password
-            const generatePassword = Math.random().toString(36).slice(-8)
-
-            // create new user 
-            const newUser = await userModel.create({
-                fullName: fullName,
-                email: email,
-                password: generatePassword,
-            })
-
-            if (!newUser) {
-                return next(new AppError("User registration failed, please try again", 400));
-            }
-            // save in db
-            await newUser?.save()
-
-            const token = newUser?.generateJWTToken()
-            // console.log(token)
-            // need password 
-            const {password: hashedPassword2, ...rest} = newUser._doc
-            // console.log(" new user docs", newUser._doc)
-            // set the cookie and return the responce 
-            return res
-            .cookie('token', token,cookieOptions)
-            .status(200)
-            .json({
-                success: true,
-                data: rest
-            })
-        }
-        
-
-        
-    } catch (error) {
-        console.log("during continue with google error:", error)
-        return next(new AppError(error.message, 500))
-    }
-}
 export {
     register,
     login,
@@ -383,6 +331,5 @@ export {
     forgotPassword,
     resetPassword,
     changePassword,
-    updateUser,
-    continueWithGoogle
+    updateUser
 }
