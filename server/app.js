@@ -29,9 +29,6 @@ app.use('/api/v1/', miscellaneousRoutes);
 // import Health route
 import { healthRouter } from "./routes/health.routes.js";
 
-// import Health route
-import { healthRouter } from "./routes/health.routes.js";
-
 // declaration
 app.use("/health", healthRouter);
  
