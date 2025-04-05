@@ -29,10 +29,12 @@ app.use('/api/v1/', miscellaneousRoutes);
 // import Health route
 import { healthRouter } from "./routes/health.routes.js";
 
+// import Health route
+import { healthRouter } from "./routes/health.routes.js";
+
 // declaration
 app.use("/health", healthRouter);
  
-
 app.all('*', (req, res) => {
     res.status(404).send('OOPS!! 404 page not found');
 })

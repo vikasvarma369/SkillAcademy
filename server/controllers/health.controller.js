@@ -1,3 +1,4 @@
+
 import { getConnectionStates } from "../config/db.config.js";
 
 export const healthCheck = (req, res) => {
