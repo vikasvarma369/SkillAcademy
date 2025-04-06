@@ -1,83 +1,72 @@
-import './App.css'
 import { Routes, Route } from "react-router-dom";
-// import pages
-import {
-  About,
-  Signup,
-  Signin,
-  Notfound,
-  HomePage,
-  Contact,
-  Denied,
+import HomePage from "./Pages/HomePage";
+import AboutUs from "./Pages/About";
+import NotFound from "./Pages/NotFound";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import ChangePassword from "./Pages/Password/ChangePassword"
+import ForgotPassword from "./Pages/Password/ForgotPassword";
+import ResetPassword from "./Pages/Password/ResetPassword";
+import CourseList from "./Pages/Course/CourseList";
+import Contact from "./Pages/Contact";
+import Denied from "./Pages/Denied";
+import CourseDescription from "./Pages/Course/CourseDescription";
 
-  EditProfile,
-  Profile,
-
-  Checkout,
-  CheckoutFail,
-  CheckoutSuccess,
-
-  ChangePassword,
-  ForgotPassword,
-  ResetPassword,
-
-  Admin,
-  AddLecture,
-  DisplayLectures,
-
-  CourseDescription,
-  CourseList,
-  CreateCourse,
-  EditCourse,
-  UpdateLecture} from './pages/index.js'
-import RequireAuth from './components/auth/RequireAuth';
-
-
+import RequireAuth from "./Components/auth/RequireAuth";
+import CreateCourse from "./Pages/Course/CreateCourse";
+import Profile from "./Pages/User/Profile";
+import Checkout from "./Pages/Payment/Checkout";
+import CheckoutSuccess from "./Pages/Payment/CheckoutSuccess";
+import CheckoutFail from "./Pages/Payment/CheckoutFail";
+import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
+import AddLecture from "./Pages/Dashboard/AddLecture";
+import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
 
 function App() {
   return (
     <>
-      <Routes >
-      <Route path='/' element={<HomePage />} />
-        <Route path='/signup' element ={<Signup />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/forgotpassword' element= {<ForgotPassword />} />
-        <Route path='/reset-password/:resetToken' element = {<ResetPassword />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/denied' element={<Denied />} />
-        <Route path='*' element={<Notfound />} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/denied" element={<Denied />} />
 
-        {/* user routes */}
-        <Route element = {<RequireAuth allowedRolles={['ADMIN', 'USER']} />}>
-          <Route path='/user/profile' element ={<Profile />} />
-          <Route path='/user/updateprofile' element = {<EditProfile />} />
-          <Route path='/user/changepassword' element= {<ChangePassword />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/user/profile/reset-password"
+          element={<ForgotPassword />}
+        />
+        <Route
+          path="/user/profile/reset-password/:resetToken"
+          element={<ResetPassword />}
+        />
+
+        <Route path="/courses" element={<CourseList />} />
+        <Route path="/courses/description" element={<CourseDescription />} />
+
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+          <Route path="/course/create" element={<CreateCourse />} />
+          <Route path="/course/addlecture" element={<AddLecture />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
 
-        {/* course Routes */}
-        <Route path='/courses' element={<CourseList />} />
-        <Route path='/course/description' element = {<CourseDescription />} /> 
-        <Route path='/course/displaylectures' element = {<DisplayLectures />} />
-
-        {/* payment routes */}
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/checkout/success" element={<CheckoutSuccess />} />
-        <Route path="/checkout/fail" element={<CheckoutFail />} />
-
-        {/* admin routes */}
-        <Route element = {<RequireAuth allowedRolles= {['ADMIN']} />}>
-          <Route path='/admin/dashboard' element = {<Admin />} />
-          <Route path='/course/create' element ={<CreateCourse />} />
-          <Route path='/course/edit' element ={<EditCourse />} />
-          <Route path='/course/addlecture' element = {<AddLecture />} />
-          <Route path='/course/updatelecture' element = {<UpdateLecture />} />
-        {/* create course route */}
+        <Route element={<RequireAuth allowedRoles={["USER", "ADMIN"]} />}>
+          <Route path="/user/profile" element={<Profile />} />
+          <Route
+            path="/user/profile/change-password"
+            element={<ChangePassword />}
+          />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/fail" element={<CheckoutFail />} />
+          <Route path="/course/displaylectures" element={<DisplayLecture />} />
         </Route>
-       
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
