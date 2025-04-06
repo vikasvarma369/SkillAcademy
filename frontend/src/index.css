@@ -1,3 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lato:wght@300;400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600&family=Open+Sans:wght@300;400&family=Roboto:wght@300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+input:disabled,
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+.shadow-custom {
+  box-shadow: 0px 8px 24px #00000011;
+}
+
+::-webkit-scrollbar {
+  background: #9797e70c;
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bae716c4;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bae716;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #0000ff85;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #0000ff;
+}
+
+/* custom slider button */
+.slick-slider .slick-arrow {
+  height: 50px;
+  width: 50px;
+  background-color: #3f355c;
+  z-index: 5;
+  border-radius: 100px;
+}
+
+.slick-slider .slick-arrow:hover {
+  background-color: #1414df;
+}
+
+.slick-slider .slick-arrow::before {
+  color: #ffffff;
+  font-size: 52px;
+  font-weight: 700;
+  box-shadow: 0px 3px 5px #0000003d;
+  border-radius: 100px;
+}
+
+.slick-slider .slick-next {
+  right: -12px;
+}
+
+.slick-slider .slick-prev {
+  left: -12px;
+}
+
+.slick-dots {
+  bottom: 7px;
+}
+
+.slick-dots li {
+  background-color: rgba(255, 255, 255, 0.356);
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.slick-dots button::before {
+  content: "";
+  display: none;
+}
+
+.slick-dots .slick-active {
+  background: #ffffff;
+  height: 22px;
+  width: 22px;
+}
