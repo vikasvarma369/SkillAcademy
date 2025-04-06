@@ -1,114 +1,104 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-hot-toast";
-import axiosInstance from "../../config/axiosInstance";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+import { axiosInstance } from '../../Helpers/axiosInstance';
+
 const initialState = {
     key: "",
     subscription_id: "",
     isPaymentVerified: false,
     allPayments: {},
     finalMonths: {},
-    monthlySalesRecord: [],
+    monthlySalesRecord: []
 }
 
-// func to get api key 
-export const getRazorPayId = createAsyncThunk("/razorPayId/get", async()=>{
+// ....get razorpay key id.....
+export const getRazorPayId = createAsyncThunk("/payments/keyId", async () => {
     try {
-        const responce = await axiosInstance.get("/payments/razorpay-key")
-        // console.log("key responce",responce)
-        return responce
+        const response = await axiosInstance.get("/payments/razorpay-key");
+        return response?.data;
     } catch (error) {
         toast.error("Failed to load data");
+        throw error
     }
 })
 
-// func to purches course
-export const purchaseCourseBundle = createAsyncThunk("/purchaseCourse", async()=>{
+// ....purchase course bundle.....
+export const purchaseCourseBundle = createAsyncThunk("/payments/subscribe", async () => {
     try {
-        const responce = axiosInstance.post("/payments/subscribe")
-        // console.log("bundle course: ", responce)
-        return responce
+        const response = await axiosInstance.post("/payments/subscribe");
+        return response?.data;
     } catch (error) {
-        console.log("purches func error msg: ",error?.response?.data?.message)
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.message);
+        throw error
     }
 })
 
-// func ispayment verified 
-export const verifyUserPayment = createAsyncThunk("/verifyPayment", async(paymentDetails)=>{
+// ....verify payment.....
+export const verifyUserPayment = createAsyncThunk("/payments/verify", async (data) => {
+    const loadingId = toast.loading("Subscribing bundle...");
     try {
-        const responce = await axiosInstance.post("/payments/verify",{
-            razorpay_payment_id: paymentDetails.razorpay_payment_id,
-            razorpay_subscription_id: paymentDetails.razorpay_subscription_id,
-            razorpay_signature: paymentDetails.razorpay_signature
-        })
-
-        // console.log("verify payment response", responce)
-
-        return responce
+        const response = await axiosInstance.post("/payments/verify", data);
+        toast.success("Payment verified", { id: loadingId });
+        return response?.data;
     } catch (error) {
-        console.log("verify payment error:", error)
-        // toast.error(error?.responce?.data?.message)
+        toast.error(error?.response?.data?.message, { id: loadingId });
+        throw error
     }
 })
 
-// cancel subscription 
-export const cancelSubscription = createAsyncThunk("/cancelSubscription", async()=>{
+// .....get payment record......
+export const getPaymentRecord = createAsyncThunk("/payments/record", async () => {
+    const loadingId = toast.loading("Getting the payment records");
     try {
-        const res = await axiosInstance.post("/payments/unsubscribe");
-        // console.log("unsubscripbe responce", res)
-        // toast.success(response?.data?.message)
+        const response = await axiosInstance.get("/payments?count=100");
+        toast.success(response?.data?.message, {id: loadingId});
+        return response?.data;
     } catch (error) {
-        console.log("Error during unsubscribe: ", error)
-        
+        toast.error("Operation failed", {id: loadingId});
+        throw error;
     }
-    return response
-})
+});
 
-// get all payments record
-export const getPaymentsRecords = createAsyncThunk("/status/get", async()=>{
+// .....cancel subscription......
+export const cancelCourseBundle = createAsyncThunk("/payments/cancel", async () => {
+    const loadingId = toast.loading("unsubscribing the bundle...")
     try {
-        const response = await axiosInstance.get("/payments/");
-        // console.log("payments record", response)
-        toast.success()
-        return response
+        const response = await axiosInstance.post("/payments/unsubscribe");
+        toast.success(response?.data?.message, {id: loadingId});
+        return response?.data;
     } catch (error) {
-        console.log("payments record error:", error)
+        toast.error(error?.response?.data?.message, {id: loadingId});
+        throw error;
     }
 })
 
-const razorpaySlice = createSlice({
-    name: "razorpay",
+const razoraySlice = createSlice({
+    name: 'razorpay',
     initialState,
     reducers: {},
-    extraReducers: (builder)=>{
-        builder
-        .addCase(getRazorPayId.fulfilled, (state, action)=>{
-            state.key = action?.payload?.data?.key
+    extraReducers: (builder) => {
+        // for ge tRazorPay Api Key
+        builder.addCase(getRazorPayId.fulfilled, (state, action) => {
+            state.key = action?.payload?.key
         })
-        .addCase(getRazorPayId.rejected, () => {
-            toast.error("Failed to get razor pay id");
-        })
-        .addCase(purchaseCourseBundle.fulfilled, (state, action) => {
-            state.subscription_id = action?.payload?.data?.subscription_id;
-        })
-        .addCase(verifyUserPayment.fulfilled, (state, action) => {
-            toast.success(action?.payload?.data?.message);
-            state.isPaymentVerified = action?.payload?.data?.success
-        })
-        .addCase(verifyUserPayment.rejected, (state, action) => {
-            toast.success(action?.payload?.data?.message);
-            state.isPaymentVerified = action?.payload?.data?.success
-        })
-        .addCase(getPaymentsRecords.fulfilled, (state,action)=>{
-            // console.log("payments records",action)
-            state.allPayments = action?.payload?.data?.subscriptions ;
-            state.finalMonths = action?.payload?.data?.finalMonths ;
-            state.monthlySalesRecord = action?.payload?.data?.monthlySalesRecord ;
 
+        // for purchase course bundle
+        builder.addCase(purchaseCourseBundle.fulfilled, (state, action) => {
+            state.subscription_id = action?.payload?.subscription_id
+        })
 
+        // for verify payment
+        builder.addCase(verifyUserPayment.fulfilled, (state, action) => {
+            state.isPaymentVerified = action?.payload?.success
+        })
 
+        // for getPaymentRecord
+        builder.addCase(getPaymentRecord.fulfilled, (state, action) => {
+            state.allPayments = action?.payload?.allPayments;
+            state.finalMonths = action?.payload?.finalMonths;
+            state.monthlySalesRecord = action?.payload?.monthlySalesRecord;
         })
     }
 })
 
-export default razorpaySlice.reducer;
+export default razoraySlice.reducer;

@@ -1,84 +1,61 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import toast from "react-hot-toast";
-import axiosInstance from "../../config/axiosInstance"
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+import { axiosInstance } from '../../Helpers/axiosInstance';
+
 const initialState = {
-    courselist: []
+    coursesData: []
 }
 
-// get all courses
-export const getAllCourses = createAsyncThunk("/course/getAllCourses", async()=>{
+// ....get all courses....
+export const getAllCourses = createAsyncThunk("/courses/get", async () => {
+    const loadingMessage = toast.loading("fetching courses...");
     try {
-        const response = await axiosInstance.get('/course');
-        // console.log(response?.data?.message);
-        toast.success(response?.data?.message)
-        // console.log("responce: =>",response)
-        return response
+        const res = await axiosInstance.get("/courses");
+        toast.success(res?.data?.message, { id: loadingMessage });
+        return res?.data
     } catch (error) {
-        console.log("get all courrses error",error)
-        console.log(error);
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message, { id: loadingMessage });
+        throw error;
     }
 })
 
-// create course 
-export const createCourse = createAsyncThunk("/course/create", async(data)=>{
+// ....create course....
+export const createNewCourse = createAsyncThunk("/courses/create", async (data) => {
+    const loadingMessage = toast.loading("Creating course...");
     try {
-        // console.log("data: ",data)
-        const response = await axiosInstance.post('/course', data);
-        // console.log(response?.data?.message);
-        toast.success(response?.data?.message)
-        // console.log("responce: =>",response)
-        return response
+        const res = await axiosInstance.post("/courses", data);
+        toast.success(res?.data?.message, { id: loadingMessage });
+        return res?.data
     } catch (error) {
-        console.log("create course error",error)
-        console.log(error);
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message, { id: loadingMessage });
+        throw error;
     }
 })
 
-// delete course
-export const deleteCourse = createAsyncThunk("/course/delete", async(id)=>{
+// ....delete course......
+export const deleteCourse = createAsyncThunk("/course/delete", async (id) => {
+    const loadingId = toast.loading("deleting course ...")
     try {
-        const response = await axiosInstance.delete(`/course/${id}`);
-        console.log("response : ",response )
-        toast.success(response?.data?.message)
-        return response
+        const response = await axiosInstance.delete(`/courses/${id}`);
+        toast.success("Courses deleted successfully", { id: loadingId });
+        return response?.data
     } catch (error) {
-        console.log("delete course error",error)
-        console.log(error);
-        toast.error(error?.response?.data?.message);
-    }
-})
-
-//update the course 
-export const editCourse = createAsyncThunk("/course/edit", async(data)=>{
-    try {
-        console.log("edit course", data)
-        console.log(data.title)
-        console.log(data.id)
-        const id = data.get("id")
-        const response = await axiosInstance.put(`/course/${id}`, data);
-        // toast.success(response?.data?.message)
-        console.log("responce: =>",response)
-        return response
-    } catch (error) {
-        console.log("edit course error",error)
-        console.log(error);
-        // toast.error(error?.response?.data?.message);
-    }
-})
-const CourseSlice = createSlice({
-    name: "course",
-    initialState,
-    reducers: {},
-    extraReducers: (builder)=>{
-        builder.addCase(getAllCourses.fulfilled, (state, action)=>{
-            if(action?.payload){
-                // console.log("action payload: =>", action?.payload?.data?.courses)
-                state.courselist = action?.payload?.data?.courses
-            }
-        })
+        toast.error("Failed to delete course", { id: loadingId });
+        throw error
     }
 });
 
-export default CourseSlice.reducer;
+const courseSlice = createSlice({
+    name: 'course',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+
+        // for get all courses
+        builder.addCase(getAllCourses.fulfilled, (state, action) => {
+            state.coursesData = action?.payload?.courses;
+        })
+    }
+})
+
+export default courseSlice.reducer;
