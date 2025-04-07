@@ -1,162 +1,180 @@
-import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate,  Link } from 'react-router-dom'
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { BsPersonCircle } from "react-icons/bs";
-import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Layout from "../Layout/Layout";
 import { createAccount } from "../Redux/Slices/AuthSlice";
-import { isEmailValid, isPasswordValid } from '../validators/validator';
-import GoogleAuth from '../components/GoogleAuth';
-import HomeLayout from '../layouts/HomeLayout';
-function Signup() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
-    const [previewImage, setPreviewImage] = useState("");
-    const [signupDetails, setSignupDetails] = useState({
-        email: '',
-        fullName: '',
-        password: '',
-        avatar: ''
+import InputBox from "../Components/InputBox/InputBox";
+
+export default function Signup() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [previewImage, setPreviewImage] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    avatar: "",
+  });
+
+  function handleUserInput(e) {
+    const { name, value } = e.target;
+    setSignupData({
+      ...signupData,
+      [name]: value,
     });
-    
-    // handle input 
-    function handleUserInput(event){
-        const { name, value } = event.target;
-        setSignupDetails({
-            ...signupDetails,
-            [name]: value
-        })
+  }
+
+  function getImage(event) {
+    event.preventDefault();
+    // getting the image
+    const uploadedImage = event.target.files[0];
+
+    if (uploadedImage) {
+      setSignupData({
+        ...signupData,
+        avatar: uploadedImage,
+      });
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(uploadedImage);
+      fileReader.addEventListener("load", function () {
+        setPreviewImage(this.result);
+      });
     }
-    // handle image upload
-    function handleimageUpload(event){
-        event.preventDefault();
-        const uploadedImage = event.target.files[0]
-        if(!uploadedImage){
-            return
-        }
-        setSignupDetails({
-            ...signupDetails,
-            avatar: uploadedImage
-        })
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(uploadedImage);
-        fileReader.addEventListener("load", function(){
-            setPreviewImage(this.result)
-        })
-    }
-    // handle submit form 
-    async function OnFormSubmit(event){
-        event.preventDefault();
-        if(!signupDetails.email || !signupDetails.password || !signupDetails.fullName ) {
-            toast.error("Please fill all the details");
-            return;
-        }
-        if(signupDetails.fullName.length < 5) {
-            toast.error("Name should be atleast of 5 characters");
-            return;
-        }
-        if(!isEmailValid(signupDetails.email)) {
-            toast.error("Invalid email provided");
-            return;
-        }
-        if(!isPasswordValid(signupDetails.password)) {
-            toast.error("Password should 8-16 character long with atleast a number and a special character");
-            return;
-        }
+  }
 
-        setIsLoading(true)
-
-        const formData = new FormData();
-        formData.append("fullName", signupDetails.fullName);
-        formData.append("email", signupDetails.email);
-        formData.append("password", signupDetails.password);
-        formData.append("avatar", signupDetails.avatar);
-
-        const response = await dispatch(createAccount(formData));
-
-        if(response?.payload?.data){
-            setSignupDetails({
-                email: '',
-                fullName: '',
-                password: '',
-                avatar: ''
-            })
-            setIsLoading(false)
-            setPreviewImage("")
-            navigate('/')
-        }
-        setIsLoading(false)
+  async function createNewAccount(event) {
+    event.preventDefault();
+    if (!signupData.email || !signupData.password || !signupData.fullName) {
+      toast.error("Please fill all the details");
+      return;
     }
 
-    return (
-        <HomeLayout>
-            <div className="m-auto flex flex-col gap-6 items-center py-8 px-3 w-[90vw] min-h-[90vh]">
-                <form onSubmit={OnFormSubmit} noValidate className="flex flex-col justify-center gap-3 rounded-lg p-4 text-white w-35 dark:bg-base-100 md:py-5 py-7 md:px-7 px-3 md:w-[500px] w-full shadow-custom dark:shadow-xl ">
-                    <h1 className="text-2xl text-center font-bold dark:text-yellow-500 font-inter">Registration Page</h1>
-                    <label htmlFor="image_uploads" className="cursor-pointer">
-                        { previewImage ? (
-                            <img className="w-24 h-24 rounded-full m-auto" src={previewImage}/>
-                        ) : (
-                            <BsPersonCircle className="w-24 h-24 rounded-full m-auto" />
-                        )}
-                    </label>
-                    <input
-                        onChange={handleimageUpload}
-                        type="file" 
-                        className="hidden"
-                        name="image_uploads"
-                        id="image_uploads"
-                        accept=".jpg, .jpeg, .png, .svg"
-                    />
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="fullName" className="font-semibold">Name</label>
-                        <input 
-                            onChange={handleUserInput}
-                            value={signupDetails.fullName}
-                            name="fullName"
-                            required
-                            type="text" 
-                            className="bg-transparent px-2 py-1 border"
-                            placeholder="enter your username..."
-                            id="fullName" />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="email" className="font-semibold">Email</label>
-                        <input
-                            onChange={handleUserInput}
-                            value={signupDetails.email} 
-                            required
-                            type="text" 
-                            name="email"
-                            className="bg-transparent px-2 py-1 border"
-                            placeholder="enter your Email..."
-                            id="email" />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="password" className="font-semibold">Password</label>
-                        <input 
-                            onChange={handleUserInput}
-                            value={signupDetails.password}
-                            required
-                            type="password" 
-                            name="password"
-                            className="bg-transparent px-2 py-1 border"
-                            placeholder="enter your Password..."
-                            id="password" />
-                    </div>
-                    <button
-                        disabled={isLoading}
-                        className="mt-2 bg-yellow-800 hover:bg-yellow-500 transition-all ease-in-out duration-300 cursor-pointer py-2 font-semibold text-lg dark:text-base-200 rounded-md font-nunito-sans text-white">
-                        {isLoading ? "Creating account..." : "Create account"}
-                    </button>
-                    <p className="text-center">
-                    Already have an account ? <Link to="/signin" className="cusror-pointer text-accent">Login</Link>
-                    </p>
-                    <GoogleAuth />
-                </form>
+    // checking name field length
+    if (signupData.fullName.length < 3) {
+      toast.error("Name should be atleast of 3 characters");
+      return;
+    }
+    // checking valid email
+    if (!signupData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+      toast.error("Invalid email id");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("fullName", signupData.fullName);
+    formData.append("email", signupData.email);
+    formData.append("password", signupData.password);
+    formData.append("avatar", signupData.avatar);
+
+    // dispatch create account action
+    const response = await dispatch(createAccount(formData));
+    if (response?.payload?.success) {
+      setSignupData({
+        fullName: "",
+        email: "",
+        password: "",
+        avatar: "",
+      });
+      setPreviewImage("");
+
+      navigate("/");
+    }
+  }
+
+  return (
+    <Layout>
+      <section className="flex flex-col gap-6 items-center py-8 px-3 min-h-[100vh]">
+        <form
+          onSubmit={createNewAccount}
+          autoComplete="off"
+          noValidate
+          className="flex flex-col dark:bg-base-100 gap-4 rounded-lg md:py-5 py-7 md:px-7 px-3 md:w-[500px] w-full shadow-custom dark:shadow-xl  "
+        >
+          <h1 className="text-center dark:text-purple-500 text-4xl font-bold font-inter">
+            Registration Page
+          </h1>
+          {/* name */}
+          <InputBox
+            label={"Name"}
+            name={"fullName"}
+            type={"text"}
+            placeholder={"Enter your name..."}
+            onChange={handleUserInput}
+            value={signupData.fullName}
+          />
+          {/* email */}
+          <InputBox
+            label={"Email"}
+            name={"email"}
+            type={"email"}
+            placeholder={"Enter your email..."}
+            onChange={handleUserInput}
+            value={signupData.email}
+          />
+          {/* password */}
+          <InputBox
+            label={"Password"}
+            name={"password"}
+            type={"password"}
+            placeholder={"Enter your password..."}
+            onChange={handleUserInput}
+            value={signupData.password}
+          />
+          {/* avatar */}
+          <div className=" flex flex-col gap-2  ">
+            <label
+              htmlFor="image_uploads "
+              className="font-[500] text-xl text-blue-600 dark:text-white font-lato"
+            >
+              Avatar{" "}
+              <span className="text-red-600 font-inter text-lg">
+                {"("}Optional{")"}
+              </span>
+            </label>
+            <div className="flex gap-7 border border-gray-300 px-2 py-2">
+              {previewImage ? (
+                <img className="w-10 h-10 rounded-full " src={previewImage} />
+              ) : (
+                <BsPersonCircle className="w-10 h-10 rounded-full " />
+              )}
+              <input
+                onChange={getImage}
+                className=" "
+                type="file"
+                name="image_uploads"
+                id="image_uploads"
+                accept=".jpg, .jpeg, .png, image/*"
+              />
             </div>
-        </HomeLayout>
-    )
-}
+          </div>
 
-export default Signup
+          {/* submit btn */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="mt-2 bg-yellow-500 text-white dark:text-base-200 hover:bg-yellow-300 transition-all ease-in-out duration-300 rounded-md py-2 font-nunito-sans font-[500]  text-lg cursor-pointer"
+          >
+            {isLoading ? "Creating account" : "Create account"}
+          </button>
+
+          {/* link */}
+          <p className="text-center font-inter text-gray-500 dark:text-slate-300">
+            Already have an account ?{" "}
+            <Link
+              to="/login"
+              className="link text-blue-600 font-lato cursor-pointer"
+            >
+              {" "}
+              Login
+            </Link>
+          </p>
+        </form>
+      </section>
+    </Layout>
+  );
+}
