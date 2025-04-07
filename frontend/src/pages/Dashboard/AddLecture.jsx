@@ -1,147 +1,171 @@
-import React, { useState } from 'react'
-import HomeLayout from '../../layouts/HomeLayout'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { addCourseLecture } from '../../Redux/Slices/lectureSlice';
-import toast from 'react-hot-toast';
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCourseLecture } from "../../Redux/Slices/LectureSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import InputBox from "../../Components/InputBox/InputBox";
+import TextArea from "../../Components/InputBox/TextArea";
+import Layout from "../../Layout/Layout";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
-function AddLecture() {
-    const courseDetails = useLocation().state;
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+export default function AddLecture() {
+  const courseDetails = useLocation().state;
 
-    // state 
-    const [userInput, setUserInput] = useState({
-        id: courseDetails._id,
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const videoRef = useRef(null);
+  const [userInput, setUserInput] = useState({
+    id: courseDetails?._id,
+    lecture: undefined,
+    title: "",
+    description: "",
+    videoSrc: "",
+  });
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setUserInput({
+      ...userInput,
+      [name]: value,
+    });
+  }
+
+  function handleVideo(e) {
+    const video = e.target.files[0];
+    const source = window.URL.createObjectURL(video);
+    setUserInput({
+      ...userInput,
+      lecture: video,
+      videoSrc: source,
+    });
+  }
+
+  async function onFormSubmit(e) {
+    e.preventDefault();
+    if (!userInput.lecture || !userInput.title || !userInput.description) {
+      toast.error("All fields are mandatory");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const formData = new FormData();
+    formData.append("lecture", userInput.lecture);
+    formData.append("title", userInput.title);
+    formData.append("description", userInput.description);
+
+    const data = { formData, id: userInput.id };
+
+    const response = await dispatch(addCourseLecture(data));
+    if (response?.payload?.success) {
+      navigate(-1);
+      setUserInput({
+        id: courseDetails?._id,
         lecture: undefined,
         title: "",
         description: "",
-        videoSrc: ""
-    })
-    const [isLoading, setIsLoading] = useState(false);
-
-    // handle input change
-    function handleInputChange(e) {
-        const {name, value} = e.target;
-        setUserInput({
-            ...userInput,
-            [name]: value
-        })
+        videoSrc: "",
+      });
     }
+    setIsLoading(false);
+  }
 
-    // handle video 
-    function handleVideo(e) {
-        const video = e.target.files[0];
-        const src = window.URL.createObjectURL(video);
-        // console.log("src", src, video);
-        setUserInput({
-            ...userInput,
-            lecture: video,
-            videoSrc: src
-        })
-    }
+  useEffect(() => {
+    if (!courseDetails) navigate("/courses");
+  }, []);
 
-    // handle the form submit 
-    async function onFormSubmit(e) {
-        e.preventDefault();
-        if(!userInput.videoSrc || !userInput.title) {
-            toast.error("All fields are mandatory");
-            return;
-        }
-        setIsLoading(true)
-        const response = await dispatch(addCourseLecture(userInput));
-        if(response?.payload?.data?.lectures) {
-            setIsLoading(false)
-            navigate(-1);
-            setUserInput({
-                id: courseDetails._id,
-                lecture: undefined,
-                title: "",
-                description: "",
-                videoSrc: ""
-            });
-        }
-        setIsLoading(false)
-    }
-    return (
-        <HomeLayout>
-            <div className="min-h-[90vh] text-white flex flex-col items-center justify-center gap-10 mx-15">
-                <div className="flex flex-col gap-5 p-2 shadow-[0_0_10px_black] w-96  sm:w-[70%] rounded-lg">
-                    <header className="flex items-center justify-center relative">
-                        
-                        <h1 className="text-xl text-yellow-500 font-bold">
-                            Add New Lecture
-                        </h1>
-                    </header>
-
-                    {/* main from */}
-
-                    <form 
-                        onSubmit={onFormSubmit}
-                        className="flex flex-col gap-3">
-                        <label htmlFor="title" className='text-xl font-semibold'>Lecture Title :</label>
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Enter the title of the lecture"
-                            className="bg-transparent px-3 py-1 border"
-                            value={userInput.title}
-                            onChange={handleInputChange}
-                        />
-
-                        {/* description */}
-                        <label htmlFor="description" className='text-xl font-semibold'> Lecture Description (optional) :</label>
-                        <textarea
-                            type="text"
-                            name="description"
-                            placeholder="enter the description of the lecture"
-                            className="bg-transparent px-3 py-1 resize-none h-36 overflow-y-scroll border"
-                            onChange={handleInputChange}
-                            value={userInput.description}
-                        />
-                        <h2 className='text-xl font-semibold'>Click in the box to add lecture :
-                        </h2>
-                        {
-                            userInput.videoSrc ? (
-                                <video 
-                                    className="object-fill rounded-tl-lg w-full rounded-tr-lg"
-                                    controls 
-                                    muted
-                                    src={userInput.videoSrc}
-                                    controlsList="nodownload"
-                                    disablePictureInPicture
-                                >
-
-                                </video>
-                            ) : (
-                                <div
-                                    className="h-48 border flex items-center justify-center cursor-pointer"
-                                >
-                                    <label className="font-semibold text-xl cursor-pointer" htmlFor="lecture">Choose your lecture</label>
-                                    <input
-                                        type="file"
-                                        className="hidden"
-                                        id="lecture"
-                                        name="lecture"
-                                        onChange={handleVideo}
-                                        accept="video/mp4 video/x-mp4 video/*"
-                                    />
-                                </div>
-                            )
-                        }
-                        <button 
-                            disabled = {isLoading}
-                            type="submit" 
-                            className="btn bg-yellow-800 hover:bg-yellow-500 py-1 text-lg font-semibold">
-                            {isLoading? "Adding...":"Add"}
-                        </button>
-                    </form>
-                    
-                </div>
+  return (
+    <Layout>
+      <section className="flex flex-col gap-6 items-center py-8 px-3 min-h-[100vh]">
+        <form
+          onSubmit={onFormSubmit}
+          autoComplete="off"
+          noValidate
+          className="flex flex-col dark:bg-base-100 gap-7 rounded-lg md:py-5 py-7 md:px-7 px-3 md:w-[750px] w-full shadow-custom dark:shadow-xl  "
+        >
+          <header className="flex items-center justify-center relative">
+            <button
+              className="absolute left-2 text-xl text-green-500"
+              onClick={() => navigate(-1)}
+            >
+              <AiOutlineArrowLeft />
+            </button>
+            <h1 className="text-center dark:text-purple-500 md:text-4xl text-2xl font-bold font-inter">
+              Add new lecture
+            </h1>
+          </header>
+          <div className="w-full flex md:flex-row md:justify-between justify-center flex-col md:gap-0 gap-5">
+            <div className="md:w-[48%] w-full flex flex-col gap-5">
+              {/* lecture video */}
+              <div className="border border-gray-300 h-[200px] flex justify-center cursor-pointer">
+                {userInput.videoSrc && (
+                  <video
+                    muted
+                    src={userInput.videoSrc}
+                    controls
+                    controlsList="nodownload nofullscreen"
+                    disablePictureInPicture
+                    className="object-fill w-full"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      videoRef.current.click();
+                    }}
+                  ></video>
+                )}
+                {!userInput.videoSrc && (
+                  <label
+                    className="font-[500] text-xl h-full w-full flex justify-center items-center cursor-pointer font-lato"
+                    htmlFor="lecture"
+                  >
+                    Choose Your Video
+                  </label>
+                )}
+                <input
+                  type="file"
+                  className="hidden"
+                  id="lecture"
+                  ref={videoRef}
+                  name="lecture"
+                  onChange={handleVideo}
+                  accept="video/mp4, video/x-mp4, video/*"
+                />
+              </div>
             </div>
-        </HomeLayout>
-    )
-}
+            <div className="md:w-[48%] w-full flex flex-col gap-5">
+              {/* title */}
+              <InputBox
+                label={"Title"}
+                name={"title"}
+                type={"text"}
+                placeholder={"Enter Lecture Title"}
+                onChange={handleInputChange}
+                value={userInput.title}
+              />
+              {/* description */}
+              <TextArea
+                label={"Description"}
+                name={"description"}
+                rows={5}
+                type={"text"}
+                placeholder={"Enter Lecture Description"}
+                onChange={handleInputChange}
+                value={userInput.description}
+              />
+            </div>
+          </div>
 
-export default AddLecture
+          {/* submit btn */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="mt-3 bg-yellow-500 text-white dark:text-base-200  transition-all ease-in-out duration-300 rounded-md py-2 font-nunito-sans font-[500]  text-lg cursor-pointer"
+          >
+            {isLoading ? "Adding Lecture..." : "Add New Lecture"}
+          </button>
+        </form>
+      </section>
+    </Layout>
+  );
+}
