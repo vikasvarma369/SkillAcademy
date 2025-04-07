@@ -1,55 +1,39 @@
-import React, { useEffect } from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
-import {useNavigate } from "react-router-dom";
-import HomeLayout from "../../layouts/HomeLayout";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { getUserData } from "../../Redux/Slices/AuthSlice";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Layout from "../../Layout/Layout";
 
-const CheckoutSuccess = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+export default function CheckoutSuccess() {
+  const dispatch = useDispatch();
 
-  const handleClick = async()=>{
-    const res = await dispatch(getUserData())
-    // console.log("success", res)
-    navigate("/")
-  }
+  useEffect(() => {
+    dispatch(getUserData());
+  });
 
   return (
-    <HomeLayout>
-      {/* container for checkout success card  */}
-      <div className="min-h-[90vh] flex items-center justify-center text-white">
-        {/* card to display message */}
-        <div className="w-80 h-[26rem] flex flex-col justify-center items-center shadow-[0_0_10px_black] rounded-lg relative">
-          <h1 className="bg-green-500 absolute top-0 w-full text-center py-4 text-2xl font-bold rounded-tl-lg rounded-tr-lg">
+    <Layout>
+      <section className="flex flex-col gap-6 items-center py-14 px-3 min-h-[100vh]">
+        <div className="flex flex-col dark:bg-gray-800 bg-white gap-12 rounded-lg md:py-10 py-7 md:px-8 md:pt-3 px-3 md:w-[500px] w-full shadow-custom dark:shadow-xl transition duration-300">
+          <h1 className="bg-green-500 text-center w-full py-4 text-3xl font-inter font-bold rounded-tl-lg rounded-tr-lg text-white">
             Payment Successful
           </h1>
 
-          <div className="px-4 flex flex-col items-center justify-center space-y-2">
-            <div className="text-center space-y-2">
-              <h2 className="text-lg font-semibold">
-                Welcome to the Pro Bundle
-              </h2>
-              <p className="text-left">
-                Now you can enjoy the taste of learning from our vast library of
-                courses from the top subject matter experts of the industry
-              </p>
-            </div>
-
-            {/* adding the check symbol */}
-            <AiFillCheckCircle className="text-5xl text-green-500" />
+          <div className="px-4 flex flex-col items-center justify-center space-y-4 text-center text-gray-600 dark:text-gray-300">
+            <AiFillCheckCircle className="text-green-500 text-8xl" />
+            <h2 className="text-xl font-semibold font-lato">Welcome to the Pro Bundle</h2>
+            <p className="font-nunito-sans">Now you can enjoy all the courses.</p>
           </div>
 
-          {/* adding back to homepage button */}
-            <button 
-              onClick={handleClick}
-              className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full text-center py-2 text-xl font-bold rounded-bl-lg rounded-br-lg"
-              type="button">Go to Courses
-            </button>
+          <Link
+            to="/"
+            className="bg-green-500   transition-all ease-in-out duration-300 w-full py-3 text-xl font-semibold text-white text-center rounded-bl-lg rounded-br-lg"
+          >
+            Go to Dashboard
+          </Link>
         </div>
-      </div>
-    </HomeLayout>
+      </section>
+    </Layout>
   );
-};
-
-export default CheckoutSuccess;
+}
