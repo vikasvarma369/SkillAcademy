@@ -1,82 +1,83 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
-import HomeLayout from '../../layouts/HomeLayout';
+import React, { useEffect } from "react";
+import Layout from "../../Layout/Layout";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 export default function CourseDescription() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
 
-    const { state } = useLocation();
-    const navigate = useNavigate();
-    const {role, data, isLoggedIn} = useSelector((state)=> state.auth)
+  const { role, data } = useSelector((state) => state.auth);
 
-    console.log( isLoggedIn)
-
-    // on subscribe 
-    const OnSubscribe = ()=>{
-        if(!isLoggedIn){
-            navigate('/signin')
-        }else{
-            navigate('/checkout')
-        }
-        
+  useEffect(() => {
+    if(!state) {
+      navigate("/courses");
     }
+  }, [])
+  return (
+    <Layout>
+      <section className="min-h-[90vh] md:pt-12 pt-2 px-4 lg:px-20 flex flex-col   text-gray-800 dark:text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10 relative">
+          <div className="lg:col-span-1 space-y-5">
+            <img
+              className="md:w-[87%] w-full h-auto lg:h-64 rounded-md shadow-md"
+              alt="thumbnail"
+              src={state?.thumbnail?.secure_url}
+            />
 
-    return (
-        <HomeLayout>
-            <div className="min-h-[90vh] pt-12 px-20 flex flex-col items-center justify-center text-white">
-                <div className="grid grid-cols-2 gap-10 py-10 relative">
-                    {/* grid left side  */}
-                    <div className="space-y-5">
-                        <img 
-                            className="w-full h-64"
-                            alt="thumbnail"
-                            src={state?.thumbnail?.secure_url}
-                        />
+            <div className="space-y-4">
+              <div className="flex flex-col text-lg font-inter">
+                <p className="font-semibold">
+                  <span className="text-yellow-600 dark:text-yellow-500 font-bold">
+                    Total lectures:{" "}
+                  </span>
+                  {state?.numberOfLectures}
+                </p>
 
-                        {/* info */}
-                        <div className="space-y-4">
-                            <div className="flex flex-col items-center justify-between text-xl">
-                                <p className="font-semibold">
-                                    <span className="font-bold text-yellow-500">
-                                        Total Lectures: {" "}
-                                    </span> {state?.numberOfLectures}
-                                </p>
-                                <p className='font-semibold'>
-                                    <span className="font-bold text-yellow-500">Instructor: {" "}</span> {state?.createdBy}
-                                </p>
-                            </div>
-
-                            {/* show button based on admin or user if admin so watch lectures and user to subscribe  */}
-                                                       
-                            {
-                                role == "ADMIN" || data?.subscription?.status === 'active' ? (
-                                <button onClick={()=> navigate('/course/displaylectures', {state: {...state}}) }
-                                    className="bg-yellow-500 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-600 transition-all ease-in-out duration-300"
-                                > Watch Lectures</button>) : (<button 
-                                    onClick={OnSubscribe}
-                                    className="bg-yellow-500 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-600 transition-all ease-in-out duration-300">
-                                        Subscribe
-                                    </button>)
-                            }
-                        </div>
-                    </div>
-
-                    {/* grid right side  */}
-                    <div>
-                        <div className="space-y-2 text-xl">
-                            <h1 className="text-3xl font-bold text-yellow-500 mb-5 text-center">
-                                {state?.title}
-                            </h1>
-                            <p className="text-yellow-500">
-                                Course Description: {" "}
-                            </p>
-                            <p>
-                                {state?.description}
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
+                <p className="font-semibold">
+                  <span className="text-yellow-600 dark:text-yellow-500 font-bold">
+                    Instructor:{" "}
+                  </span>
+                  {state?.createdBy}
+                </p>
+              </div>
             </div>
-        </HomeLayout>
-    )
+          </div>
+
+          <div className="lg:col-span-1 space-y-10 text-lg">
+            <h1 className="md:text-3xl text-2xl lg:text-4xl font-bold font-lato text-yellow-500 mb-5 text-center w-fit after:content-[' '] relative after:absolute after:-bottom-3.5 after:left-0 after:h-1.5 after:w-[60%] after:rounded-full after:bg-purple-400 dark:after:bg-purple-600">
+              {state?.title}
+            </h1>
+
+            <div className="space-y-1">
+              <h2 className="text-2xl text-gray-800 dark:text-white font-[600] font-inter">
+                Course description:
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-violet-300 font-[500] font-nunito-sans whitespace-pre-wrap">
+                {state?.description}
+              </p>
+            </div>
+
+            {role === "ADMIN" || data?.subscription?.status === "active" ? (
+              <button
+                onClick={() =>
+                  navigate("/course/displaylectures", { state: { ...state } })
+                }
+                className="bg-orange-500 dark:bg-orange-600 text-white text-xl rounded-md font-bold px-5 py-3 w-full   transition-all ease-in-out duration-300"
+              >
+                Watch lectures
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/checkout")}
+                className="bg-orange-500 dark:bg-orange-600 text-white text-xl rounded-md font-bold px-5 py-3 w-full   transition-all ease-in-out duration-300"
+              >
+                Subscribe
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 }
