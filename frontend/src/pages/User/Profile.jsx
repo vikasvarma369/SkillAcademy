@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, updateUserData } from "../../Redux/Slices/AuthSlice";
-import InputBox from "../../Components/InputBox/InputBox";
+import { getUserData, updateUserData } from "../../redux/slices/authSlice";
+import InputBox from "../../components/InputBox/InputBox";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLock, IoIosRefresh } from "react-icons/io";
 import { FiMoreVertical } from "react-icons/fi";
 import Layout from "../../Layout/Layout";
 import { useNavigate } from "react-router-dom";
-import { cancelCourseBundle } from "../../Redux/Slices/RazorpaySlice";
+import { cancelCourseBundle } from "../../redux/slices/razorpaySlice";
 
 export default function Profile() {
   const navigate = useNavigate();
