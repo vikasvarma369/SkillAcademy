@@ -4,9 +4,9 @@ import AboutUs from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import ChangePassword from "./pages/Password/ChangePassword"
-import ForgotPassword from "./pages/Password/ForgotPassword";
-import ResetPassword from "./pages/Password/ResetPassword";
+import ChangePassword from "./pages/password/ChangePassword"
+import ForgotPassword from "./pages/password/ForgotPassword";
+import ResetPassword from "./pages/password/ResetPassword";
 import CourseList from "./pages/Course/CourseList";
 import Contact from "./pages/Contact";
 import Denied from "./pages/Denied";
