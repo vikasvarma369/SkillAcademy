@@ -2,7 +2,7 @@ import { AiFillGoogleCircle } from 'react-icons/ai'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { app } from '../firebase.js'
 import { useDispatch } from 'react-redux'
-import { ContinueWithGoogle, getUserData, login } from '../Redux/Slices/AuthSlice.js'
+import { ContinueWithGoogle, getUserData, login } from '../redux/slices/authSlice.js'
 import toast from 'react-hot-toast'
 import { json, useNavigate } from 'react-router-dom'
 function GoogleAuth() {
