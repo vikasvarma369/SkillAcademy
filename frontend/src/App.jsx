@@ -8,7 +8,7 @@ import ChangePassword from "./pages/password/ChangePassword"
 import ForgotPassword from "./pages/password/ForgotPassword";
 import ResetPassword from "./pages/password/ResetPassword";
 import CourseList from "./pages/course/CourseList";
-import Contact from "./pages/contact";
+import Contact from "./pages/Contact";
 import Denied from "./pages/Denied";
 import CourseDescription from "./pages/course/CourseDescription";
 
