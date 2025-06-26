@@ -12,7 +12,7 @@ import Contact from "./pages/Contact";
 import Denied from "./pages/Denied";
 import CourseDescription from "./pages/course/CourseDescription";
 
-import RequireAuth from "./Components/auth/RequireAuth";
+import RequireAuth from "./components/auth/RequireAuth";
 import CreateCourse from "./pages/course/CreateCourse";
 import Profile from "./pages/User/Profile";
 import Checkout from "./pages/Payment/Checkout";
