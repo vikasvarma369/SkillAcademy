@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../Components/Footer";
-import Navbar from "../Components/Navbar";
-import Sidebar from "../Components/Sidebar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 export default function Layout({ children, hideBar, hideNav, hideFooter }) {
   return (
