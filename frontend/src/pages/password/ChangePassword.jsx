@@ -3,8 +3,8 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
-import { changePassword } from "../../Redux/Slices/AuthSlice";
-import InputBox from "../../Components/InputBox/InputBox";
+import { changePassword } from "../../redux/slices/authSlice";
+import InputBox from "../../components/InputBox/InputBox";
 
 export default function ChangePassword() {
   const dispatch = useDispatch();
