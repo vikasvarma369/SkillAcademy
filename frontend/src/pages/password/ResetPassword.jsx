@@ -3,8 +3,8 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../Layout/Layout";
-import { resetPassword } from "../../Redux/Slices/AuthSlice";
-import InputBox from "../../Components/InputBox/InputBox";
+import { resetPassword } from "../../redux/slices/authSlice";
+import InputBox from "../../components/InputBox/InputBox";
 
 export default function ResetPassword() {
   const dispatch = useDispatch();
