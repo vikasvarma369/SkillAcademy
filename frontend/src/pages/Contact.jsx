@@ -2,8 +2,8 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { axiosInstance } from "../Helpers/axiosInstance";
 import { isEmail } from "../Helpers/regexMatcher";
-import InputBox from "../Components/InputBox/InputBox";
-import TextArea from "../Components/InputBox/TextArea";
+import InputBox from "../components/InputBox/InputBox";
+import TextArea from "../components/InputBox/TextArea";
 import Layout from "../Layout/Layout";
 
 export default function Contact() {
