@@ -7,13 +7,13 @@ import Login from "./pages/Login";
 import ChangePassword from "./pages/password/ChangePassword"
 import ForgotPassword from "./pages/password/ForgotPassword";
 import ResetPassword from "./pages/password/ResetPassword";
-import CourseList from "./pages/Course/CourseList";
-import Contact from "./pages/Contact";
+import CourseList from "./pages/course/CourseList";
+import Contact from "./pages/contact";
 import Denied from "./pages/Denied";
-import CourseDescription from "./pages/Course/CourseDescription";
+import CourseDescription from "./pages/course/CourseDescription";
 
 import RequireAuth from "./Components/auth/RequireAuth";
-import CreateCourse from "./pages/Course/CreateCourse";
+import CreateCourse from "./pages/course/CreateCourse";
 import Profile from "./pages/User/Profile";
 import Checkout from "./pages/Payment/Checkout";
 import CheckoutSuccess from "./pages/Payment/CheckoutSuccess";
