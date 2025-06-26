@@ -7,9 +7,9 @@ import {
   getRazorPayId,
   purchaseCourseBundle,
   verifyUserPayment,
-} from "../../Redux/Slices/RazorpaySlice";
+} from "../../redux/slices/razorpaySlice";
 import toast from "react-hot-toast";
-import { getUserData } from "../../Redux/Slices/AuthSlice";
+import { getUserData } from "../../redux/slices/authSlice";
 
 export default function Checkout() {
   const dispatch = useDispatch();
