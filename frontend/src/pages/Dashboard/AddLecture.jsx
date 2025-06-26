@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCourseLecture } from "../../Redux/Slices/LectureSlice";
+import { addCourseLecture } from "../../redux/slices/lectureSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import InputBox from "../../Components/InputBox/InputBox";
-import TextArea from "../../Components/InputBox/TextArea";
+import InputBox from "../../components/InputBox/InputBox";
+import TextArea from "../../components/InputBox/TextArea";
 import Layout from "../../Layout/Layout";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
