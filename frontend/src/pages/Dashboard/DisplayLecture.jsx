@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCourseLectures,
   deleteCourseLecture,
-} from "../../Redux/Slices/LectureSlice";
+} from "../../redux/slices/lectureSlice";
 import Layout from "../../Layout/Layout";
 
 export default function DisplayLecture() {
