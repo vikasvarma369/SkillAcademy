@@ -1,26 +1,26 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
-import AboutUs from "./Pages/About";
-import NotFound from "./Pages/NotFound";
-import Signup from "./Pages/Signup";
-import Login from "./Pages/Login";
-import ChangePassword from "./Pages/Password/ChangePassword"
-import ForgotPassword from "./Pages/Password/ForgotPassword";
-import ResetPassword from "./Pages/Password/ResetPassword";
-import CourseList from "./Pages/Course/CourseList";
-import Contact from "./Pages/Contact";
-import Denied from "./Pages/Denied";
-import CourseDescription from "./Pages/Course/CourseDescription";
+import AboutUs from "./pages/About";
+import NotFound from "./pages/NotFound";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import ChangePassword from "./pages/Password/ChangePassword"
+import ForgotPassword from "./pages/Password/ForgotPassword";
+import ResetPassword from "./pages/Password/ResetPassword";
+import CourseList from "./pages/Course/CourseList";
+import Contact from "./pages/Contact";
+import Denied from "./pages/Denied";
+import CourseDescription from "./pages/Course/CourseDescription";
 
 import RequireAuth from "./Components/auth/RequireAuth";
-import CreateCourse from "./Pages/Course/CreateCourse";
-import Profile from "./Pages/User/Profile";
-import Checkout from "./Pages/Payment/Checkout";
-import CheckoutSuccess from "./Pages/Payment/CheckoutSuccess";
-import CheckoutFail from "./Pages/Payment/CheckoutFail";
-import DisplayLecture from "./Pages/Dashboard/DisplayLecture";
-import AddLecture from "./Pages/Dashboard/AddLecture";
-import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
+import CreateCourse from "./pages/Course/CreateCourse";
+import Profile from "./pages/User/Profile";
+import Checkout from "./pages/Payment/Checkout";
+import CheckoutSuccess from "./pages/Payment/CheckoutSuccess";
+import CheckoutFail from "./pages/Payment/CheckoutFail";
+import DisplayLecture from "./pages/Dashboard/DisplayLecture";
+import AddLecture from "./pages/Dashboard/AddLecture";
+import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 
 function App() {
   return (
