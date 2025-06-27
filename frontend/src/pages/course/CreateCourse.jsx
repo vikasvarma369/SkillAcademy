@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createNewCourse } from "../../Redux/Slices/CourseSlice";
+import { createNewCourse } from "../../redux/slices/courseSlice";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import toast from "react-hot-toast";
-import InputBox from "../../Components/InputBox/InputBox";
-import TextArea from "../../Components/InputBox/TextArea";
+import InputBox from "../../components/InputBox/InputBox";
+import TextArea from "../../components/InputBox/TextArea";
 
 export default function CreateCourse() {
   const dispatch = useDispatch();

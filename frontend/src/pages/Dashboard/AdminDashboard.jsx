@@ -18,9 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
-import { getAllCourses, deleteCourse } from "../../Redux/Slices/CourseSlice";
-import { getPaymentRecord } from "../../Redux/Slices/RazorpaySlice";
-import { getStatsData } from "../../Redux/Slices/StatSlice";
+import { getAllCourses, deleteCourse } from "../../redux/slices/courseSlice";
+import { getPaymentRecord } from "../../redux/slices/razorpaySlice";
+import { getStatsData } from "../../redux/slices/statSlice";
 ChartJS.register(
   ArcElement,
   BarElement,

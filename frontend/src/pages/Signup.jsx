@@ -4,8 +4,8 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../Layout/Layout";
-import { createAccount } from "../Redux/Slices/AuthSlice";
-import InputBox from "../Components/InputBox/InputBox";
+import { createAccount } from "../redux/slices/authSlice";
+import InputBox from "../components/InputBox/InputBox";
 
 export default function Signup() {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import aboutMainPage from '../assets/images/about.png';
-import apj from "../assets/Images/apj.png";
-import billGates from "../assets/Images/billGates.png";
-import nelsonMandela from "../assets/Images/nelsonMandela.png";
-import steveJobs from "../assets/Images/steveJobs.png";
+import apj from "../assets/images/apj.png";
+import billGates from "../assets/images/billGates.png";
+import nelsonMandela from "../assets/images/nelsonMandela.png";
+import steveJobs from "../assets/images/steveJobs.png";
 import Layout from '../Layout/Layout';
 
 function Aboutus() {

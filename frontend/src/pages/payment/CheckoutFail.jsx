@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getUserData } from "../../Redux/Slices/AuthSlice";
+import { getUserData } from "../../redux/slices/authSlice";
 import { RxCrossCircled } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
