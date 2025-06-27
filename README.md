@@ -2,7 +2,7 @@
 
 Introducing my application SkillAcademy a Learning Management System (LMS) project – a complete solution built from scratch. Features include easy authentication, user and course management, lecture management, admin dashboard, and a secure payment gateway.
 
-##  Project Updates (June 2025)
+##  Project Updates ( 2025 )
 -  Database connection and security upgrade → [CHANGELOG.md](./CHANGELOG.md)
 -  Solved all **deployment** and **crash-related** issues
 -  Removed outdated **Google Authentication** due to unstable behavior and security concerns (e.g., password visibility bug)
