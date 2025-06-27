@@ -20,7 +20,7 @@ const contactUs = async (req, res, next) => {
         );
 
         // Send confirmation email to the user
-        const userMessage = `Hello ${name},\n\nThank you for contacting us! We have received your message and will get in touch with you soon.\n\nBest regards,\nThe LMS Team 😊`;
+        const userMessage = `Hello ${name},\n\nThank you for contacting us! We have received your message and will get in touch with you soon.\n\nBest regards,\nThe SkillsAcademy Team 😊`;
 
         await sendEmail(
             email,
