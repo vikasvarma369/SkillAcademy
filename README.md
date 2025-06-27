@@ -113,9 +113,7 @@ Introducing my application SkillAcademy a Learning Management System (LMS) proje
 
 ### 🔗 Connect with me
 
-Made by 😎❤️ [Vikasvarma369 (Vikas Singh Varma)](https://www.linkedin.com/in/vikas-singh-varma-9b001a231/)
-- 📄 [Peerlist](https://peerlist.io/vikasvarma369)
-- 🐦 [Twitter / X](https://x.com/vikasvarma369)
-- 💼 [LinkedIn]([https://www.linkedin.com/in/vikas-singh-varma-9b001a231/](https://www.linkedin.com/in/vikasvarma369/))
-
-
+Made by 😎❤️ Vikasvarma369 (Vikas Singh Varma)
+-  [Peerlist](https://peerlist.io/vikasvarma369)
+-  [Twitter / X](https://x.com/vikasvarma369)
+-  [LinkedIn](https://www.linkedin.com/in/vikasvarma369/)
