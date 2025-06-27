@@ -1,6 +1,6 @@
 ﻿# [SkillAcademy](https://skill-academy-blue.vercel.app/)
 
-Introducing my application SkillAcademy a Learning Management System (LMS) project – a complete solution built from scratch. Features include easy authentication (including Google login), user and course management, lecture management, admin dashboard, and a secure payment gateway.
+Introducing my application SkillAcademy a Learning Management System (LMS) project – a complete solution built from scratch. Features include easy authentication, user and course management, lecture management, admin dashboard, and a secure payment gateway.
 
 ##  Project Updates (June 2025)
 -  Solved all **deployment** and **crash-related** issues
