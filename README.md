@@ -1,10 +1,16 @@
-﻿# [SkillAcademy](https://skillacademy-five-rho.vercel.app/) :- Unlocking Potential, Unleashing Success
+﻿# [SkillAcademy](https://skill-academy-blue.vercel.app/)
 
 Introducing my application SkillAcademy a Learning Management System (LMS) project – a complete solution built from scratch. Features include easy authentication (including Google login), user and course management, lecture management, admin dashboard, and a secure payment gateway.
 
-### Experience the project presentation in action! [Click here](https://www.linkedin.com/posts/vikas-singh-varma-9b001a231_skillacademy-javascript-react-activity-7183393033516703744-9j0z?utm_source=share&utm_medium=member_desktop)  to watch Now.
+##  Project Updates (June 2025)
+-  Solved all **deployment** and **crash-related** issues
+-  Removed outdated **Google Authentication** due to unstable behavior and security concerns (e.g., password visibility bug)
+-  Added proper **Light/Dark mode toggle** for better user experience
+-  Refined overall **UI design** for a cleaner, more responsive layout
 
+> 📽️ **Note:** The [project presentation video](https://www.linkedin.com/posts/vikas-singh-varma-9b001a231_skillacademy-javascript-react-activity-7183393033516703744-9j0z?utm_source=share&utm_medium=member_desktop) shows an older version. Most of the core functionality remains the same, but some components may differ slightly due to recent clean-up and improvements.
 
+---
 
 ## Features
 ### Authentication 
