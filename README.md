@@ -44,7 +44,6 @@ Introducing my application SkillAcademy a Learning Management System (LMS) proje
 * **React-icons** :- for adds icons to the website for visual appeal.
 * **React-hot-toast** :- for shows pop-up messages on the website.
 * **React-chartjs-2 & Chart.js** :- for integrate charts on the admin dashboard, providing a visual representation of data.
-* **Firebase** :- for users log in securely with Continue with Google.
 
 ### Server Side
 * **Node.js & Express.js** :- for the core of the backend development.
@@ -59,14 +58,6 @@ Introducing my application SkillAcademy a Learning Management System (LMS) proje
 
 ### Client Side
 ***VITE_BASE_URL*** = set your backend Server url
-
-#### ***Firebase Configuration***
-* ***VITE_FIREBASE_API_KEY*** = firebase api key.
-* ***VITE_AUTH_DOMAIN***= firebase auth domain.
-* ***VITE_PROJECT_ID*** = firebase project id.
-* ***VITE_STORAGE_BUCKET*** = firebase storage bucket. 
-* ***VITE_MESSAGING_SENDER_ID*** = firebase messaging sender id.
-* ***VITE_APP_ID*** = firebase app id.
 
 ### Server side 
 * ***FRONTEND_URL*** = set your frontend url.
@@ -120,6 +111,11 @@ Introducing my application SkillAcademy a Learning Management System (LMS) proje
 
 
 
-***Made by 😎❤️ [Vi369](https://www.linkedin.com/in/vikas-singh-varma-9b001a231/)*** click and visit.
+### 🔗 Connect with me
+
+Made by 😎❤️ [Vikasvarma369 (Vikas Singh Varma)](https://www.linkedin.com/in/vikas-singh-varma-9b001a231/)
+- 📄 [Peerlist](https://peerlist.io/vikasvarma369)
+- 🐦 [Twitter / X](https://x.com/vikasvarma369)
+- 💼 [LinkedIn]([https://www.linkedin.com/in/vikas-singh-varma-9b001a231/](https://www.linkedin.com/in/vikasvarma369/))
 
 
