@@ -109,7 +109,11 @@ Introducing my application SkillAcademy a Learning Management System (LMS) proje
 * Explore available courses and enroll, All the courses accessable by purchasing subscription and the subscription valid for one year.
 * Instructors can create and manage courses, mange lectures and all action perform via the admin dashboard.
 
+### Project Reflection
 
+Curious how this project evolved and what I learned while fixing it?
+
+ [Read the full reflection → PROJECT-REFLECTION.md](./PROJECT-REFLECTION.md)
 
 
 ### 🔗 Connect with me
