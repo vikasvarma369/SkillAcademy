@@ -14,7 +14,7 @@ It broke.
 
 ---
 
-I panicked.
+I panicked, then watched random YouTube videos and tried every possible way just to run the project — somehow, anyhow.
 
 Deployed it again.  
 Deleted.  
