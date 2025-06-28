@@ -21,6 +21,11 @@ Deleted.
 Fixed.  
 Broke it again.
 
+This time, I didn’t pause my studies or learning path — **I kept learning new concepts while fixing this project on the side**.
+I tried to fix it, but I kept running into errors.
+I felt like I was going in circles, trying to patch things up without really understanding what was going wrong.
+I was frustrated, but I refused to give up.
+I kept pushing through, determined to make it work.
 But something interesting happened along the way...
 
 Errors that once looked scary started to make sense.  
